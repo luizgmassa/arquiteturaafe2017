@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 // The Gerrit Stream Version in the following format V.vv where:
 //   - V is the major release version;
 //   - vv is the minor release version;
-def versionNumber = '1.23'
+def versionNumber = '1.24'
 
 // This is the suffix appended to the version name.
 def versionDateSuffix = new Date().format('yy.MM')
