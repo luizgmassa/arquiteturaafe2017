@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ArquiteturaAfe2017</string>
+    <string name="dish_image_content_description">Dish image</string>
 </resources>

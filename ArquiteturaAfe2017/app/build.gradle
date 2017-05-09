@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+// The Gerrit Stream Version in the following format V.vv where:
+//   - V is the major release version;
+//   - vv is the minor release version;
+def versionNumber = '1.22'
+
+// This is the suffix appended to the version name.
+def versionDateSuffix = new Date().format('yy.MM')
+def versionNumberAndDate = versionNumber + '-' + versionDateSuffix
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -17,6 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        emporium {
+            versionName 'STREAM_E_' + versionNumberAndDate
+        }
+    }
 }
 
 dependencies {
@@ -24,7 +39,39 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    //compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile "com.android.support:appcompat-v7:25.3.1"
+    compile "com.android.support:cardview-v7:25.3.1"
+    compile "com.android.support:design:25.3.1"
+    compile "com.android.support:recyclerview-v7:25.3.1"
+    compile "com.android.support:support-v4:25.3.1"
+
     testCompile 'junit:junit:4.12'
+
+    compile "com.android.support.test.espresso:espresso-idling-resource:2.2.2"
+    compile "com.google.guava:guava:20.0"
+}
+
+task gerritStreamRelease {
+    group 'Gerrit Stream Release'
+    description 'Tasks related to the Gerrit Stream Release'
+
+    doLast {
+        if ( project.hasProperty("autotag")) {
+            if ( project.hasProperty("remoterepo") ) {
+                println 'Automatically applying tag to remote Git repository...'
+
+                commandLine "git", "tag", "-a", "${calculateVersionName()}", "-m", "New GERMO Release"
+                commandLine "git", "push", project.findProperty("remoterepo"), "${calculateVersionName()}"
+
+                println 'Done!'
+            } else {
+                println 'Autotag property found but remote repository name is not especified!'
+                println 'Example: gradlew gerritStreamRelease -Pautotag -Premoterepo=GERRIT'
+                throw new GradleException("Autotag remote repo not especified!")
+            }
+        }
+    }
 }
