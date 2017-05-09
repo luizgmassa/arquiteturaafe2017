@@ -61,7 +61,7 @@ task gitTag(type: Exec) {
         if ( project.hasProperty("remoterepo") ) {
             println 'Automatically applying tag to remote Git repository...'
 
-            commandLine "git", "tag", "-a", "STREAM_D_" + versionNumberAndDate, "-m", "New GERMO Release"
+            commandLine "git", "tag", "-a", "STREAM_D_" + versionNumberAndDate, "-m", "\"New GERMO Release\""
             commandLine "git", "push", project.findProperty("remoterepo"), "STREAM_D_" + versionNumberAndDate
 
             println 'Done!'
