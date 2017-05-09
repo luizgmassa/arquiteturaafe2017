@@ -54,30 +54,31 @@ dependencies {
     compile "com.google.guava:guava:20.0"
 }
 
-task gitTag(type: Exec) {
-    description 'Tag last commit on Git.'
-
-    if ( project.hasProperty("autotag")) {
-        if ( project.hasProperty("remoterepo") ) {
-            println 'Automatically applying tag to remote Git repository...'
-
-            commandLine "git", "tag", "-a", "STREAM_D_" + versionNumberAndDate, "-m", "\"New GERMO Release\""
-            commandLine "git", "push", project.findProperty("remoterepo"), "STREAM_D_" + versionNumberAndDate
-
-            println 'Done!'
-        } else {
-            println 'Autotag property found but remote repository name is not especified!'
-            println 'Example: gradlew gerritStreamRelease -Pautotag -Premoterepo=GERRIT'
-            throw new GradleException("Autotag remote repo not especified!")
-        }
-    }
-}
-
 task gerritStreamRelease {
     group 'Gerrit Stream Release'
     description 'Tasks related to the Gerrit Stream Release'
 
     doLast {
+        if ( project.hasProperty("autotag")) {
+            if ( project.hasProperty("remoterepo") ) {
+                println 'Automatically applying tag to remote Git repository...'
 
+                exec {
+                    commandLine "git", "tag", "-a", "STREAM_D_" + versionNumberAndDate, "-m", "\"New GERMO Release\""
+                }
+
+                exec {
+                    commandLine "git", "push", project.findProperty("remoterepo"), "STREAM_D_" + versionNumberAndDate
+                }
+
+                exec {
+                    println 'Done!'
+                }
+            } else {
+                println 'Autotag property found but remote repository name is not especified!'
+                println 'Example: gradlew gerritStreamRelease -Pautotag -Premoterepo=GERRIT'
+                throw new GradleException("Autotag remote repo not especified!")
+            }
+        }
     }
 }
