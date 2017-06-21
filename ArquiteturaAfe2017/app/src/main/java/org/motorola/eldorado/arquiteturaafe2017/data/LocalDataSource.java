@@ -7,14 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.motorola.eldorado.arquiteturaafe2017.data.DishesPersistenceContract.DishEntry;
+import org.motorola.eldorado.arquiteturaafe2017.data.DishesPersistenceContract.SideDishEntry;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.motorola.eldorado.arquiteturaafe2017.data.DishesPersistenceContract.DishEntry;
-import org.motorola.eldorado.arquiteturaafe2017.data.DishesPersistenceContract.SideDishEntry;
-import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -144,7 +143,7 @@ public class LocalDataSource implements DishesDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (isTableExists(db, DishEntry.TABLE_NAME)) {
+        if (!isTableIsEmpty(db, DishEntry.TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -174,20 +173,15 @@ public class LocalDataSource implements DishesDataSource {
         db.close();
     }
 
-    boolean isTableExists(SQLiteDatabase db, String tableName) {
-        if (tableName == null || db == null || !db.isOpen())
-        {
-            return false;
-        }
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
-        if (!cursor.moveToFirst())
-        {
-            cursor.close();
-            return false;
-        }
+    private boolean isTableIsEmpty(SQLiteDatabase db, String tableName) {
+        String query = "SELECT count(*) FROM " + tableName;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
         int count = cursor.getInt(0);
         cursor.close();
-        return count > 0;
+
+        return !(count > 0);
     }
 
     private Dish getDishFromCursor(Cursor c) {

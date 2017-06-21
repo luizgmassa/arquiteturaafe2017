@@ -71,7 +71,6 @@ public class DishesPresenter implements DishesContract.Presenter {
 
                     // Show the list of tasks
                     mTasksView.showDishes(tasks);
-
                 }
 
                 if (showLoadingUI) {
