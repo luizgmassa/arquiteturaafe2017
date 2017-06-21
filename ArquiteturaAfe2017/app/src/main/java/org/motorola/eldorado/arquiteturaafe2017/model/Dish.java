@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by luiz.massa on 03/05/2017.
  */
-
 public final class Dish {
 
     @NonNull
@@ -41,12 +40,14 @@ public final class Dish {
      * @param description description of the task
      * @param id          id of the task
      */
-    public Dish(@NonNull String name, @Nullable String description,
-                @NonNull String id, @NonNull String image) {
+    public Dish(@NonNull String id, @NonNull String name,
+                @Nullable String description, @NonNull String image, List<SideDish> sideDishes, List<SideDish> mixtures) {
         mId = id;
         mName = name;
         mDescription = description;
         mImageName = image;
+        mSideDishes.addAll(sideDishes);
+        mMixtures.addAll(mixtures);
     }
 
     public boolean isEmpty() {

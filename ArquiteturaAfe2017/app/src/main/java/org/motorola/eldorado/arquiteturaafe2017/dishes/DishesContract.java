@@ -12,20 +12,16 @@ public interface DishesContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showDishes(List<Dish> dishes);
+        void setLoadingIndicator(boolean active);
 
-        void showAddCustomDish();
+        void showDishes(List<Dish> dishes);
 
         void showNoDishes();
     }
 
     interface Presenter extends BasePresenter {
 
-        void result(int requestCode, int resultCode);
-
         void loadDishes(boolean forceUpdate);
-
-        void addNewCustomDish();
 
         void openDishDetails(@NonNull Dish requestedDish);
     }

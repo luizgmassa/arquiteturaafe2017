@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import org.motorola.eldorado.arquiteturaafe2017.BaseActivity;
 import org.motorola.eldorado.arquiteturaafe2017.R;
+import org.motorola.eldorado.arquiteturaafe2017.data.LocalDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 
 import java.io.IOException;
@@ -43,11 +44,10 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dishes);
 
-        ArrayList<Dish> dishesList = new ArrayList<>();
+        // Create the presenter
+        mPresenter = new DishesPresenter(LocalDataSource.getInstance(this), this);
 
-        // TODO populate dishes list with dishes from DB
-
-        mListAdapter = new DishesAdapter(dishesList, mItemListener);
+        mListAdapter = new DishesAdapter(new ArrayList<Dish>(0), mItemListener);
 
         ListView listView = (ListView) findViewById(R.id.activity_dishes_list);
         listView.setAdapter(mListAdapter);
@@ -65,13 +65,13 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     }
 
     @Override
-    public void showDishes(List<Dish> dishes) {
-        mListAdapter.replaceData(dishes);
+    public void setLoadingIndicator(boolean active) {
+
     }
 
     @Override
-    public void showAddCustomDish() {
-
+    public void showDishes(List<Dish> dishes) {
+        mListAdapter.replaceData(dishes);
     }
 
     @Override
@@ -158,6 +158,5 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     public interface DishItemListener {
 
         void onDishClick(Dish clickedDish);
-
     }
 }
