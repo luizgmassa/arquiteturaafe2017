@@ -1,5 +1,6 @@
 package org.motorola.eldorado.arquiteturaafe2017.dishes;
 
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +33,8 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
     private DishesAdapter mListAdapter;
 
+    private ProgressDialog mProgressDialog;
+
     private DishItemListener mItemListener = new DishItemListener() {
         @Override
         public void onDishClick(Dish clickedDish) {
@@ -44,13 +47,21 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dishes);
 
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Carregando os pratos...");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
+
         // Create the presenter
         mPresenter = new DishesPresenter(LocalDataSource.getInstance(this), this);
 
         mListAdapter = new DishesAdapter(new ArrayList<Dish>(0), mItemListener);
 
+        TextView emptyView = (TextView) findViewById(android.R.id.empty);
+
         ListView listView = (ListView) findViewById(R.id.activity_dishes_list);
         listView.setAdapter(mListAdapter);
+        listView.setEmptyView(emptyView);
     }
 
     @Override
@@ -66,17 +77,20 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
     @Override
     public void setLoadingIndicator(boolean active) {
+        if (mProgressDialog == null || isDestroyed()) {
+            return;
+        }
 
+        if (mProgressDialog.isShowing()){
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override
     public void showDishes(List<Dish> dishes) {
         mListAdapter.replaceData(dishes);
-    }
-
-    @Override
-    public void showNoDishes() {
-
     }
 
     private static class DishesAdapter extends BaseAdapter {

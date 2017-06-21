@@ -15,8 +15,6 @@ public interface DishesContract {
         void setLoadingIndicator(boolean active);
 
         void showDishes(List<Dish> dishes);
-
-        void showNoDishes();
     }
 
     interface Presenter extends BasePresenter {

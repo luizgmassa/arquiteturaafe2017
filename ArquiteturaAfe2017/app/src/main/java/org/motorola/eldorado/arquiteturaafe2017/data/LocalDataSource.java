@@ -30,21 +30,21 @@ public class LocalDataSource implements DishesDataSource {
 
     // Static information about dishes
 
-    private static String[] DISHES_NAMES = new String[]{"Feijoada", "Frango assado", "Tilapia"};
+    private static final String[] DISHES_NAMES = new String[]{"Feijoada", "Frango assado", "Tilapia"};
 
-    private static String[] DISHES_DESCRIPTIONS = new String[]{"Feijoada muito saborosa brasileira bem temperada", "Frango assado suculento desossado", "Peixe assado sem pele delicioso"};
+    private static final String[] DISHES_DESCRIPTIONS = new String[]{"Feijoada muito saborosa brasileira bem temperada", "Frango assado suculento desossado", "Peixe assado sem pele delicioso"};
 
-    private static String[] DISHES_IMAGENAMES = new String[]{"feijoada.png", "frango_assado.png", "tilapia.png"};
+    private static final String[] DISHES_IMAGENAMES = new String[]{"feijoada.jpg", "frangoassado.jpg", "tilapia.jpg"};
 
-    private static String[] DISHES_MIXTURES_IDS = new String[]{"1", "2", "3"};
+    private static final String[] DISHES_MIXTURES_IDS = new String[]{"1", "2", "3"};
 
-    private static String[] DISHES_SIDEDISHES_IDS = new String[]{"4,5,6", "7,8,9", "10,11,12"};
+    private static final String[] DISHES_SIDEDISHES_IDS = new String[]{"4,5,6", "7,8,9", "10,11,12"};
 
-    private static String[] SIDEDISHES_NAMES = new String[]{"Feijoada", "Frango assado", "Tilapia", "Nuggets", "Batata frita", "Azeitonas", "Farofa", "Pure de batatas", "Berinjela", "Torta de legumes", "Milho verde", "Molho barbecue"};
+    private static final String[] SIDEDISHES_NAMES = new String[]{"Feijoada", "Frango assado", "Tilapia", "Nuggets", "Batata frita", "Azeitonas", "Farofa", "Pure de batatas", "Berinjela", "Torta de legumes", "Milho verde", "Molho barbecue"};
 
-    private static String[] SIDEDISHES_DESCRIPTIONS = new String[]{"Feijoada magra", "Frango assado desossado sem pele", "Tilapia assada com temperos e iguarias", "Nuggets de frango assados", "Batata palito frita comum", "Azeitonas em conserva", "Farofa especial temperada com legumes e bacon", "Pure de batatas com temperos especiais", "Berinjela a milanesa", "Torta de legumes assada", "Milho verde em conserva", "Molho barbecue BBQ"};
+    private static final String[] SIDEDISHES_DESCRIPTIONS = new String[]{"Feijoada magra", "Frango assado desossado sem pele", "Tilapia assada com temperos e iguarias", "Nuggets de frango assados", "Batata palito frita comum", "Azeitonas em conserva", "Farofa especial temperada com legumes e bacon", "Pure de batatas com temperos especiais", "Berinjela a milanesa", "Torta de legumes assada", "Milho verde em conserva", "Molho barbecue BBQ"};
 
-    private static String[] SIDEDISHES_IS_MIXTURE = new String[]{"1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
+    private static final String[] SIDEDISHES_IS_MIXTURE = new String[]{"1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
 
     // Prevent direct instantiation.
     private LocalDataSource(@NonNull Context context) {
@@ -181,7 +181,7 @@ public class LocalDataSource implements DishesDataSource {
         int count = cursor.getInt(0);
         cursor.close();
 
-        return !(count > 0);
+        return count <= 0;
     }
 
     private Dish getDishFromCursor(Cursor c) {
