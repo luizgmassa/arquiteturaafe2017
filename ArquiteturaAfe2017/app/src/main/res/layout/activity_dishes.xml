@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.motorola.eldorado.arquiteturaafe2017.dishes.DishesActivity">
+    tools:context="org.motorola.eldorado.arquiteturaafe2017.view.DishesActivity">
 
     <ListView
         android:id="@+id/activity_dishes_list"

@@ -1,11 +1,10 @@
-package org.motorola.eldorado.arquiteturaafe2017.entrypoint;
+package org.motorola.eldorado.arquiteturaafe2017.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
-import org.motorola.eldorado.arquiteturaafe2017.dishes.DishesActivity;
 
 public class EntrypointActivity extends AppCompatActivity {
 

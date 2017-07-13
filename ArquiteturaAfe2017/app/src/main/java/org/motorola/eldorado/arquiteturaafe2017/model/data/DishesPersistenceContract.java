@@ -1,4 +1,4 @@
-package org.motorola.eldorado.arquiteturaafe2017.data;
+package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
 import android.provider.BaseColumns;
 

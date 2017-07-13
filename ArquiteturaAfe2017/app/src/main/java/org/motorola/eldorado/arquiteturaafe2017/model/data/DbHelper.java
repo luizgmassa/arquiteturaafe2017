@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.motorola.eldorado.arquiteturaafe2017.data;
+package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

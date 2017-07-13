@@ -1,4 +1,4 @@
-package org.motorola.eldorado.arquiteturaafe2017.data;
+package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.motorola.eldorado.arquiteturaafe2017.data.DishesPersistenceContract.DishEntry;
-import org.motorola.eldorado.arquiteturaafe2017.data.DishesPersistenceContract.SideDishEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DishEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.SideDishEntry;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 

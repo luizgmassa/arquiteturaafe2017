@@ -1,9 +1,9 @@
-package org.motorola.eldorado.arquiteturaafe2017.dishes;
+package org.motorola.eldorado.arquiteturaafe2017.presenter.dishes;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.motorola.eldorado.arquiteturaafe2017.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 
 import java.util.List;

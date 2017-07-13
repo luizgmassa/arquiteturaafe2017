@@ -1,9 +1,9 @@
-package org.motorola.eldorado.arquiteturaafe2017.dishes;
+package org.motorola.eldorado.arquiteturaafe2017.presenter.dishes;
 
 import android.support.annotation.NonNull;
 
-import org.motorola.eldorado.arquiteturaafe2017.BasePresenter;
-import org.motorola.eldorado.arquiteturaafe2017.BaseView;
+import org.motorola.eldorado.arquiteturaafe2017.presenter.base.BasePresenter;
+import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseView;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 
 import java.util.List;

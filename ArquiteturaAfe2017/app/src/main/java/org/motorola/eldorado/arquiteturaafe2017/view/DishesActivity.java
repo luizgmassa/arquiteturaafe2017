@@ -1,4 +1,4 @@
-package org.motorola.eldorado.arquiteturaafe2017.dishes;
+package org.motorola.eldorado.arquiteturaafe2017.view;
 
 import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.motorola.eldorado.arquiteturaafe2017.BaseActivity;
 import org.motorola.eldorado.arquiteturaafe2017.R;
-import org.motorola.eldorado.arquiteturaafe2017.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.presenter.dishes.DishesContract;
+import org.motorola.eldorado.arquiteturaafe2017.presenter.dishes.DishesPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
