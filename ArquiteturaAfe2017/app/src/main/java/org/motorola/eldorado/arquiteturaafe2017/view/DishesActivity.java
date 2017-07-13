@@ -50,7 +50,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         setContentView(R.layout.activity_dishes);
 
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Carregando os pratos...");
+        mProgressDialog.setMessage(getString(R.string.dishes_activity_loading_dishes));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
