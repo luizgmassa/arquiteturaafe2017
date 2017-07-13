@@ -60,9 +60,8 @@ public final class Dish {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dish dish = (Dish) o;
-        return Objects.equal(getId(), dish.getId()) &&
-                Objects.equal(getName(), dish.getName()) &&
-                Objects.equal(getDescription(), dish.getDescription());
+
+        return Objects.equal(getId(), dish.getId());
     }
 
     @Override
@@ -72,7 +71,7 @@ public final class Dish {
 
     @Override
     public String toString() {
-        return "Task with title " + getName();
+        return "Dish with title " + getName();
     }
 
     @NonNull
