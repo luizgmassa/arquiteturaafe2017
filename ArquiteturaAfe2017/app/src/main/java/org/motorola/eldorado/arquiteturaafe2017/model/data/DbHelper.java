@@ -55,7 +55,7 @@ class DbHelper extends SQLiteOpenHelper {
                     DishesPersistenceContract.SideDishEntry.COLUMN_NAME_IS_MIXTURE + BOOLEAN_TYPE +
                     " )";
 
-    public DbHelper(Context context) {
+    DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
