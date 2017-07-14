@@ -37,7 +37,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
     private ProgressDialog mProgressDialog;
 
-    private DishItemListener mItemListener = new DishItemListener() {
+    private final DishItemListener mItemListener = new DishItemListener() {
         @Override
         public void onDishClick(Dish clickedDish) {
             mPresenter.openDishDetails(clickedDish);
@@ -99,14 +99,14 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
         private List<Dish> mDishes;
 
-        private DishItemListener mItemListener;
+        private final DishItemListener mItemListener;
 
-        public DishesAdapter(List<Dish> tasks, DishItemListener itemListener) {
+        DishesAdapter(List<Dish> tasks, DishItemListener itemListener) {
             setList(tasks);
             mItemListener = itemListener;
         }
 
-        public void replaceData(List<Dish> tasks) {
+        void replaceData(List<Dish> tasks) {
             setList(tasks);
             notifyDataSetChanged();
         }
@@ -171,7 +171,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         }
     }
 
-    public interface DishItemListener {
+    interface DishItemListener {
 
         void onDishClick(Dish clickedDish);
     }

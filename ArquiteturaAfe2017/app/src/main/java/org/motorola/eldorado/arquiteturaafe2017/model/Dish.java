@@ -9,9 +9,6 @@ import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by luiz.massa on 03/05/2017.
- */
 public final class Dish {
 
     @NonNull

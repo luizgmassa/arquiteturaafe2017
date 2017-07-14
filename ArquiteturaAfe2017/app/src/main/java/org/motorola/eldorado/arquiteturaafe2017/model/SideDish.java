@@ -6,10 +6,6 @@ import android.support.annotation.Nullable;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
-/**
- * Created by luiz.massa on 03/05/2017.
- */
-
 public final class SideDish {
 
     @NonNull

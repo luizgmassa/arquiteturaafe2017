@@ -2,6 +2,7 @@ package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -13,8 +14,8 @@ import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceCont
 import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.SideDishEntry;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +30,14 @@ public class LocalDataSource implements DishesDataSource {
 
     private static LocalDataSource mInstance;
 
-    private DbHelper mDbHelper;
+    private final DbHelper mDbHelper;
 
     // Prevent direct instantiation.
     private LocalDataSource(@NonNull Context context) {
-        checkNotNull(context);
-        mDbHelper = new DbHelper(context);
+        Context ctx = checkNotNull(context);
+        mDbHelper = new DbHelper(ctx);
 
-        this.fillDishes();
+        this.fillDishes(ctx);
     }
 
     public static LocalDataSource getInstance(@NonNull Context context) {
@@ -124,7 +125,7 @@ public class LocalDataSource implements DishesDataSource {
     }
 
     @Override
-    public void fillDishes() {
+    public void fillDishes(Context context) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
@@ -136,15 +137,11 @@ public class LocalDataSource implements DishesDataSource {
         String currentLine;
         int i = 0;
         String[] lineValues;
-        BufferedReader br = null;
-        FileReader fr = null;
+        AssetManager assets = context.getAssets();
 
-        try {
-            fr = new FileReader("dishes.info");
-            br = new BufferedReader(fr);
-
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open("dishes.info")))) {
             while ((currentLine = br.readLine()) != null) {
-                lineValues = currentLine.split("/");
+                lineValues = currentLine.split(";");
 
                 values = new ContentValues();
                 values.put(DishEntry.COLUMN_NAME_ENTRY_ID, i);
@@ -158,12 +155,15 @@ public class LocalDataSource implements DishesDataSource {
                 i++;
             }
 
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open("side_dishes.info")))) {
             i = 0;
-            fr = new FileReader("side_dishes.info");
-            br = new BufferedReader(fr);
 
             while ((currentLine = br.readLine()) != null) {
-                lineValues = currentLine.split("/");
+                lineValues = currentLine.split(";");
 
                 values = new ContentValues();
                 values.put(SideDishEntry.COLUMN_NAME_ENTRY_ID, i);
@@ -176,14 +176,6 @@ public class LocalDataSource implements DishesDataSource {
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (IOException ex) {
-                Log.e(LOG_TAG, "Error when closing file/buffered reader" + ex.getMessage(), ex);
-            }
         }
 
         db.close();

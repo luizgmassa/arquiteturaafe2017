@@ -1,5 +1,6 @@
 package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
@@ -34,5 +35,5 @@ public interface DishesDataSource {
 
     void getDish(@NonNull String dishId, @NonNull GetDishCallback callback);
 
-    void fillDishes();
+    void fillDishes(Context context);
 }

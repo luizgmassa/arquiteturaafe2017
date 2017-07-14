@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 /**
  * The contract used for the db to save the tasks locally.
  */
-public final class DishesPersistenceContract {
+final class DishesPersistenceContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
@@ -13,34 +13,34 @@ public final class DishesPersistenceContract {
     }
 
     /* Inner class that defines the table contents */
-    public static abstract class DishEntry implements BaseColumns {
+    static abstract class DishEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "dish";
+        static final String TABLE_NAME = "dish";
 
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
+        static final String COLUMN_NAME_ENTRY_ID = "entry_id";
 
-        public static final String COLUMN_NAME_NAME = "name";
+        static final String COLUMN_NAME_NAME = "name";
 
-        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        static final String COLUMN_NAME_DESCRIPTION = "description";
 
-        public static final String COLUMN_NAME_IMAGE_NAME = "imagename";
+        static final String COLUMN_NAME_IMAGE_NAME = "image_name";
 
-        public static final String COLUMN_NAME_SIDE_DISH_ID = "sidedishid";
+        static final String COLUMN_NAME_SIDE_DISH_ID = "side_dish_id";
 
-        public static final String COLUMN_NAME_MIXTURE_ID = "mixtureid";
+        static final String COLUMN_NAME_MIXTURE_ID = "mixture_id";
     }
 
     /* Inner class that defines the table contents */
-    public static abstract class SideDishEntry implements BaseColumns {
+    static abstract class SideDishEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "sidedish";
+        static final String TABLE_NAME = "side_dish";
 
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
+        static final String COLUMN_NAME_ENTRY_ID = "entry_id";
 
-        public static final String COLUMN_NAME_NAME = "name";
+        static final String COLUMN_NAME_NAME = "name";
 
-        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        static final String COLUMN_NAME_DESCRIPTION = "description";
 
-        public static final String COLUMN_NAME_IS_MIXTURE = "ismixture";
+        static final String COLUMN_NAME_IS_MIXTURE = "is_mixture";
     }
 }
