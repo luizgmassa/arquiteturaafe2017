@@ -32,7 +32,11 @@ public class LocalDataSource implements DishesDataSource {
 
     private final DbHelper mDbHelper;
 
-    // Prevent direct instantiation.
+    /**
+     * Private constructor that prevents direct instantiation.
+     *
+     * @param context the context.
+     */
     private LocalDataSource(@NonNull Context context) {
         Context ctx = checkNotNull(context);
         mDbHelper = new DbHelper(ctx);
@@ -40,10 +44,17 @@ public class LocalDataSource implements DishesDataSource {
         this.fillDishes(ctx);
     }
 
+    /**
+     * Get a instance for this Local Data Source.
+     *
+     * @param context the context.
+     * @return a instance for the Local Data Source.
+     */
     public static LocalDataSource getInstance(@NonNull Context context) {
         if (mInstance == null) {
             mInstance = new LocalDataSource(context);
         }
+
         return mInstance;
     }
 
@@ -181,6 +192,13 @@ public class LocalDataSource implements DishesDataSource {
         db.close();
     }
 
+    /**
+     * Verifies if a table is empty.
+     *
+     * @param db the SQLite database object.
+     * @param tableName the table name.
+     * @return true if it's empty, otherwise false.
+     */
     private boolean isTableEmpty(SQLiteDatabase db, String tableName) {
         String query = "SELECT count(*) FROM " + tableName;
         Cursor cursor = db.rawQuery(query, null);
@@ -192,6 +210,12 @@ public class LocalDataSource implements DishesDataSource {
         return count <= 0;
     }
 
+    /**
+     * Gets a dish from a single database cursor.
+     *
+     * @param c the cursor itself.
+     * @return the dish object retrived from the cursor database.
+     */
     private Dish getDishFromCursor(Cursor c) {
         ArrayList<SideDish> sideDishes = new ArrayList<>();
         ArrayList<SideDish> mixtures = new ArrayList<>();
@@ -212,6 +236,12 @@ public class LocalDataSource implements DishesDataSource {
         return new Dish(itemId, name, description, imageName, sideDishes, mixtures);
     }
 
+    /**
+     * Gets a list of side dishes.
+     *
+     * @param sideDishes the side sishes array ids.
+     * @return the list of side dishes objects retrieved from data base.
+     */
     private List<SideDish> getSideDishes(String[] sideDishes) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         ArrayList<SideDish> sideDishesList = new ArrayList<>();
@@ -242,6 +272,13 @@ public class LocalDataSource implements DishesDataSource {
         return sideDishesList;
     }
 
+    /**
+     * Inserts placeholders into a string.
+     *
+     * @param len the number of placeholders.
+     * @return a string with all needed placeholders.
+     * @throws Exception if something goes wrong with string builder.
+     */
     private String makePlaceholders(int len) throws Exception {
         if (len < 1) {
             // It will lead to an invalid query anyway ..

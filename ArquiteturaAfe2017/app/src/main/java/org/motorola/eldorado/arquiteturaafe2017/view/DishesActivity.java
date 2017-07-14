@@ -29,14 +29,29 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class DishesActivity extends BaseActivity implements DishesContract.View {
 
+    /**
+     * Holds the Log Tag.
+     */
     private static final String LOG_TAG = DishesActivity.class.getSimpleName();
 
+    /**
+     * Holds the Presenter used in this view.
+     */
     private DishesContract.Presenter mPresenter;
 
+    /**
+     * Holds the list adapter for this view.
+     */
     private DishesAdapter mListAdapter;
 
+    /**
+     * Holds the progress dialog for this view.
+     */
     private ProgressDialog mProgressDialog;
 
+    /**
+     * Holds the instance of dish click item listener.
+     */
     private final DishItemListener mItemListener = new DishItemListener() {
         @Override
         public void onDishClick(Dish clickedDish) {
@@ -95,10 +110,19 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         mListAdapter.replaceData(dishes);
     }
 
+    /**
+     * Adapter for the Dishes Activity.
+     */
     private static class DishesAdapter extends BaseAdapter {
 
+        /**
+         * The List of dishes.
+         */
         private List<Dish> mDishes;
 
+        /**
+         * The Dish Click listener.
+         */
         private final DishItemListener mItemListener;
 
         DishesAdapter(List<Dish> tasks, DishItemListener itemListener) {
@@ -106,13 +130,23 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
             mItemListener = itemListener;
         }
 
-        void replaceData(List<Dish> tasks) {
-            setList(tasks);
+        /**
+         * Replaces all list items to the received ones and notify the UI.
+         *
+         * @param dishes the new list of dishes.
+         */
+        void replaceData(List<Dish> dishes) {
+            setList(dishes);
             notifyDataSetChanged();
         }
 
-        private void setList(List<Dish> tasks) {
-            mDishes = checkNotNull(tasks);
+        /**
+         * Sets the list of dishes.
+         *
+         * @param dishes the list of dishes.
+         */
+        private void setList(List<Dish> dishes) {
+            mDishes = checkNotNull(dishes);
         }
 
         @Override
@@ -171,8 +205,16 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         }
     }
 
+    /**
+     * The Dish Item Listener interface.
+     */
     interface DishItemListener {
 
+        /**
+         * The Click Listener method called when user clicks on a dish.
+         *
+         * @param clickedDish the clicked dish object.
+         */
         void onDishClick(Dish clickedDish);
     }
 }

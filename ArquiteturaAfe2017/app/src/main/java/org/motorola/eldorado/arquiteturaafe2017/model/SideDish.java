@@ -8,17 +8,37 @@ import com.google.common.base.Strings;
 
 public final class SideDish {
 
+    /**
+     * Holds the Side Dish id.
+     */
     @NonNull
     private final String mId;
 
+    /**
+     * Holds the Side Dish name.
+     */
     @NonNull
     private final String mName;
 
+    /**
+     * Holds the Side Dish description.
+     */
     @Nullable
     private final String mDescription;
 
+    /**
+     * Holds if it's a mixture or not.
+     */
     private boolean mIsMixture = false;
 
+    /**
+     * Constructor.
+     *
+     * @param id the id of the side dish.
+     * @param name the name of the side dish.
+     * @param description the description of the side dish.
+     * @param isMixture true if this side dish is a mixture, otherwise false.
+     */
     public SideDish(@NonNull String id, @NonNull String name, @Nullable String description,
                     boolean isMixture) {
         mId = id;
@@ -27,11 +47,22 @@ public final class SideDish {
         mIsMixture = isMixture;
     }
 
+    /**
+     * Empty object method.
+     *
+     * @return true if this object is empty, otherwise false.
+     */
     public boolean isEmpty() {
         return Strings.isNullOrEmpty(getName()) &&
                 Strings.isNullOrEmpty(getDescription());
     }
 
+    /**
+     * Compares one side dish object to this one.
+     *
+     * @param o the object that wants to be compared.
+     * @return true if both objects are equal, otherwise false.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,31 +73,61 @@ public final class SideDish {
                 Objects.equal(getDescription(), sideDish.getDescription());
     }
 
+    /**
+     * Shows this object's hash code.
+     *
+     * @return the hash code representing this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(getId(), getName(), getDescription());
     }
 
+    /**
+     * Shows this object as a string.
+     *
+     * @return the string representing this object.
+     */
     @Override
     public String toString() {
-        return "Task with title " + getName();
+        return "Side Dish with title " + getName();
     }
 
+    /**
+     * Gets the Side Dish id.
+     *
+     * @return the side dish id.
+     */
     @NonNull
     public String getId() {
         return mId;
     }
 
+    /**
+     * Gets the Side Dish name.
+     *
+     * @return the side dish name.
+     */
     @NonNull
     public String getName() {
         return mName;
     }
 
+    /**
+     * Gets the Side Dish description.
+     *
+     * @return the side dish description.
+     */
     @Nullable
     public String getDescription() {
         return mDescription;
     }
 
+    /**
+     * Gets the Side Dish mixture.
+     *
+     * @return true if this side dish is a mixture, otherwise false.
+     */
     public boolean isMixture() {
         return mIsMixture;
     }

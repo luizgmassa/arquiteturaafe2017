@@ -23,18 +23,39 @@ import android.util.Log;
 
 class DbHelper extends SQLiteOpenHelper {
 
+    /**
+     * Holds the Log Tag for this class.
+     */
     private static final String LOG_TAG = DbHelper.class.getSimpleName();
 
+    /**
+     * Holds the Database version for this app version.
+     */
     private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_NAME = "Tasks.db";
+    /**
+     * Holds the Database file name.
+     */
+    private static final String DATABASE_NAME = "Dishes.db";
 
+    /**
+     * Holds the string for Text type.
+     */
     private static final String TEXT_TYPE = " TEXT";
 
+    /**
+     * Holds the string for Boolean type.
+     */
     private static final String BOOLEAN_TYPE = " INTEGER";
 
+    /**
+     * Holds the string for comma separation.
+     */
     private static final String COMMA_SEP = ",";
 
+    /**
+     * Holds the SQL query for Dish table creation.
+     */
     private static final String SQL_DISH_CREATE_ENTRIES =
             "CREATE TABLE " + DishesPersistenceContract.DishEntry.TABLE_NAME + " (" +
                     DishesPersistenceContract.DishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
@@ -46,6 +67,9 @@ class DbHelper extends SQLiteOpenHelper {
                     DishesPersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE +
             " )";
 
+    /**
+     * Holds the SQL query for Side Dish table creation.
+     */
     private static final String SQL_SIDEDISH_CREATE_ENTRIES =
             "CREATE TABLE " + DishesPersistenceContract.SideDishEntry.TABLE_NAME + " (" +
                     DishesPersistenceContract.SideDishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
@@ -55,6 +79,11 @@ class DbHelper extends SQLiteOpenHelper {
                     DishesPersistenceContract.SideDishEntry.COLUMN_NAME_IS_MIXTURE + BOOLEAN_TYPE +
                     " )";
 
+    /**
+     * Constructor.
+     *
+     * @param context the context.
+     */
     DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
