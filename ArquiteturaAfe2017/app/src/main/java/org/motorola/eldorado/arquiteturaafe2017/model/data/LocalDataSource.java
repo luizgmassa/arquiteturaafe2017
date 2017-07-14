@@ -7,11 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DishEntry;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.SideDishEntry;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DishEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.SideDishEntry;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,24 +30,6 @@ public class LocalDataSource implements DishesDataSource {
     private static LocalDataSource mInstance;
 
     private DbHelper mDbHelper;
-
-    // Static information about dishes
-
-    private static final String[] DISHES_NAMES = new String[]{"Feijoada", "Frango assado", "Tilapia"};
-
-    private static final String[] DISHES_DESCRIPTIONS = new String[]{"Feijoada muito saborosa brasileira bem temperada", "Frango assado suculento desossado", "Peixe assado sem pele delicioso"};
-
-    private static final String[] DISHES_IMAGENAMES = new String[]{"feijoada.jpg", "frangoassado.jpg", "tilapia.jpg"};
-
-    private static final String[] DISHES_MIXTURES_IDS = new String[]{"1", "2", "3"};
-
-    private static final String[] DISHES_SIDEDISHES_IDS = new String[]{"4,5,6", "7,8,9", "10,11,12"};
-
-    private static final String[] SIDEDISHES_NAMES = new String[]{"Feijoada", "Frango assado", "Tilapia", "Nuggets", "Batata frita", "Azeitonas", "Farofa", "Pure de batatas", "Berinjela", "Torta de legumes", "Milho verde", "Molho barbecue"};
-
-    private static final String[] SIDEDISHES_DESCRIPTIONS = new String[]{"Feijoada magra", "Frango assado desossado sem pele", "Tilapia assada com temperos e iguarias", "Nuggets de frango assados", "Batata palito frita comum", "Azeitonas em conserva", "Farofa especial temperada com legumes e bacon", "Pure de batatas com temperos especiais", "Berinjela a milanesa", "Torta de legumes assada", "Milho verde em conserva", "Molho barbecue BBQ"};
-
-    private static final String[] SIDEDISHES_IS_MIXTURE = new String[]{"1", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
 
     // Prevent direct instantiation.
     private LocalDataSource(@NonNull Context context) {
@@ -143,37 +128,68 @@ public class LocalDataSource implements DishesDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableIsEmpty(db, DishEntry.TABLE_NAME)) {
+        if (!isTableEmpty(db, DishEntry.TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
 
-        for (int i = 0; i < 3; i++) {
-            values = new ContentValues();
-            values.put(DishEntry.COLUMN_NAME_ENTRY_ID, i);
-            values.put(DishEntry.COLUMN_NAME_NAME, DISHES_NAMES[i]);
-            values.put(DishEntry.COLUMN_NAME_DESCRIPTION, DISHES_DESCRIPTIONS[i]);
-            values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, DISHES_IMAGENAMES[i]);
-            values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, DISHES_SIDEDISHES_IDS[i]);
-            values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, DISHES_MIXTURES_IDS[i]);
+        String currentLine;
+        int i = 0;
+        String[] lineValues;
+        BufferedReader br = null;
+        FileReader fr = null;
 
-            db.insert(DishEntry.TABLE_NAME, null, values);
-        }
+        try {
+            fr = new FileReader("dishes.info");
+            br = new BufferedReader(fr);
 
-        for (int i = 0; i < 12; i++) {
-            values = new ContentValues();
-            values.put(SideDishEntry.COLUMN_NAME_ENTRY_ID, i);
-            values.put(SideDishEntry.COLUMN_NAME_NAME, SIDEDISHES_NAMES[i]);
-            values.put(SideDishEntry.COLUMN_NAME_DESCRIPTION, SIDEDISHES_DESCRIPTIONS[i]);
-            values.put(SideDishEntry.COLUMN_NAME_IS_MIXTURE, SIDEDISHES_IS_MIXTURE[i]);
+            while ((currentLine = br.readLine()) != null) {
+                lineValues = currentLine.split("/");
 
-            db.insert(SideDishEntry.TABLE_NAME, null, values);
+                values = new ContentValues();
+                values.put(DishEntry.COLUMN_NAME_ENTRY_ID, i);
+                values.put(DishEntry.COLUMN_NAME_NAME, lineValues[0]);
+                values.put(DishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
+                values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[2]);
+                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[3]);
+                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[4]);
+
+                db.insert(DishEntry.TABLE_NAME, null, values);
+                i++;
+            }
+
+            i = 0;
+            fr = new FileReader("side_dishes.info");
+            br = new BufferedReader(fr);
+
+            while ((currentLine = br.readLine()) != null) {
+                lineValues = currentLine.split("/");
+
+                values = new ContentValues();
+                values.put(SideDishEntry.COLUMN_NAME_ENTRY_ID, i);
+                values.put(SideDishEntry.COLUMN_NAME_NAME, lineValues[0]);
+                values.put(SideDishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
+                values.put(SideDishEntry.COLUMN_NAME_IS_MIXTURE, lineValues[2]);
+
+                db.insert(SideDishEntry.TABLE_NAME, null, values);
+                i++;
+            }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException ex) {
+                Log.e(LOG_TAG, "Error when closing file/buffered reader" + ex.getMessage(), ex);
+            }
         }
 
         db.close();
     }
 
-    private boolean isTableIsEmpty(SQLiteDatabase db, String tableName) {
+    private boolean isTableEmpty(SQLiteDatabase db, String tableName) {
         String query = "SELECT count(*) FROM " + tableName;
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
