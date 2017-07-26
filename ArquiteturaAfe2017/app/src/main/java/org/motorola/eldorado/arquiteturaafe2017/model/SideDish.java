@@ -1,12 +1,17 @@
 package org.motorola.eldorado.arquiteturaafe2017.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
-public final class SideDish {
+/**
+ * The Side Dish class.
+ */
+public final class SideDish implements Parcelable {
 
     /**
      * Holds the Side Dish id.
@@ -45,6 +50,38 @@ public final class SideDish {
         mName = name;
         mDescription = description;
         mIsMixture = isMixture;
+    }
+
+    protected SideDish(Parcel in) {
+        mId = in.readString();
+        mName = in.readString();
+        mDescription = in.readString();
+        mIsMixture = in.readByte() != 0;
+    }
+
+    public static final Creator<SideDish> CREATOR = new Creator<SideDish>() {
+        @Override
+        public SideDish createFromParcel(Parcel in) {
+            return new SideDish(in);
+        }
+
+        @Override
+        public SideDish[] newArray(int size) {
+            return new SideDish[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mName);
+        dest.writeString(mDescription);
+        dest.writeByte((byte) (mIsMixture ? 1 : 0));
     }
 
     /**

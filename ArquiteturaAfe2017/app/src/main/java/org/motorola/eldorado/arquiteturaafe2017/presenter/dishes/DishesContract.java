@@ -1,13 +1,17 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishes;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
+import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.base.BasePresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseView;
-import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 
 import java.util.List;
 
+/**
+ * The Dishes Contract interface.
+ */
 public interface DishesContract {
 
     /**
@@ -45,8 +49,9 @@ public interface DishesContract {
         /**
          * Method called when the View (UI) wants to open the Dish Details activity.
          *
+         * @param context the context.
          * @param requestedDish the clicked dish item on the View (UI).
          */
-        void openDishDetails(@NonNull Dish requestedDish);
+        void openDishDetails(Context context, @NonNull Dish requestedDish);
     }
 }

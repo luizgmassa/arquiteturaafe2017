@@ -27,6 +27,9 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * The Dishes activity class.
+ */
 public class DishesActivity extends BaseActivity implements DishesContract.View {
 
     /**
@@ -55,7 +58,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     private final DishItemListener mItemListener = new DishItemListener() {
         @Override
         public void onDishClick(Dish clickedDish) {
-            mPresenter.openDishDetails(clickedDish);
+            mPresenter.openDishDetails(DishesActivity.this, clickedDish);
         }
     };
 

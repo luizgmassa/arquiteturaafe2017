@@ -1,5 +1,8 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.base;
 
+/**
+ * The Base Presenter interface.
+ */
 public interface BasePresenter {
 
     /**

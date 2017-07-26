@@ -7,6 +7,9 @@ import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 
 import java.util.List;
 
+/**
+ * The Dishes Data Source class.
+ */
 interface DishesDataSource {
 
     /**

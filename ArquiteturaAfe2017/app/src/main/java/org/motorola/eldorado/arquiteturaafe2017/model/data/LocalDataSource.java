@@ -22,14 +22,23 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Concrete implementation of a data source as a db.
+ * The Local Data Source class.
  */
 public class LocalDataSource implements DishesDataSource {
 
+    /**
+     * Holds the Log Tag for this class.
+     */
     private static final String LOG_TAG = LocalDataSource.class.getSimpleName();
 
+    /**
+     * Holds a instance for this class.
+     */
     private static LocalDataSource mInstance;
 
+    /**
+     * Holds the Database Helper instance.
+     */
     private final DbHelper mDbHelper;
 
     /**

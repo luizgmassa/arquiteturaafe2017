@@ -3,7 +3,7 @@ package org.motorola.eldorado.arquiteturaafe2017.model.data;
 import android.provider.BaseColumns;
 
 /**
- * The contract used for the db to save the tasks locally.
+ * The Dishes Persistence Contract class.
  */
 final class DishesPersistenceContract {
 

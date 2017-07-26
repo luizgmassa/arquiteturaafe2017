@@ -1,5 +1,8 @@
 package org.motorola.eldorado.arquiteturaafe2017.view.base;
 
+/**
+ * The Base View interface class.
+ */
 public interface BaseView<T> {
 
     /**

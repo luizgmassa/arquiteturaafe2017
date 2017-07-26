@@ -3,4 +3,13 @@
     <string name="dish_image_content_description">Dish image</string>
     <string name="dishes_activity_loading_dishes">Carregando os pratos…</string>
     <string name="list_view_no_results">No Results</string>
+    <string name="title_activity_dish_detail">DishDetailActivity</string>
+    <string name="button_payment">Pagamento</string>
+    <string name="button_edit_dish">Alterar prato</string>
+
+    <string name="dish">Prato: </string>
+    <string name="description">Descrição: </string>
+    <string name="side_dishes">Acompanhamento(s): </string>
+    <string name="mixtures">Misturas: </string>
+    <string name="drink">Bebida:</string>
 </resources>

@@ -1,5 +1,7 @@
 package org.motorola.eldorado.arquiteturaafe2017.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -9,7 +11,10 @@ import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Dish {
+/**
+ * The Dish class.
+ */
+public final class Dish implements Parcelable {
 
     /**
      * Holds the Dish id.
@@ -39,13 +44,13 @@ public final class Dish {
      * Holds the list of side dishes.
      */
     @NonNull
-    private final List<SideDish> mSideDishes = new ArrayList<>();
+    private List<SideDish> mSideDishes = new ArrayList<>();
 
     /**
      * Holds the list of mixtures.
      */
     @NonNull
-    private final List<SideDish> mMixtures = new ArrayList<>();
+    private List<SideDish> mMixtures = new ArrayList<>();
 
     /**
      * Constructor.
@@ -66,6 +71,27 @@ public final class Dish {
         mSideDishes.addAll(sideDishes);
         mMixtures.addAll(mixtures);
     }
+
+    protected Dish(Parcel in) {
+        mId = in.readString();
+        mName = in.readString();
+        mDescription = in.readString();
+        mImageName = in.readString();
+        mSideDishes = in.createTypedArrayList(SideDish.CREATOR);
+        mMixtures = in.createTypedArrayList(SideDish.CREATOR);
+    }
+
+    public static final Creator<Dish> CREATOR = new Creator<Dish>() {
+        @Override
+        public Dish createFromParcel(Parcel in) {
+            return new Dish(in);
+        }
+
+        @Override
+        public Dish[] newArray(int size) {
+            return new Dish[size];
+        }
+    };
 
     /**
      * Empty object method.
@@ -168,7 +194,23 @@ public final class Dish {
      * @return the dish image file name.
      */
     @NonNull
+    @SuppressWarnings("unchecked")
     public String getImageName() {
         return mImageName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mName);
+        dest.writeString(mDescription);
+        dest.writeString(mImageName);
+        dest.writeTypedList(mSideDishes);
+        dest.writeTypedList(mMixtures);
     }
 }

@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".view.EntrypointActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +17,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".view.DishesActivity" />
         <activity android:name=".view.base.BaseActivity" />
-
+        <activity
+            android:name=".view.DishDetailsActivity"
+            android:label="@string/title_activity_dish_detail"
+            android:parentActivityName=".view.DishesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.motorola.eldorado.arquiteturaafe2017.view.DishesActivity" />
+        </activity>
     </application>
 
 </manifest>
