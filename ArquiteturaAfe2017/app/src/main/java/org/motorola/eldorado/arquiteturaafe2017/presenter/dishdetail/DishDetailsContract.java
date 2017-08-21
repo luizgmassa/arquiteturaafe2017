@@ -48,5 +48,12 @@ public interface DishDetailsContract {
          * @param requestedDish the clicked dish item on the View (UI).
          */
         void openPayment(Context context, @NonNull Dish requestedDish);
+
+        /**
+         * Method called when the View (UI) wants to open the Select Drink activity.
+         *
+         * @param context the context.
+         */
+        void openSelectDrink(Context context);
     }
 }

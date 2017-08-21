@@ -9,80 +9,68 @@ import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
 /**
- * The Side Dish class.
+ * The Drink class.
  */
-public final class SideDish implements Parcelable {
+public final class Drink implements Parcelable {
 
     /**
-     * Holds the Side Dish id.
+     * Holds the Drink id.
      */
     @NonNull
     private final String mId;
 
     /**
-     * Holds the Side Dish name.
+     * Holds the Drink name.
      */
     @NonNull
     private final String mName;
 
     /**
-     * Holds the Side Dish description.
+     * Holds the Drink description.
      */
     @Nullable
     private final String mDescription;
 
     /**
-     * Holds if it's a mixture or not.
+     * Holds the Drink image file name.
      */
-    private boolean mIsMixture = false;
+    @NonNull
+    private final String mImageName;
 
     /**
      * Constructor.
      *
-     * @param id the id of the side dish.
-     * @param name the name of the side dish.
-     * @param description the description of the side dish.
-     * @param isMixture true if this side dish is a mixture, otherwise false.
+     * @param id the id of the Drink.
+     * @param name the name of the Drink.
+     * @param description the description of the Drink.
+     * @param image the image file name of the Drink.
      */
-    public SideDish(@NonNull String id, @NonNull String name, @Nullable String description,
-                    boolean isMixture) {
+    public Drink(@NonNull String id, @NonNull String name,
+                 @Nullable String description, @NonNull String image) {
         mId = id;
         mName = name;
         mDescription = description;
-        mIsMixture = isMixture;
+        mImageName = image;
     }
 
-    private SideDish(Parcel in) {
+    private Drink(Parcel in) {
         mId = in.readString();
         mName = in.readString();
         mDescription = in.readString();
-        mIsMixture = in.readByte() != 0;
+        mImageName = in.readString();
     }
 
-    public static final Creator<SideDish> CREATOR = new Creator<SideDish>() {
+    public static final Creator<Drink> CREATOR = new Creator<Drink>() {
         @Override
-        public SideDish createFromParcel(Parcel in) {
-            return new SideDish(in);
+        public Drink createFromParcel(Parcel in) {
+            return new Drink(in);
         }
 
         @Override
-        public SideDish[] newArray(int size) {
-            return new SideDish[size];
+        public Drink[] newArray(int size) {
+            return new Drink[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 1;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
-        dest.writeString(mName);
-        dest.writeString(mDescription);
-        dest.writeByte((byte) (mIsMixture ? 1 : 0));
-    }
 
     /**
      * Empty object method.
@@ -95,7 +83,7 @@ public final class SideDish implements Parcelable {
     }
 
     /**
-     * Compares one side dish object to this one.
+     * Compares one side Drink object to this one.
      *
      * @param o the object that wants to be compared.
      * @return true if both objects are equal, otherwise false.
@@ -104,10 +92,9 @@ public final class SideDish implements Parcelable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SideDish sideDish = (SideDish) o;
-        return Objects.equal(getId(), sideDish.getId()) &&
-                Objects.equal(getName(), sideDish.getName()) &&
-                Objects.equal(getDescription(), sideDish.getDescription());
+        Drink Drink = (Drink) o;
+
+        return Objects.equal(getId(), Drink.getId());
     }
 
     /**
@@ -127,13 +114,13 @@ public final class SideDish implements Parcelable {
      */
     @Override
     public String toString() {
-        return "Side Dish with title " + getName();
+        return "Drink with title " + getName();
     }
 
     /**
-     * Gets the Side Dish id.
+     * Gets the Drink id.
      *
-     * @return the side dish id.
+     * @return the Drink id.
      */
     @NonNull
     public String getId() {
@@ -141,9 +128,9 @@ public final class SideDish implements Parcelable {
     }
 
     /**
-     * Gets the Side Dish name.
+     * Gets the Drink name.
      *
-     * @return the side dish name.
+     * @return the Drink name.
      */
     @NonNull
     public String getName() {
@@ -151,9 +138,9 @@ public final class SideDish implements Parcelable {
     }
 
     /**
-     * Gets the Side Dish description.
+     * Gets the Drink description.
      *
-     * @return the side dish description.
+     * @return the Drink description.
      */
     @Nullable
     public String getDescription() {
@@ -161,11 +148,26 @@ public final class SideDish implements Parcelable {
     }
 
     /**
-     * Gets the Side Dish mixture.
+     * Gets the Drink image file name.
      *
-     * @return true if this side dish is a mixture, otherwise false.
+     * @return the Drink image file name.
      */
-    public boolean isMixture() {
-        return mIsMixture;
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public String getImageName() {
+        return mImageName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mName);
+        dest.writeString(mDescription);
+        dest.writeString(mImageName);
     }
 }

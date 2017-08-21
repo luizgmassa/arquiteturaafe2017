@@ -12,4 +12,6 @@
     <string name="side_dishes">Acompanhamento(s): </string>
     <string name="mixtures">Misturas: </string>
     <string name="drink">Bebida:</string>
+    <string name="button_drinks">Bebida</string>
+    <string name="activity_dish_detail_no_drink_selected">Nada selecionado</string>
 </resources>

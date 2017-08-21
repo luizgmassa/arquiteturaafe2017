@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 
 import java.util.List;
 
@@ -49,6 +50,24 @@ interface DishesDataSource {
     }
 
     /**
+     * The interface for Load Drinks callback.
+     */
+    interface GetDrinksCallback {
+
+        /**
+         * Callback for when drinks have been loaded.
+         *
+         * @param drinks the list of drinks.
+         */
+        void onDrinksLoaded(List<Drink> drinks);
+
+        /**
+         * Callback for when drinks data are not available.
+         */
+        void onDataNotAvailable();
+    }
+
+    /**
      * The callback used to Get Dishes. Used on Dishes Presenter.
      *
      * @param callback the load dishes callback.
@@ -69,4 +88,11 @@ interface DishesDataSource {
      * @param context the context.
      */
     void fillDishes(Context context);
+
+    /**
+     * Fill drinks list and objects retrieving information from Data Source.
+     *
+     * @param context the context.
+     */
+    void fillDrinks(Context context);
 }

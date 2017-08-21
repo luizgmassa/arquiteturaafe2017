@@ -86,4 +86,35 @@ final class DishesPersistenceContract {
          */
         static final String COLUMN_NAME_IS_MIXTURE = "is_mixture";
     }
+
+    /**
+     * Inner class that defines the side dish table contents
+     */
+    static abstract class DrinkEntry implements BaseColumns {
+
+        /**
+         * Holds the side dish table name.
+         */
+        static final String TABLE_NAME = "drink";
+
+        /**
+         * Holds the side dish id column name.
+         */
+        static final String COLUMN_NAME_ENTRY_ID = "entry_id";
+
+        /**
+         * Holds the side dish name column name.
+         */
+        static final String COLUMN_NAME_NAME = "name";
+
+        /**
+         * Holds the side dish description column name.
+         */
+        static final String COLUMN_NAME_DESCRIPTION = "description";
+
+        /**
+         * Holds the dish image file name column name.
+         */
+        static final String COLUMN_NAME_IMAGE_NAME = "image_name";
+    }
 }

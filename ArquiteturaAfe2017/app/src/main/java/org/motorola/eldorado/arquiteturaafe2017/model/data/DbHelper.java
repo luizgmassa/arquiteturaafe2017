@@ -83,6 +83,18 @@ class DbHelper extends SQLiteOpenHelper {
                     " )";
 
     /**
+     * Holds the SQL query for Drinks table creation.
+     */
+    private static final String SQL_DRINKS_CREATE_ENTRIES =
+            "CREATE TABLE " + DishesPersistenceContract.DrinkEntry.TABLE_NAME + " (" +
+                    DishesPersistenceContract.DrinkEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE +
+                    " )";
+
+    /**
      * Constructor.
      *
      * @param context the context.
@@ -97,6 +109,7 @@ class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_DISH_CREATE_ENTRIES);
         db.execSQL(SQL_SIDEDISH_CREATE_ENTRIES);
+        db.execSQL(SQL_DRINKS_CREATE_ENTRIES);
     }
 
     @Override

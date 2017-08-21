@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
@@ -58,11 +57,6 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     };
 
     /**
-     * Holds the Spinner for drinks.
-     */
-    private Spinner mDrinksSpinner;
-
-    /**
      * Holds the received dish.
      */
     private Dish mReceivedDish;
@@ -81,6 +75,11 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         public void onEditDishButtonClick(Dish currentDish) {
             mPresenter.openEditDish(DishDetailsActivity.this, currentDish);
         }
+
+        @Override
+        public void onSelectDrinkButtonClick() {
+            mPresenter.openSelectDrink(DishDetailsActivity.this);
+        }
     };
 
     @Override
@@ -98,6 +97,14 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         // Views
         mDishImage = (ImageView) findViewById(R.id.activity_dish_detail_image);
 
+        Button drinksButton = (Button) findViewById(R.id.activity_dish_detail_drinks_button);
+        drinksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mItemListener.onSelectDrinkButtonClick();
+            }
+        });
+
         Button editDishButton = (Button) findViewById(R.id.activity_dish_detail_edit_dish);
         editDishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +120,6 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
                 mItemListener.onPaymentButtonClick(mReceivedDish);
             }
         });
-
-        mDrinksSpinner = (Spinner) findViewById(R.id.activity_dish_detail_drinks_spinner);
 
         mDishInformationTextViews = new TextView[mDishInformationTextViewsIds.length];
 
@@ -207,5 +212,10 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
          * @param currentDish the clicked dish object.
          */
         void onEditDishButtonClick(Dish currentDish);
+
+        /**
+         * The Click Listener method called when user clicks on Drink button.
+         */
+        void onSelectDrinkButtonClick();
     }
 }

@@ -12,6 +12,7 @@ import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DishEntry;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.SideDishEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DrinkEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class LocalDataSource implements DishesDataSource {
         mDbHelper = new DbHelper(ctx);
 
         this.fillDishes(ctx);
+        this.fillDrinks(ctx);
     }
 
     /**
@@ -149,7 +151,7 @@ public class LocalDataSource implements DishesDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableEmpty(db, DishEntry.TABLE_NAME)) {
+        if (!isTableEmpty(db, DishesPersistenceContract.DishEntry.TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -194,6 +196,42 @@ public class LocalDataSource implements DishesDataSource {
                 db.insert(SideDishEntry.TABLE_NAME, null, values);
                 i++;
             }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+        }
+
+        db.close();
+    }
+
+    @Override
+    public void fillDrinks(Context context) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        ContentValues values;
+
+        if (!isTableEmpty(db, DrinkEntry.TABLE_NAME)) {
+            Log.d(LOG_TAG, "No need to insert again");
+            return;
+        }
+
+        String currentLine;
+        int i = 0;
+        String[] lineValues;
+        AssetManager assets = context.getAssets();
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open("drinks.info")))) {
+            while ((currentLine = br.readLine()) != null) {
+                lineValues = currentLine.split(";");
+
+                values = new ContentValues();
+                values.put(DrinkEntry.COLUMN_NAME_ENTRY_ID, i);
+                values.put(DrinkEntry.COLUMN_NAME_NAME, lineValues[0]);
+                values.put(DrinkEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
+                values.put(DrinkEntry.COLUMN_NAME_IMAGE_NAME, lineValues[2]);
+
+                db.insert(DrinkEntry.TABLE_NAME, null, values);
+                i++;
+            }
+
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
         }

@@ -52,4 +52,9 @@ public class DishDetailsPresenter implements DishDetailsContract.Presenter {
     public void openPayment(Context context, @NonNull Dish requestedDish) {
         // TODO open payment activity
     }
+
+    @Override
+    public void openSelectDrink(Context context) {
+        // TODO open select drink activity
+    }
 }

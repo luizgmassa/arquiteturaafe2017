@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="org.motorola.eldorado.arquiteturaafe2017.view.DishDetailsActivity"
-    tools:showIn="@layout/activity_dish_detail">
+    tools:context="org.motorola.eldorado.arquiteturaafe2017.view.DishDetailsActivity">
 
     <ImageView
         android:id="@+id/activity_dish_detail_image"
@@ -51,20 +50,34 @@
         android:layout_margin="10dp"
         android:text="@string/drink" />
 
-    <Spinner
-        android:id="@+id/activity_dish_detail_drinks_spinner"
+    <TextView
+        android:id="@+id/activity_dish_detail_selected_drink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/activity_dish_detail_drink"
-        android:layout_below="@id/activity_dish_detail_mixtures"
-        android:layout_margin="10dp" />
+        android:text="@string/activity_dish_detail_no_drink_selected"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignBaseline="@+id/activity_dish_detail_drink"
+        android:layout_alignBottom="@+id/activity_dish_detail_drink"
+        android:layout_toEndOf="@+id/activity_dish_detail_drink" />
+
+    <Button
+        android:id="@+id/activity_dish_detail_drinks_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_drinks"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignBaseline="@+id/activity_dish_detail_drink"
+        android:layout_alignBottom="@+id/activity_dish_detail_drink"
+        android:layout_alignEnd="@+id/activity_dish_detail_payment" />
 
     <Button
         android:id="@+id/activity_dish_detail_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/activity_dish_detail_drinks_spinner"
+        android:layout_below="@id/activity_dish_detail_drinks_button"
         android:layout_margin="10dp"
         android:text="@string/button_payment" />
 
@@ -73,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/activity_dish_detail_drinks_spinner"
+        android:layout_below="@id/activity_dish_detail_drinks_button"
         android:layout_margin="10dp"
         android:text="@string/button_edit_dish" />
 
