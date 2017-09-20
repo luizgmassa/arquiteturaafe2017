@@ -52,7 +52,7 @@ interface DishesDataSource {
     /**
      * The interface for Load Drinks callback.
      */
-    interface GetDrinksCallback {
+    interface LoadDrinksCallback {
 
         /**
          * Callback for when drinks have been loaded.

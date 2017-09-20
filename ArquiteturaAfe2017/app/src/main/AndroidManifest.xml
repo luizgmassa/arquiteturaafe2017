@@ -28,6 +28,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.motorola.eldorado.arquiteturaafe2017.view.DishesActivity" />
         </activity>
+        <activity android:name=".view.DrinksActivity"></activity>
     </application>
 
 </manifest>

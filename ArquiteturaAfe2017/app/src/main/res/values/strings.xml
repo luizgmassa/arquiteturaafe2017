@@ -14,4 +14,5 @@
     <string name="drink">Bebida:</string>
     <string name="button_drinks">Bebida</string>
     <string name="activity_dish_detail_no_drink_selected">Nada selecionado</string>
+    <string name="activity_drink_select_button">Selecionar</string>
 </resources>
