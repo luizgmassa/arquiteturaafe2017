@@ -54,7 +54,7 @@ public class DishesPresenter implements DishesContract.Presenter {
     @Override
     public void openDishDetails(Context context, @NonNull Dish requestedDish) {
         Intent intent = new Intent(context, DishDetailsActivity.class);
-        intent.putExtra("selected_dish", requestedDish);
+        intent.putExtra(DishDetailsActivity.EXTRA_SELECTED_DISH, requestedDish);
         context.startActivity(intent);
     }
 

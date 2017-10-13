@@ -23,6 +23,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DrinksActivity extends BaseActivity implements DrinksContract.View {
 
     /**
+     * Holds the extra section for selected drink.
+     */
+    public static final String EXTRA_SELECTED_DRINK = "selected_drink";
+
+    /**
      * Holds the spinner for this view.
      */
     private Spinner mSpinner;
@@ -98,8 +103,8 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
 
     @Override
     public void showDrinks(List<Drink> drinks) {
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, drinks.toArray());
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, (Drink[]) drinks.toArray());
 
         mSpinner.setAdapter(spinnerArrayAdapter);
     }

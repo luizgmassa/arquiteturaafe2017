@@ -41,6 +41,11 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     public static final int ACTIVITY_RESULT_DRINK = 0;
 
     /**
+     * Holds the extra section for intent selected dish.
+     */
+    public static final String EXTRA_SELECTED_DISH = "selected_dish";
+
+    /**
      * Holds the Presenter used in this view.
      */
     private DishDetailsContract.Presenter mPresenter;
@@ -158,7 +163,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         }
 
         Bundle data = getIntent().getExtras();
-        mReceivedDish = data.getParcelable("selected_dish");
+        mReceivedDish = data.getParcelable(EXTRA_SELECTED_DISH);
 
         if (mReceivedDish == null) {
             Log.e(LOG_TAG, "Received dish is null");
@@ -212,7 +217,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         if (requestCode == ACTIVITY_RESULT_DRINK) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                mSelectedDrink = bundle.getParcelable("selected_drink");
+                mSelectedDrink = bundle.getParcelable(DrinksActivity.EXTRA_SELECTED_DRINK);
 
                 if (mSelectedDrink == null) {
                     Log.e(LOG_TAG, "Received drink is null");

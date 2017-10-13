@@ -7,6 +7,7 @@ import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.view.DrinksActivity;
 
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     @Override
     public void selectCurrentDrink(Activity activity, @NonNull Drink selectedDrink) {
         Intent intent = new Intent();
-        intent.putExtra("selected_drink", selectedDrink);
+        intent.putExtra(DrinksActivity.EXTRA_SELECTED_DRINK, selectedDrink);
 
         activity.setResult(Activity.RESULT_OK, intent);
         activity.finish();
