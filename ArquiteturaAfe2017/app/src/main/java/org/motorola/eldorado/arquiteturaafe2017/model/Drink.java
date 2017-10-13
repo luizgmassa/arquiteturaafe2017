@@ -114,7 +114,7 @@ public final class Drink implements Parcelable {
      */
     @Override
     public String toString() {
-        return "Drink with title " + getName();
+        return getName();
     }
 
     /**

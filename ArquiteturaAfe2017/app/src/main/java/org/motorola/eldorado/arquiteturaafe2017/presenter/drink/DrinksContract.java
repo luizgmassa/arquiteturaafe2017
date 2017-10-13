@@ -1,6 +1,6 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.drink;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
@@ -49,9 +49,9 @@ public interface DrinksContract {
         /**
          * Method called when the View (UI) wants to returns the selected drink to previous activity.
          *
-         * @param context the context.
+         * @param activity the activity.
          * @param selectedDrink the clicked drink item on the View (UI).
          */
-        void selectCurrentDrink(Context context, @NonNull Drink selectedDrink);
+        void selectCurrentDrink(Activity activity, @NonNull Drink selectedDrink);
     }
 }

@@ -5,12 +5,12 @@ import android.provider.BaseColumns;
 /**
  * The Dishes Persistence Contract class.
  */
-final class DishesPersistenceContract {
+final class PersistenceContract {
 
     /**
      * Private constructor.
      */
-    private DishesPersistenceContract() {
+    private PersistenceContract() {
         // To prevent someone from accidentally instantiating the contract class,
         // give it an empty constructor.
     }

@@ -9,10 +9,11 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DishEntry;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.SideDishEntry;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DishesPersistenceContract.DrinkEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.DishEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.DrinkEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.SideDishEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +26,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * The Local Data Source class.
  */
-public class LocalDataSource implements DishesDataSource {
+public class LocalDataSource implements DataSource {
 
     /**
      * Holds the Log Tag for this class.
@@ -109,6 +110,43 @@ public class LocalDataSource implements DishesDataSource {
     }
 
     @Override
+    public void getDrinks(@NonNull LoadDrinksCallback callback) {
+        List<Drink> drinks = new ArrayList<>();
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                DrinkEntry.COLUMN_NAME_ENTRY_ID,
+                DrinkEntry.COLUMN_NAME_NAME,
+                DrinkEntry.COLUMN_NAME_DESCRIPTION,
+                DrinkEntry.COLUMN_NAME_IMAGE_NAME
+        };
+
+        Cursor c = db.query(
+                DrinkEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Drink drink = getDrinkFromCursor(c);
+
+                drinks.add(drink);
+
+                Log.d(LOG_TAG, "Adding 1 drink to list!!");
+            }
+
+            c.close();
+        }
+
+        db.close();
+
+        if (drinks.isEmpty()) {
+            // This will be called if the table is new or just empty.
+            callback.onDataNotAvailable();
+        } else {
+            callback.onDrinksLoaded(drinks);
+        }
+    }
+
+    @Override
     public void getDish(@NonNull String dishId, @NonNull GetDishCallback callback) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -151,7 +189,7 @@ public class LocalDataSource implements DishesDataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableEmpty(db, DishesPersistenceContract.DishEntry.TABLE_NAME)) {
+        if (!isTableEmpty(db, PersistenceContract.DishEntry.TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -281,6 +319,21 @@ public class LocalDataSource implements DishesDataSource {
         mixtures.addAll(getSideDishes(mixturesIdsSplitted));
 
         return new Dish(itemId, name, description, imageName, sideDishes, mixtures);
+    }
+
+    /**
+     * Gets a drink from a single database cursor.
+     *
+     * @param c the cursor itself.
+     * @return the drink object retrived from the cursor database.
+     */
+    private Drink getDrinkFromCursor(Cursor c) {
+        String itemId = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_ENTRY_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_DESCRIPTION));
+        String imageName = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_IMAGE_NAME));
+
+        return new Drink(itemId, name, description, imageName);
     }
 
     /**

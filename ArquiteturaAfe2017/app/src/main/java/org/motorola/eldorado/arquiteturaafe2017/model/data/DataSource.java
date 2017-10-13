@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * The Dishes Data Source class.
  */
-interface DishesDataSource {
+interface DataSource {
 
     /**
      * The interface for Load Dishes callback. Do the communication between Dishes Presenter and Data Source.
@@ -73,6 +73,13 @@ interface DishesDataSource {
      * @param callback the load dishes callback.
      */
     void getDishes(@NonNull LoadDishesCallback callback);
+
+    /**
+     * The callback used to Get Drinks. Used on Drinks Presenter.
+     *
+     * @param callback the load drinks callback.
+     */
+    void getDrinks(@NonNull LoadDrinksCallback callback);
 
     /**
      * The callback used to Get Dish. Used on Dishes Presenter.

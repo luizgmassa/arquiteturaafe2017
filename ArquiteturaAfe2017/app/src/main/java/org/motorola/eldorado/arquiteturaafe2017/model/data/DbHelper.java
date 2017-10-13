@@ -60,38 +60,38 @@ class DbHelper extends SQLiteOpenHelper {
      * Holds the SQL query for Dish table creation.
      */
     private static final String SQL_DISH_CREATE_ENTRIES =
-            "CREATE TABLE " + DishesPersistenceContract.DishEntry.TABLE_NAME + " (" +
-                    DishesPersistenceContract.DishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    DishesPersistenceContract.DishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.DishEntry.TABLE_NAME + " (" +
+                    PersistenceContract.DishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                    PersistenceContract.DishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE +
             " )";
 
     /**
      * Holds the SQL query for Side Dish table creation.
      */
     private static final String SQL_SIDEDISH_CREATE_ENTRIES =
-            "CREATE TABLE " + DishesPersistenceContract.SideDishEntry.TABLE_NAME + " (" +
-                    DishesPersistenceContract.SideDishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    DishesPersistenceContract.SideDishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.SideDishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.SideDishEntry.COLUMN_NAME_IS_MIXTURE + BOOLEAN_TYPE +
+            "CREATE TABLE " + PersistenceContract.SideDishEntry.TABLE_NAME + " (" +
+                    PersistenceContract.SideDishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                    PersistenceContract.SideDishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.SideDishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.SideDishEntry.COLUMN_NAME_IS_MIXTURE + BOOLEAN_TYPE +
                     " )";
 
     /**
      * Holds the SQL query for Drinks table creation.
      */
     private static final String SQL_DRINKS_CREATE_ENTRIES =
-            "CREATE TABLE " + DishesPersistenceContract.DrinkEntry.TABLE_NAME + " (" +
-                    DishesPersistenceContract.DrinkEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    DishesPersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.DrinkEntry.TABLE_NAME + " (" +
+                    PersistenceContract.DrinkEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                    PersistenceContract.DrinkEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE +
                     " )";
 
     /**

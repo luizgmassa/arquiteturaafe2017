@@ -1,10 +1,10 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.drink;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 
@@ -51,7 +51,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     }
 
     @Override
-    public void loadDrinks(boolean showLoadingUI) {
+    public void loadDrinks(final boolean showLoadingUI) {
         if (showLoadingUI) {
             mDrinksView.setLoadingIndicator(true);
         }
@@ -81,7 +81,11 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     }
 
     @Override
-    public void selectCurrentDrink(Context context, @NonNull Drink selectedDrink) {
-        // TODO return selected drink to previous activity
+    public void selectCurrentDrink(Activity activity, @NonNull Drink selectedDrink) {
+        Intent intent = new Intent();
+        intent.putExtra("selected_drink", selectedDrink);
+
+        activity.setResult(Activity.RESULT_OK, intent);
+        activity.finish();
     }
 }

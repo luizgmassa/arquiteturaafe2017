@@ -1,9 +1,13 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.view.DishDetailsActivity;
+import org.motorola.eldorado.arquiteturaafe2017.view.DrinksActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -44,17 +48,18 @@ public class DishDetailsPresenter implements DishDetailsContract.Presenter {
     }
 
     @Override
-    public void openEditDish(Context context, @NonNull Dish requestedDish) {
+    public void openEditDish(Context context, @NonNull Dish selectedDish) {
         // TODO open edit dash activity
     }
 
     @Override
-    public void openPayment(Context context, @NonNull Dish requestedDish) {
+    public void openPayment(Context context, @NonNull Dish selectedDish) {
         // TODO open payment activity
     }
 
     @Override
-    public void openSelectDrink(Context context) {
-        // TODO open select drink activity
+    public void openSelectDrink(Activity activity) {
+        Intent intent = new Intent(activity, DrinksActivity.class);
+        activity.startActivityForResult(intent, DishDetailsActivity.ACTIVITY_RESULT_DRINK);
     }
 }

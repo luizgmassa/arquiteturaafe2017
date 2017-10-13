@@ -15,4 +15,7 @@
     <string name="button_drinks">Bebida</string>
     <string name="activity_dish_detail_no_drink_selected">Nada selecionado</string>
     <string name="activity_drink_select_button">Selecionar</string>
+    <string name="drink_error">Erro ao escolher a bebida</string>
+    <string name="drink_activity_loading_drinks">Carregando bebidas...</string>
+    <string name="drink_not_selected">Nenhuma bebida selecionada</string>
 </resources>

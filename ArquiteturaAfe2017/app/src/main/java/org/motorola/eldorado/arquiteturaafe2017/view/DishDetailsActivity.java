@@ -1,5 +1,7 @@
 package org.motorola.eldorado.arquiteturaafe2017.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail.DishDetailsContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail.DishDetailsPresenter;
@@ -30,6 +34,11 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
      * Holds the Log Tag.
      */
     private static final String LOG_TAG = DishDetailsActivity.class.getSimpleName();
+
+    /**
+     * Holds the Activity For Result code for Drink activity.
+     */
+    public static final int ACTIVITY_RESULT_DRINK = 0;
 
     /**
      * Holds the Presenter used in this view.
@@ -60,6 +69,8 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
      * Holds the received dish.
      */
     private Dish mReceivedDish;
+
+    private Drink mSelectedDrink;
 
     /**
      * Holds the instance of playment button click listener.
@@ -191,6 +202,30 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
             mDishImage.setImageDrawable(drawable);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error loading dish image: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ACTIVITY_RESULT_DRINK) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                mSelectedDrink = bundle.getParcelable("selected_drink");
+
+                if (mSelectedDrink == null) {
+                    Log.e(LOG_TAG, "Received drink is null");
+                    return;
+                }
+
+                TextView drink = (TextView) findViewById(R.id.activity_dish_detail_selected_drink);
+                drink.setText(mSelectedDrink.getName());
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, R.string.drink_not_selected, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.drink_error, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
