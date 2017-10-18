@@ -65,6 +65,7 @@ class DbHelper extends SQLiteOpenHelper {
                     PersistenceContract.DishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_DISH_SIZE + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE +

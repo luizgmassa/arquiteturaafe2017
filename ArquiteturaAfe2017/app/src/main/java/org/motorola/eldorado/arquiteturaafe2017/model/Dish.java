@@ -52,6 +52,8 @@ public final class Dish implements Parcelable {
     @NonNull
     private List<SideDish> mMixtures = new ArrayList<>();
 
+    private DishSize mSize;
+
     /**
      * Constructor.
      *
@@ -63,11 +65,12 @@ public final class Dish implements Parcelable {
      * @param mixtures the list of mixtures.
      */
     public Dish(@NonNull String id, @NonNull String name,
-                @Nullable String description, @NonNull String image, List<SideDish> sideDishes, List<SideDish> mixtures) {
+                @Nullable String description, DishSize size, @NonNull String image, List<SideDish> sideDishes, List<SideDish> mixtures) {
         mId = id;
         mName = name;
         mDescription = description;
         mImageName = image;
+        mSize = size;
         mSideDishes.addAll(sideDishes);
         mMixtures.addAll(mixtures);
     }
@@ -77,6 +80,7 @@ public final class Dish implements Parcelable {
         mName = in.readString();
         mDescription = in.readString();
         mImageName = in.readString();
+        mSize = DishSize.valueOf(in.readString());
         mSideDishes = in.createTypedArrayList(SideDish.CREATOR);
         mMixtures = in.createTypedArrayList(SideDish.CREATOR);
     }
@@ -210,6 +214,7 @@ public final class Dish implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mDescription);
         dest.writeString(mImageName);
+        dest.writeString(mSize.name());
         dest.writeTypedList(mSideDishes);
         dest.writeTypedList(mMixtures);
     }

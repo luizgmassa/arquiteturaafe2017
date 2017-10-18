@@ -41,6 +41,11 @@ final class PersistenceContract {
         static final String COLUMN_NAME_DESCRIPTION = "description";
 
         /**
+         * Holds the dish size name column name.
+         */
+        static final String COLUMN_NAME_DISH_SIZE = "size";
+
+        /**
          * Holds the dish image file name column name.
          */
         static final String COLUMN_NAME_IMAGE_NAME = "image_name";

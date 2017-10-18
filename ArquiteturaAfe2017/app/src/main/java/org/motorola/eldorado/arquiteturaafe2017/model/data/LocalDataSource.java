@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.model.DishSize;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.DishEntry;
@@ -79,6 +80,7 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_ENTRY_ID,
                 DishEntry.COLUMN_NAME_NAME,
                 DishEntry.COLUMN_NAME_DESCRIPTION,
+                DishEntry.COLUMN_NAME_DISH_SIZE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
                 DishEntry.COLUMN_NAME_SIDE_DISH_ID,
                 DishEntry.COLUMN_NAME_MIXTURE_ID
@@ -154,6 +156,7 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_ENTRY_ID,
                 DishEntry.COLUMN_NAME_NAME,
                 DishEntry.COLUMN_NAME_DESCRIPTION,
+                DishEntry.COLUMN_NAME_DISH_SIZE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
                 DishEntry.COLUMN_NAME_SIDE_DISH_ID,
                 DishEntry.COLUMN_NAME_MIXTURE_ID
@@ -207,9 +210,10 @@ public class LocalDataSource implements DataSource {
                 values.put(DishEntry.COLUMN_NAME_ENTRY_ID, i);
                 values.put(DishEntry.COLUMN_NAME_NAME, lineValues[0]);
                 values.put(DishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
-                values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[2]);
-                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[3]);
-                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[4]);
+                values.put(DishEntry.COLUMN_NAME_DISH_SIZE, lineValues[2]);
+                values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[3]);
+                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[4]);
+                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[5]);
 
                 db.insert(DishEntry.TABLE_NAME, null, values);
                 i++;
@@ -308,6 +312,7 @@ public class LocalDataSource implements DataSource {
         String itemId = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_ENTRY_ID));
         String name = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_NAME));
         String description = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_DESCRIPTION));
+        DishSize size = DishSize.valueOf(c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_DISH_SIZE)));
         String imageName = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_IMAGE_NAME));
         String sideDishesIds = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_SIDE_DISH_ID));
         String mixturesIds = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_MIXTURE_ID));
@@ -318,7 +323,7 @@ public class LocalDataSource implements DataSource {
         sideDishes.addAll(getSideDishes(sideDishesIdsSplitted));
         mixtures.addAll(getSideDishes(mixturesIdsSplitted));
 
-        return new Dish(itemId, name, description, imageName, sideDishes, mixtures);
+        return new Dish(itemId, name, description, size, imageName, sideDishes, mixtures);
     }
 
     /**

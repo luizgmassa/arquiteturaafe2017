@@ -104,7 +104,7 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
     @Override
     public void showDrinks(List<Drink> drinks) {
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, (Drink[]) drinks.toArray());
+                android.R.layout.simple_spinner_item, drinks.toArray());
 
         mSpinner.setAdapter(spinnerArrayAdapter);
     }
