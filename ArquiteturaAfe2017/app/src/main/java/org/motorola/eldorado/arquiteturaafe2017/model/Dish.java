@@ -3,7 +3,6 @@ package org.motorola.eldorado.arquiteturaafe2017.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -14,44 +13,29 @@ import java.util.List;
 /**
  * The Dish class.
  */
-public final class Dish implements Parcelable {
-
-    /**
-     * Holds the Dish id.
-     */
-    @NonNull
-    private final String mId;
-
-    /**
-     * Holds the Dish name.
-     */
-    @NonNull
-    private final String mName;
-
-    /**
-     * Holds the Dish description.
-     */
-    @Nullable
-    private final String mDescription;
+public final class Dish extends Item implements Parcelable {
 
     /**
      * Holds the Dish image file name.
      */
     @NonNull
-    private final String mImageName;
+    private String mImageName;
 
     /**
      * Holds the list of side dishes.
      */
-    @NonNull
     private List<SideDish> mSideDishes = new ArrayList<>();
 
     /**
-     * Holds the list of mixtures.
+     * Holds the mixture.
      */
     @NonNull
-    private List<SideDish> mMixtures = new ArrayList<>();
+    private Mixture mMixture;
 
+    /**
+     * Holds the size of the dish.
+     */
+    @NonNull
     private DishSize mSize;
 
     /**
@@ -62,17 +46,31 @@ public final class Dish implements Parcelable {
      * @param description the description of the dish.
      * @param image the image file name of the dish.
      * @param sideDishes the list of side dishes.
-     * @param mixtures the list of mixtures.
+     * @param mixture the mixture.
      */
-    public Dish(@NonNull String id, @NonNull String name,
-                @Nullable String description, DishSize size, @NonNull String image, List<SideDish> sideDishes, List<SideDish> mixtures) {
+    public Dish(@NonNull String id, @NonNull String name, @NonNull String description,
+                @NonNull DishSize size, @NonNull String image, @NonNull List<SideDish> sideDishes,
+                @NonNull Mixture mixture) {
+        this(id, name, description, size, image, mixture);
+        mSideDishes.addAll(sideDishes);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param id the id of the dish.
+     * @param name the name of the dish.
+     * @param description the description of the dish.
+     * @param image the image file name of the dish.
+     */
+    public Dish(@NonNull String id, @NonNull String name, @NonNull String description,
+                @NonNull DishSize size, @NonNull String image, @NonNull Mixture mixture) {
         mId = id;
         mName = name;
         mDescription = description;
         mImageName = image;
         mSize = size;
-        mSideDishes.addAll(sideDishes);
-        mMixtures.addAll(mixtures);
+        mMixture = mixture;
     }
 
     protected Dish(Parcel in) {
@@ -82,7 +80,7 @@ public final class Dish implements Parcelable {
         mImageName = in.readString();
         mSize = DishSize.valueOf(in.readString());
         mSideDishes = in.createTypedArrayList(SideDish.CREATOR);
-        mMixtures = in.createTypedArrayList(SideDish.CREATOR);
+        mMixture = in.readParcelable(SideDish.class.getClassLoader());
     }
 
     public static final Creator<Dish> CREATOR = new Creator<Dish>() {
@@ -139,7 +137,7 @@ public final class Dish implements Parcelable {
      */
     @Override
     public String toString() {
-        return "Dish with title " + getName();
+        return getName();
     }
 
     /**
@@ -153,43 +151,13 @@ public final class Dish implements Parcelable {
     }
 
     /**
-     * Gets the list of Mixtures.
+     * Gets the Mixture.
      *
-     * @return the list of mixtures.
+     * @return the mixture.
      */
     @NonNull
-    public List<SideDish> getMixtures() {
-        return mMixtures;
-    }
-
-    /**
-     * Gets the Dish id.
-     *
-     * @return the dish id.
-     */
-    @NonNull
-    public String getId() {
-        return mId;
-    }
-
-    /**
-     * Gets the Dish name.
-     *
-     * @return the dish name.
-     */
-    @NonNull
-    public String getName() {
-        return mName;
-    }
-
-    /**
-     * Gets the Dish description.
-     *
-     * @return the dish description.
-     */
-    @Nullable
-    public String getDescription() {
-        return mDescription;
+    public Mixture getMixture() {
+        return mMixture;
     }
 
     /**
@@ -198,9 +166,18 @@ public final class Dish implements Parcelable {
      * @return the dish image file name.
      */
     @NonNull
-    @SuppressWarnings("unchecked")
     public String getImageName() {
         return mImageName;
+    }
+
+    /**
+     * Gets the Dish size.
+     *
+     * @return the dish size.
+     */
+    @NonNull
+    public DishSize getSize() {
+        return mSize;
     }
 
     @Override
@@ -216,6 +193,42 @@ public final class Dish implements Parcelable {
         dest.writeString(mImageName);
         dest.writeString(mSize.name());
         dest.writeTypedList(mSideDishes);
-        dest.writeTypedList(mMixtures);
+        dest.writeParcelable(mMixture, flags);
+    }
+
+    /**
+     * Sets the Dish image name.
+     *
+     * @param imageName the dish image name.
+     */
+    public void setImageName(@NonNull String imageName) {
+        this.mImageName = imageName;
+    }
+
+    /**
+     * Sets the dish Side Dishes list.
+     *
+     * @param sideDishes the dish side dishes list.
+     */
+    public void setSideDishes(@NonNull List<SideDish> sideDishes) {
+        this.mSideDishes = sideDishes;
+    }
+
+    /**
+     * Sets the Dish mixture
+     *
+     * @param mixture the dish mixture.
+     */
+    public void setMixture(@NonNull Mixture mixture) {
+        this.mMixture = mixture;
+    }
+
+    /**
+     * Sets the Dish size.
+     *
+     * @param size the dish size.
+     */
+    public void setSize(@NonNull DishSize size) {
+        this.mSize = size;
     }
 }

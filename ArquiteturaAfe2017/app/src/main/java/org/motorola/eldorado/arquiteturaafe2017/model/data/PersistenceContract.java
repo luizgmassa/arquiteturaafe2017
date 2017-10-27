@@ -85,11 +85,32 @@ final class PersistenceContract {
          * Holds the side dish description column name.
          */
         static final String COLUMN_NAME_DESCRIPTION = "description";
+    }
+
+    /**
+     * Inner class that defines the mixture table contents
+     */
+    static abstract class MixtureEntry implements BaseColumns {
 
         /**
-         * Holds the boolean for mixture or not column name.
+         * Holds the mixture table name.
          */
-        static final String COLUMN_NAME_IS_MIXTURE = "is_mixture";
+        static final String TABLE_NAME = "mixture";
+
+        /**
+         * Holds the mixture id column name.
+         */
+        static final String COLUMN_NAME_ENTRY_ID = "entry_id";
+
+        /**
+         * Holds the mixture name column name.
+         */
+        static final String COLUMN_NAME_NAME = "name";
+
+        /**
+         * Holds the mixture description column name.
+         */
+        static final String COLUMN_NAME_DESCRIPTION = "description";
     }
 
     /**

@@ -37,16 +37,16 @@ public interface DishDetailsContract {
         /**
          * Method called when the View (UI) wants to open the Edit Dish activity.
          *
-         * @param context the context.
-         * @param selectedDish the clicked dish item on the View (UI).
+         * @param activity the activity.
+         * @param dishToEdit the dish to edit item on the View (UI).
          */
-        void openEditDish(Context context, @NonNull Dish selectedDish);
+        void openEditDish(Activity activity, @NonNull Dish dishToEdit);
 
         /**
          * Method called when the View (UI) wants to open the Payment activity.
          *
          * @param context the context.
-         * @param selectedDish the clicked dish item on the View (UI).
+         * @param selectedDish the dish item on the View (UI).
          */
         void openPayment(Context context, @NonNull Dish selectedDish);
 

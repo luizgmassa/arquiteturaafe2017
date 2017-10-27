@@ -11,7 +11,7 @@ import com.google.common.base.Strings;
 /**
  * The Side Dish class.
  */
-public final class SideDish implements Parcelable {
+public final class SideDish extends Item implements Parcelable {
 
     /**
      * Holds the Side Dish id.
@@ -32,31 +32,22 @@ public final class SideDish implements Parcelable {
     private final String mDescription;
 
     /**
-     * Holds if it's a mixture or not.
-     */
-    private boolean mIsMixture = false;
-
-    /**
      * Constructor.
      *
      * @param id the id of the side dish.
      * @param name the name of the side dish.
      * @param description the description of the side dish.
-     * @param isMixture true if this side dish is a mixture, otherwise false.
      */
-    public SideDish(@NonNull String id, @NonNull String name, @Nullable String description,
-                    boolean isMixture) {
+    public SideDish(@NonNull String id, @NonNull String name, @Nullable String description) {
         mId = id;
         mName = name;
         mDescription = description;
-        mIsMixture = isMixture;
     }
 
     private SideDish(Parcel in) {
         mId = in.readString();
         mName = in.readString();
         mDescription = in.readString();
-        mIsMixture = in.readByte() != 0;
     }
 
     public static final Creator<SideDish> CREATOR = new Creator<SideDish>() {
@@ -81,7 +72,6 @@ public final class SideDish implements Parcelable {
         dest.writeString(mId);
         dest.writeString(mName);
         dest.writeString(mDescription);
-        dest.writeByte((byte) (mIsMixture ? 1 : 0));
     }
 
     /**
@@ -127,45 +117,6 @@ public final class SideDish implements Parcelable {
      */
     @Override
     public String toString() {
-        return "Side Dish with title " + getName();
-    }
-
-    /**
-     * Gets the Side Dish id.
-     *
-     * @return the side dish id.
-     */
-    @NonNull
-    public String getId() {
-        return mId;
-    }
-
-    /**
-     * Gets the Side Dish name.
-     *
-     * @return the side dish name.
-     */
-    @NonNull
-    public String getName() {
-        return mName;
-    }
-
-    /**
-     * Gets the Side Dish description.
-     *
-     * @return the side dish description.
-     */
-    @Nullable
-    public String getDescription() {
-        return mDescription;
-    }
-
-    /**
-     * Gets the Side Dish mixture.
-     *
-     * @return true if this side dish is a mixture, otherwise false.
-     */
-    public boolean isMixture() {
-        return mIsMixture;
+        return getName();
     }
 }

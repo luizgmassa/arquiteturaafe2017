@@ -9,50 +9,52 @@ import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
 /**
- * The Drink class.
+ * The Mixture class.
  */
-public final class Drink extends Item implements Parcelable {
-
-    /**
-     * Holds the Drink image file name.
-     */
-    @NonNull
-    private final String mImageName;
+public final class Mixture extends Item implements Parcelable {
 
     /**
      * Constructor.
      *
-     * @param id the id of the Drink.
-     * @param name the name of the Drink.
-     * @param description the description of the Drink.
-     * @param image the image file name of the Drink.
+     * @param id the id of the Mixture.
+     * @param name the name of the Mixture.
+     * @param description the description of the Mixture.
      */
-    public Drink(@NonNull String id, @NonNull String name,
-                 @Nullable String description, @NonNull String image) {
+    public Mixture(@NonNull String id, @NonNull String name, @Nullable String description) {
         mId = id;
         mName = name;
         mDescription = description;
-        mImageName = image;
     }
 
-    private Drink(Parcel in) {
+    private Mixture(Parcel in) {
         mId = in.readString();
         mName = in.readString();
         mDescription = in.readString();
-        mImageName = in.readString();
     }
 
-    public static final Creator<Drink> CREATOR = new Creator<Drink>() {
+    public static final Creator<Mixture> CREATOR = new Creator<Mixture>() {
         @Override
-        public Drink createFromParcel(Parcel in) {
-            return new Drink(in);
+        public Mixture createFromParcel(Parcel in) {
+            return new Mixture(in);
         }
 
         @Override
-        public Drink[] newArray(int size) {
-            return new Drink[size];
+        public Mixture[] newArray(int size) {
+            return new Mixture[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mName);
+        dest.writeString(mDescription);
+    }
 
     /**
      * Empty object method.
@@ -65,7 +67,7 @@ public final class Drink extends Item implements Parcelable {
     }
 
     /**
-     * Compares one side Drink object to this one.
+     * Compares one Mixture object to this one.
      *
      * @param o the object that wants to be compared.
      * @return true if both objects are equal, otherwise false.
@@ -74,9 +76,10 @@ public final class Drink extends Item implements Parcelable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Drink Drink = (Drink) o;
-
-        return Objects.equal(getId(), Drink.getId());
+        Mixture sideDish = (Mixture) o;
+        return Objects.equal(getId(), sideDish.getId()) &&
+                Objects.equal(getName(), sideDish.getName()) &&
+                Objects.equal(getDescription(), sideDish.getDescription());
     }
 
     /**
@@ -97,28 +100,5 @@ public final class Drink extends Item implements Parcelable {
     @Override
     public String toString() {
         return getName();
-    }
-
-    /**
-     * Gets the Drink image file name.
-     *
-     * @return the Drink image file name.
-     */
-    @NonNull
-    public String getImageName() {
-        return mImageName;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
-        dest.writeString(mName);
-        dest.writeString(mDescription);
-        dest.writeString(mImageName);
     }
 }

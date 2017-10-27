@@ -11,9 +11,11 @@ import android.util.Log;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.DishSize;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
+import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.DishEntry;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.DrinkEntry;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.MixtureEntry;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.PersistenceContract.SideDishEntry;
 
 import java.io.BufferedReader;
@@ -72,6 +74,83 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
+    public void getAllInfo(@NonNull LoadAllInfoCallback callback) {
+        List<Dish> dishes = new ArrayList<>();
+        List<SideDish> sideDishes = new ArrayList<>();
+        List<Mixture> mixtures = new ArrayList<>();
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projectionSideDishes = {
+                SideDishEntry.COLUMN_NAME_ENTRY_ID,
+                SideDishEntry.COLUMN_NAME_NAME,
+                SideDishEntry.COLUMN_NAME_DESCRIPTION
+        };
+
+        String[] projectionMixture = {
+                MixtureEntry.COLUMN_NAME_ENTRY_ID,
+                MixtureEntry.COLUMN_NAME_NAME,
+                MixtureEntry.COLUMN_NAME_DESCRIPTION
+        };
+
+        String[] projection = {
+                DishEntry.COLUMN_NAME_ENTRY_ID,
+                DishEntry.COLUMN_NAME_NAME,
+                DishEntry.COLUMN_NAME_DESCRIPTION,
+                DishEntry.COLUMN_NAME_DISH_SIZE,
+                DishEntry.COLUMN_NAME_IMAGE_NAME,
+                DishEntry.COLUMN_NAME_MIXTURE_ID
+        };
+
+        Cursor c = db.query(SideDishEntry.TABLE_NAME, projectionSideDishes, null,
+                null, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                SideDish sideDish = getSideDishFromCursor(c);
+
+                sideDishes.add(sideDish);
+            }
+
+            c.close();
+        }
+
+        c = db.query(MixtureEntry.TABLE_NAME, projectionMixture, null,
+                null, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Mixture mixture = getMixtureFromCursor(c);
+
+                mixtures.add(mixture);
+            }
+
+            c.close();
+        }
+
+        c = db.query(DishEntry.TABLE_NAME, projection, null,
+                null, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Dish dish = getDishFromCursor(c);
+
+                dishes.add(dish);
+            }
+
+            c.close();
+        }
+
+        db.close();
+
+        if (dishes.isEmpty() || sideDishes.isEmpty() || mixtures.isEmpty()) {
+            // This will be called if the table is new or just empty.
+            callback.onDataNotAvailable();
+        } else {
+            callback.onDishesLoaded(dishes, sideDishes, mixtures);
+        }
+    }
+
+    @Override
     public void getDishes(@NonNull LoadDishesCallback callback) {
         List<Dish> dishes = new ArrayList<>();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -82,8 +161,8 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_DESCRIPTION,
                 DishEntry.COLUMN_NAME_DISH_SIZE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
-                DishEntry.COLUMN_NAME_SIDE_DISH_ID,
-                DishEntry.COLUMN_NAME_MIXTURE_ID
+                DishEntry.COLUMN_NAME_MIXTURE_ID,
+                DishEntry.COLUMN_NAME_SIDE_DISH_ID
         };
 
         Cursor c = db.query(
@@ -91,7 +170,7 @@ public class LocalDataSource implements DataSource {
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
-                Dish dish = getDishFromCursor(c);
+                Dish dish = getCompleteDishFromCursor(c);
 
                 dishes.add(dish);
 
@@ -158,8 +237,8 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_DESCRIPTION,
                 DishEntry.COLUMN_NAME_DISH_SIZE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
-                DishEntry.COLUMN_NAME_SIDE_DISH_ID,
-                DishEntry.COLUMN_NAME_MIXTURE_ID
+                DishEntry.COLUMN_NAME_MIXTURE_ID,
+                DishEntry.COLUMN_NAME_SIDE_DISH_ID
         };
 
         String selection = DishEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
@@ -173,7 +252,7 @@ public class LocalDataSource implements DataSource {
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
 
-            dish = getDishFromCursor(c);
+            dish = getCompleteDishFromCursor(c);
 
             c.close();
         }
@@ -212,13 +291,31 @@ public class LocalDataSource implements DataSource {
                 values.put(DishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
                 values.put(DishEntry.COLUMN_NAME_DISH_SIZE, lineValues[2]);
                 values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[3]);
-                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[4]);
-                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[5]);
+                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[4]);
+                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[5]);
 
                 db.insert(DishEntry.TABLE_NAME, null, values);
                 i++;
             }
 
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open("mixtures.info")))) {
+            i = 0;
+
+            while ((currentLine = br.readLine()) != null) {
+                lineValues = currentLine.split(";");
+
+                values = new ContentValues();
+                values.put(MixtureEntry.COLUMN_NAME_ENTRY_ID, i);
+                values.put(MixtureEntry.COLUMN_NAME_NAME, lineValues[0]);
+                values.put(MixtureEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
+
+                db.insert(MixtureEntry.TABLE_NAME, null, values);
+                i++;
+            }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
         }
@@ -233,7 +330,6 @@ public class LocalDataSource implements DataSource {
                 values.put(SideDishEntry.COLUMN_NAME_ENTRY_ID, i);
                 values.put(SideDishEntry.COLUMN_NAME_NAME, lineValues[0]);
                 values.put(SideDishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
-                values.put(SideDishEntry.COLUMN_NAME_IS_MIXTURE, lineValues[2]);
 
                 db.insert(SideDishEntry.TABLE_NAME, null, values);
                 i++;
@@ -300,37 +396,76 @@ public class LocalDataSource implements DataSource {
     }
 
     /**
-     * Gets a dish from a single database cursor.
+     * Gets a complete dish object from a single database cursor.
      *
      * @param c the cursor itself.
      * @return the dish object retrived from the cursor database.
      */
-    private Dish getDishFromCursor(Cursor c) {
+    private Dish getCompleteDishFromCursor(Cursor c) {
         ArrayList<SideDish> sideDishes = new ArrayList<>();
-        ArrayList<SideDish> mixtures = new ArrayList<>();
 
+        Dish defaultDish = getDishFromCursor(c);
+
+        String sideDishesIds = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_SIDE_DISH_ID));
+        String[] sideDishesIdsSplitted = sideDishesIds.split(",");
+        sideDishes.addAll(getSideDishesFromIds(sideDishesIdsSplitted));
+
+        return new Dish(defaultDish.getId(), defaultDish.getName(), defaultDish.getDescription(),
+                defaultDish.getSize(), defaultDish.getImageName(), sideDishes, defaultDish.getMixture());
+    }
+
+    /**
+     * Gets a dish from a single database cursor.
+     *
+     * @param c the cursor itself.
+     * @return the dish object retrieved from the cursor database.
+     */
+    private Dish getDishFromCursor(Cursor c) {
         String itemId = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_ENTRY_ID));
         String name = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_NAME));
         String description = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_DESCRIPTION));
         DishSize size = DishSize.valueOf(c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_DISH_SIZE)));
         String imageName = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_IMAGE_NAME));
-        String sideDishesIds = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_SIDE_DISH_ID));
-        String mixturesIds = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_MIXTURE_ID));
 
-        String[] sideDishesIdsSplitted = sideDishesIds.split(",");
-        String[] mixturesIdsSplitted = mixturesIds.split(",");
+        String mixtureId = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_MIXTURE_ID));
+        Mixture mixture = getMixtureFromId(mixtureId);
 
-        sideDishes.addAll(getSideDishes(sideDishesIdsSplitted));
-        mixtures.addAll(getSideDishes(mixturesIdsSplitted));
+        return new Dish(itemId, name, description, size, imageName, mixture);
+    }
 
-        return new Dish(itemId, name, description, size, imageName, sideDishes, mixtures);
+    /**
+     * Gets a side dish from a single database cursor.
+     *
+     * @param c the cursor itself.
+     * @return the side dish object retrieved from the cursor database.
+     */
+    private SideDish getSideDishFromCursor(Cursor c) {
+        String itemId = c.getString(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_ENTRY_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_DESCRIPTION));
+
+        return new SideDish(itemId, name, description);
+    }
+
+    /**
+     * Gets a mixture from a single database cursor.
+     *
+     * @param c the cursor itself.
+     * @return the mixture object retrieved from the cursor database.
+     */
+    private Mixture getMixtureFromCursor(Cursor c) {
+        String itemId = c.getString(c.getColumnIndexOrThrow(MixtureEntry.COLUMN_NAME_ENTRY_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(MixtureEntry.COLUMN_NAME_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(MixtureEntry.COLUMN_NAME_DESCRIPTION));
+
+        return new Mixture(itemId, name, description);
     }
 
     /**
      * Gets a drink from a single database cursor.
      *
      * @param c the cursor itself.
-     * @return the drink object retrived from the cursor database.
+     * @return the drink object retrieved from the cursor database.
      */
     private Drink getDrinkFromCursor(Cursor c) {
         String itemId = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_ENTRY_ID));
@@ -342,12 +477,41 @@ public class LocalDataSource implements DataSource {
     }
 
     /**
+     * Gets the mixture from a dish.
+     *
+     * @param id the mixture id.
+     * @return the mixture object from a dish.
+     */
+    private Mixture getMixtureFromId(String id) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Mixture mixture = null;
+
+        try {
+            String query = "SELECT * FROM " + MixtureEntry.TABLE_NAME
+                    + " WHERE " + MixtureEntry.COLUMN_NAME_ENTRY_ID + " = '" + id + "'";
+            Cursor c = db.rawQuery(query, null);
+
+            if (c != null && c.getCount() > 0) {
+                if (c.moveToNext()) {
+                    mixture = getMixtureFromCursor(c);
+                }
+
+                c.close();
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+        }
+
+        return mixture;
+    }
+
+    /**
      * Gets a list of side dishes.
      *
-     * @param sideDishes the side sishes array ids.
+     * @param sideDishes the side dishes array ids.
      * @return the list of side dishes objects retrieved from data base.
      */
-    private List<SideDish> getSideDishes(String[] sideDishes) {
+    private List<SideDish> getSideDishesFromIds(String[] sideDishes) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         ArrayList<SideDish> sideDishesList = new ArrayList<>();
 
@@ -358,12 +522,7 @@ public class LocalDataSource implements DataSource {
 
             if (c != null && c.getCount() > 0) {
                 while (c.moveToNext()) {
-                    String itemId = c.getString(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_ENTRY_ID));
-                    String name = c.getString(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_NAME));
-                    String description = c.getString(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_DESCRIPTION));
-                    boolean isMixture = c.getInt(c.getColumnIndexOrThrow(SideDishEntry.COLUMN_NAME_IS_MIXTURE)) == 1;
-
-                    SideDish sideDish = new SideDish(itemId, name, description, isMixture);
+                    SideDish sideDish = getSideDishFromCursor(c);
 
                     sideDishesList.add(sideDish);
                 }

@@ -41,6 +41,11 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     public static final int ACTIVITY_RESULT_DRINK = 0;
 
     /**
+     * Holds the Activity For Result code for Edit Dish activity.
+     */
+    public static final int ACTIVITY_RESULT_EDIT_DISH = 1;
+
+    /**
      * Holds the extra section for intent selected dish.
      */
     public static final String EXTRA_SELECTED_DISH = "selected_dish";
@@ -71,10 +76,13 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     };
 
     /**
-     * Holds the received dish.
+     * Holds the current dish.
      */
-    private Dish mReceivedDish;
+    private Dish mCurrentDish;
 
+    /**
+     * Holds the selected drink.
+     */
     private Drink mSelectedDrink;
 
     /**
@@ -125,7 +133,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         editDishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mItemListener.onEditDishButtonClick(mReceivedDish);
+                mItemListener.onEditDishButtonClick(mCurrentDish);
             }
         });
 
@@ -133,7 +141,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mItemListener.onPaymentButtonClick(mReceivedDish);
+                mItemListener.onPaymentButtonClick(mCurrentDish);
             }
         });
 
@@ -142,11 +150,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         for (int i = 0; i < mDishInformationTextViewsIds.length; i++ ) {
             mDishInformationTextViews[i] = (TextView) findViewById(mDishInformationTextViewsIds[i]);
         }
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         mPresenter.start();
     }
 
@@ -163,25 +167,32 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         }
 
         Bundle data = getIntent().getExtras();
-        mReceivedDish = data.getParcelable(EXTRA_SELECTED_DISH);
+        mCurrentDish = data.getParcelable(EXTRA_SELECTED_DISH);
 
-        if (mReceivedDish == null) {
+        if (mCurrentDish == null) {
             Log.e(LOG_TAG, "Received dish is null");
             return;
         }
 
+        updateScreen();
+    }
+
+    /**
+     * Updates the screen with current dish.
+     */
+    private void updateScreen() {
         // name
-        String name = getString(R.string.dish) + " " + mReceivedDish.getName();
+        String name = getString(R.string.dish) + " " + mCurrentDish.getName();
         mDishInformationTextViews[0].setText(name);
 
         // description
-        String description = getString(R.string.description) + " " + mReceivedDish.getDescription();
+        String description = getString(R.string.description) + " " + mCurrentDish.getDescription();
         mDishInformationTextViews[1].setText(description);
 
         StringBuilder sideDishesStrBld = new StringBuilder();
         StringBuilder mixturesStrBld = new StringBuilder();
 
-        for (SideDish sideDish : mReceivedDish.getSideDishes()) {
+        for (SideDish sideDish : mCurrentDish.getSideDishes()) {
             sideDishesStrBld.append(sideDish.getName()).append(", ");
         }
 
@@ -189,16 +200,12 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         String sideDishes = getString(R.string.side_dishes) + " " + sideDishesStrBld.substring(0, sideDishesStrBld.length() - 2);
         mDishInformationTextViews[2].setText(sideDishes);
 
-        for (SideDish mixture : mReceivedDish.getMixtures()) {
-            mixturesStrBld.append(mixture.getName()).append(", ");
-        }
-
         // mixtures
-        String mixtures = getString(R.string.mixtures) + " " + mixturesStrBld.substring(0, mixturesStrBld.length() - 2);
+        String mixtures = getString(R.string.mixtures) + " " + mCurrentDish.getMixture().getName();
         mDishInformationTextViews[3].setText(mixtures);
 
         try {
-            InputStream ims = getAssets().open(mReceivedDish.getImageName());
+            InputStream ims = getAssets().open(mCurrentDish.getImageName());
 
             // load image as Drawable
             Drawable drawable = Drawable.createFromStream(ims, null);
@@ -230,6 +237,18 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
                 Toast.makeText(this, R.string.drink_not_selected, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.drink_error, Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == ACTIVITY_RESULT_EDIT_DISH) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                mCurrentDish = bundle.getParcelable(EditDishActivity.EXTRA_EDIT_DISH);
+
+                if (mCurrentDish == null) {
+                    Log.e(LOG_TAG, "New dish is null");
+                    return;
+                }
+
+                updateScreen();
             }
         }
     }

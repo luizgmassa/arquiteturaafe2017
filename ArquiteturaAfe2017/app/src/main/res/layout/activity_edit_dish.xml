@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.motorola.eldorado.arquiteturaafe2017.view.EditDishActivity">
+
+    <Spinner
+        android:id="@+id/activity_edit_dish_mixture_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/activity_edit_dish_mixture_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_mixture_spinner"
+        android:layout_margin="10dp" />
+
+    <Spinner
+        android:id="@+id/activity_edit_dish_side_dish1_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_mixture_description"/>
+
+    <TextView
+        android:id="@+id/activity_edit_dish_side_dish1_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_side_dish1_spinner"
+        android:layout_margin="10dp" />
+
+    <Spinner
+        android:id="@+id/activity_edit_dish_side_dish2_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_side_dish1_description"/>
+
+    <TextView
+        android:id="@+id/activity_edit_dish_side_dish2_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_side_dish2_spinner"
+        android:layout_margin="10dp" />
+
+    <Spinner
+        android:id="@+id/activity_edit_dish_side_dish3_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_side_dish2_description"/>
+
+    <TextView
+        android:id="@+id/activity_edit_dish_side_dish3_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_side_dish3_spinner"
+        android:layout_margin="10dp" />
+
+    <Spinner
+        android:id="@+id/activity_edit_dish_dish_size_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_side_dish3_description"/>
+
+    <Button
+        android:id="@+id/activity_edit_dish_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_edit_dish_dish_size_spinner"
+        android:text="@string/activity_edit_dish_save" />
+
+</RelativeLayout>

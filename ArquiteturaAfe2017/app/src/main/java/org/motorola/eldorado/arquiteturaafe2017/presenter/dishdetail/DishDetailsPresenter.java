@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.view.DishDetailsActivity;
 import org.motorola.eldorado.arquiteturaafe2017.view.DrinksActivity;
+import org.motorola.eldorado.arquiteturaafe2017.view.EditDishActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -15,11 +16,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * The Dish Details Presenter class.
  */
 public class DishDetailsPresenter implements DishDetailsContract.Presenter {
-
-    /**
-     * Holds the Log Tag for this class.
-     */
-    private static final String LOG_TAG = DishDetailsPresenter.class.getSimpleName();
 
     /**
      * Holds the instance of View contract.
@@ -48,8 +44,10 @@ public class DishDetailsPresenter implements DishDetailsContract.Presenter {
     }
 
     @Override
-    public void openEditDish(Context context, @NonNull Dish selectedDish) {
-        // TODO open edit dash activity
+    public void openEditDish(Activity activity, @NonNull Dish dishToEdit) {
+        Intent intent = new Intent(activity, EditDishActivity.class);
+        intent.putExtra(EditDishActivity.EXTRA_EDIT_DISH, dishToEdit);
+        activity.startActivityForResult(intent, DishDetailsActivity.ACTIVITY_RESULT_EDIT_DISH);
     }
 
     @Override

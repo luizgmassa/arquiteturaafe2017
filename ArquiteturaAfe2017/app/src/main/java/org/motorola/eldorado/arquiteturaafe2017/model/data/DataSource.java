@@ -5,11 +5,13 @@ import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
+import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
+import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 
 import java.util.List;
 
 /**
- * The Dishes Data Source class.
+ * The Data Source interface.
  */
 interface DataSource {
 
@@ -24,6 +26,26 @@ interface DataSource {
          * @param dishes the list of dishes.
          */
         void onDishesLoaded(List<Dish> dishes);
+
+        /**
+         * Callback for when dishes data are not available.
+         */
+        void onDataNotAvailable();
+    }
+
+    /**
+     * The interface for Edit Dish callback. Do the communication between Edit Dish Presenter and Data Source.
+     */
+    interface LoadAllInfoCallback {
+
+        /**
+         * Callback for when dishes have been loaded.
+         *
+         * @param dishes the list of dishes.
+         * @param sideDishes the list of side dishes.
+         * @param mixtures the list of mixture.
+         */
+        void onDishesLoaded(List<Dish> dishes, List<SideDish> sideDishes, List<Mixture> mixtures);
 
         /**
          * Callback for when dishes data are not available.
@@ -66,6 +88,13 @@ interface DataSource {
          */
         void onDataNotAvailable();
     }
+
+    /**
+     * The callback used to Get All Db Info. Used on Edit Dish Presenter.
+     *
+     * @param callback the load all info callback.
+     */
+    void getAllInfo(@NonNull LoadAllInfoCallback callback);
 
     /**
      * The callback used to Get Dishes. Used on Dishes Presenter.
