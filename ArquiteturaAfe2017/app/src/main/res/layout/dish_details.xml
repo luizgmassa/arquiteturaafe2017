@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/activity_dish_detail_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_dish_detail_image"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/dish" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_dish_detail_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_text_view"
+        android:layout_below="@id/activity_dish_detail_text_view"
+        android:layout_margin="10dp"
+        android:layout_toEndOf="@+id/activity_dish_detail_text_view" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_description_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_dish_detail_name"
+        android:layout_margin="10dp"
+        android:text="@string/description" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_dish_detail_description_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_description_text_view"
+        android:layout_below="@id/activity_dish_detail_description_text_view"
+        android:layout_margin="10dp"
+        android:layout_toEndOf="@+id/activity_dish_detail_description_text_view" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_side_dishes_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_dish_detail_description"
+        android:layout_margin="10dp"
+        android:text="@string/side_dishes" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_side_dishes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_dish_detail_side_dishes_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_side_dishes_text_view"
+        android:layout_below="@id/activity_dish_detail_side_dishes_text_view"
+        android:layout_margin="10dp"
+        android:layout_toEndOf="@+id/activity_dish_detail_side_dishes_text_view" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_mixture_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_dish_detail_side_dishes"
+        android:layout_margin="10dp"
+        android:text="@string/mixture" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_mixture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_dish_detail_mixture_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_mixture_text_view"
+        android:layout_below="@id/activity_dish_detail_mixture_text_view"
+        android:layout_margin="10dp"
+        android:layout_toEndOf="@+id/activity_dish_detail_mixture_text_view" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_drink_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_dish_detail_mixture"
+        android:layout_margin="10dp"
+        android:text="@string/drink" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_selected_drink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_dish_detail_drink_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_drink_text_view"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@+id/activity_dish_detail_drink_text_view"
+        android:text="@string/activity_dish_detail_no_drink_selected" />
+
+    <Button
+        android:id="@+id/activity_dish_detail_drinks_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/activity_dish_detail_selected_drink"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/button_drinks" />
+
+</RelativeLayout>

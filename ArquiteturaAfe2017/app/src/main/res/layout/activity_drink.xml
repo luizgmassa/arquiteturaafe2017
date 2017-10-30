@@ -8,13 +8,15 @@
     <Spinner
         android:id="@+id/activity_drink_spinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
 
     <Button
         android:id="@+id/activity_drink_ok_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_drink_spinner"
+        android:layout_margin="10dp"
         android:text="@string/activity_drink_select_button" />
 
 </RelativeLayout>

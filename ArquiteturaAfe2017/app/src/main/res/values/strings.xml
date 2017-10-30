@@ -10,14 +10,18 @@
     <string name="dish">Prato: </string>
     <string name="description">Descrição: </string>
     <string name="side_dishes">Acompanhamento(s): </string>
-    <string name="mixtures">Mistura: </string>
+    <string name="mixture">Mistura: </string>
     <string name="drink">Bebida:</string>
     <string name="button_drinks">Bebida</string>
     <string name="activity_dish_detail_no_drink_selected">Nada selecionado</string>
+    <string name="activity_payment_no_drink_selected">Nada selecionado</string>
     <string name="activity_drink_select_button">Selecionar</string>
     <string name="drink_error">Erro ao escolher a bebida</string>
     <string name="drink_activity_loading_drinks">Carregando bebidas...</string>
     <string name="drink_not_selected">Nenhuma bebida selecionada</string>
     <string name="edit_dish_activity_loading_dishes">Carregando todos os pratos ...</string>
     <string name="activity_edit_dish_save">Salvar</string>
+    <string name="activity_payment_value">Valor:</string>
+    <string name="activity_payment_order">Fazer pedido</string>
+    <string name="size">Tamanho:</string>
 </resources>

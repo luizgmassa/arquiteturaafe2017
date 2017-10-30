@@ -3,7 +3,6 @@ package org.motorola.eldorado.arquiteturaafe2017.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -14,31 +13,13 @@ import com.google.common.base.Strings;
 public final class SideDish extends Item implements Parcelable {
 
     /**
-     * Holds the Side Dish id.
-     */
-    @NonNull
-    private final String mId;
-
-    /**
-     * Holds the Side Dish name.
-     */
-    @NonNull
-    private final String mName;
-
-    /**
-     * Holds the Side Dish description.
-     */
-    @Nullable
-    private final String mDescription;
-
-    /**
      * Constructor.
      *
      * @param id the id of the side dish.
      * @param name the name of the side dish.
      * @param description the description of the side dish.
      */
-    public SideDish(@NonNull String id, @NonNull String name, @Nullable String description) {
+    public SideDish(@NonNull String id, @NonNull String name, @NonNull String description) {
         mId = id;
         mName = name;
         mDescription = description;
@@ -64,7 +45,7 @@ public final class SideDish extends Item implements Parcelable {
 
     @Override
     public int describeContents() {
-        return 1;
+        return 0;
     }
 
     @Override

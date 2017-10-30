@@ -72,7 +72,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
             R.id.activity_dish_detail_name,
             R.id.activity_dish_detail_description,
             R.id.activity_dish_detail_side_dishes,
-            R.id.activity_dish_detail_mixtures
+            R.id.activity_dish_detail_mixture
     };
 
     /**
@@ -111,10 +111,6 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dish_detail);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         mPresenter = new DishDetailsPresenter(this);
 
@@ -182,26 +178,25 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
      */
     private void updateScreen() {
         // name
-        String name = getString(R.string.dish) + " " + mCurrentDish.getName();
+        String name = mCurrentDish.getName();
         mDishInformationTextViews[0].setText(name);
 
         // description
-        String description = getString(R.string.description) + " " + mCurrentDish.getDescription();
+        String description = mCurrentDish.getDescription();
         mDishInformationTextViews[1].setText(description);
 
         StringBuilder sideDishesStrBld = new StringBuilder();
-        StringBuilder mixturesStrBld = new StringBuilder();
 
         for (SideDish sideDish : mCurrentDish.getSideDishes()) {
             sideDishesStrBld.append(sideDish.getName()).append(", ");
         }
 
         // side dishes
-        String sideDishes = getString(R.string.side_dishes) + " " + sideDishesStrBld.substring(0, sideDishesStrBld.length() - 2);
+        String sideDishes = sideDishesStrBld.substring(0, sideDishesStrBld.length() - 2);
         mDishInformationTextViews[2].setText(sideDishes);
 
         // mixtures
-        String mixtures = getString(R.string.mixtures) + " " + mCurrentDish.getMixture().getName();
+        String mixtures = mCurrentDish.getMixture().getName();
         mDishInformationTextViews[3].setText(mixtures);
 
         try {
