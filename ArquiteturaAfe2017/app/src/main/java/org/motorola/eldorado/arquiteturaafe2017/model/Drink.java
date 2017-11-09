@@ -14,6 +14,11 @@ import com.google.common.base.Strings;
 public final class Drink extends Item implements Parcelable {
 
     /**
+     * Holds the price of the drink.
+     */
+    private float mPrice;
+
+    /**
      * Holds the Drink image file name.
      */
     @NonNull
@@ -25,13 +30,15 @@ public final class Drink extends Item implements Parcelable {
      * @param id the id of the Drink.
      * @param name the name of the Drink.
      * @param description the description of the Drink.
+     * @param price the price of the Drink.
      * @param image the image file name of the Drink.
      */
     public Drink(@NonNull String id, @NonNull String name,
-                 @Nullable String description, @NonNull String image) {
+                 @Nullable String description, float price, @NonNull String image) {
         mId = id;
         mName = name;
         mDescription = description;
+        mPrice = price;
         mImageName = image;
     }
 
@@ -39,6 +46,7 @@ public final class Drink extends Item implements Parcelable {
         mId = in.readString();
         mName = in.readString();
         mDescription = in.readString();
+        mPrice = in.readFloat();
         mImageName = in.readString();
     }
 
@@ -119,6 +127,16 @@ public final class Drink extends Item implements Parcelable {
         dest.writeString(mId);
         dest.writeString(mName);
         dest.writeString(mDescription);
+        dest.writeFloat(mPrice);
         dest.writeString(mImageName);
+    }
+
+    /**
+     * Gets the Drink price.
+     *
+     * @return the drink price.
+     */
+    public float getPrice() {
+        return mPrice;
     }
 }

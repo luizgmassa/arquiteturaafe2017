@@ -91,8 +91,11 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     private final ButtonsClickListener mItemListener = new ButtonsClickListener() {
 
         @Override
-        public void onPaymentButtonClick(Dish currentDish) {
-            mPresenter.openPayment(DishDetailsActivity.this, currentDish);
+        public void onPaymentButtonClick(Dish currentDish, Drink currentDrink) {
+            Intent intent = new Intent(DishDetailsActivity.this, PaymentActivity.class);
+            intent.putExtra(PaymentActivity.EXTRA_DISH_TO_PAY, currentDish);
+            intent.putExtra(PaymentActivity.EXTRA_DRINK_TO_PAY, currentDrink);
+            startActivity(intent);
         }
 
         @Override
@@ -137,7 +140,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mItemListener.onPaymentButtonClick(mCurrentDish);
+                mItemListener.onPaymentButtonClick(mCurrentDish, mSelectedDrink);
             }
         });
 
@@ -257,8 +260,9 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
          * The Click Listener method called when user clicks on Payment button.
          *
          * @param currentDish the clicked dish object.
+         * @param currentDrink the clicked drink object.
          */
-        void onPaymentButtonClick(Dish currentDish);
+        void onPaymentButtonClick(Dish currentDish, Drink currentDrink);
 
         /**
          * The Click Listener method called when user clicks on Edit Dish button.

@@ -1,7 +1,6 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
@@ -48,11 +47,6 @@ public class DishDetailsPresenter implements DishDetailsContract.Presenter {
         Intent intent = new Intent(activity, EditDishActivity.class);
         intent.putExtra(EditDishActivity.EXTRA_EDIT_DISH, dishToEdit);
         activity.startActivityForResult(intent, DishDetailsActivity.ACTIVITY_RESULT_EDIT_DISH);
-    }
-
-    @Override
-    public void openPayment(Context context, @NonNull Dish selectedDish) {
-        // TODO open payment activity
     }
 
     @Override

@@ -96,7 +96,7 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_ENTRY_ID,
                 DishEntry.COLUMN_NAME_NAME,
                 DishEntry.COLUMN_NAME_DESCRIPTION,
-                DishEntry.COLUMN_NAME_DISH_SIZE,
+                DishEntry.COLUMN_NAME_SIZE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
                 DishEntry.COLUMN_NAME_MIXTURE_ID
         };
@@ -159,7 +159,8 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_ENTRY_ID,
                 DishEntry.COLUMN_NAME_NAME,
                 DishEntry.COLUMN_NAME_DESCRIPTION,
-                DishEntry.COLUMN_NAME_DISH_SIZE,
+                DishEntry.COLUMN_NAME_SIZE,
+                DishEntry.COLUMN_NAME_PRICE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
                 DishEntry.COLUMN_NAME_MIXTURE_ID,
                 DishEntry.COLUMN_NAME_SIDE_DISH_ID
@@ -199,6 +200,7 @@ public class LocalDataSource implements DataSource {
                 DrinkEntry.COLUMN_NAME_ENTRY_ID,
                 DrinkEntry.COLUMN_NAME_NAME,
                 DrinkEntry.COLUMN_NAME_DESCRIPTION,
+                DrinkEntry.COLUMN_NAME_PRICE,
                 DrinkEntry.COLUMN_NAME_IMAGE_NAME
         };
 
@@ -235,7 +237,8 @@ public class LocalDataSource implements DataSource {
                 DishEntry.COLUMN_NAME_ENTRY_ID,
                 DishEntry.COLUMN_NAME_NAME,
                 DishEntry.COLUMN_NAME_DESCRIPTION,
-                DishEntry.COLUMN_NAME_DISH_SIZE,
+                DishEntry.COLUMN_NAME_SIZE,
+                DishEntry.COLUMN_NAME_PRICE,
                 DishEntry.COLUMN_NAME_IMAGE_NAME,
                 DishEntry.COLUMN_NAME_MIXTURE_ID,
                 DishEntry.COLUMN_NAME_SIDE_DISH_ID
@@ -289,10 +292,11 @@ public class LocalDataSource implements DataSource {
                 values.put(DishEntry.COLUMN_NAME_ENTRY_ID, i);
                 values.put(DishEntry.COLUMN_NAME_NAME, lineValues[0]);
                 values.put(DishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
-                values.put(DishEntry.COLUMN_NAME_DISH_SIZE, lineValues[2]);
-                values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[3]);
-                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[4]);
-                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[5]);
+                values.put(DishEntry.COLUMN_NAME_SIZE, lineValues[2]);
+                values.put(DishEntry.COLUMN_NAME_PRICE, lineValues[3]);
+                values.put(DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[4]);
+                values.put(DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[5]);
+                values.put(DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[6]);
 
                 db.insert(DishEntry.TABLE_NAME, null, values);
                 i++;
@@ -364,7 +368,8 @@ public class LocalDataSource implements DataSource {
                 values.put(DrinkEntry.COLUMN_NAME_ENTRY_ID, i);
                 values.put(DrinkEntry.COLUMN_NAME_NAME, lineValues[0]);
                 values.put(DrinkEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
-                values.put(DrinkEntry.COLUMN_NAME_IMAGE_NAME, lineValues[2]);
+                values.put(DrinkEntry.COLUMN_NAME_PRICE, lineValues[2]);
+                values.put(DrinkEntry.COLUMN_NAME_IMAGE_NAME, lineValues[3]);
 
                 db.insert(DrinkEntry.TABLE_NAME, null, values);
                 i++;
@@ -411,7 +416,8 @@ public class LocalDataSource implements DataSource {
         sideDishes.addAll(getSideDishesFromIds(sideDishesIdsSplitted));
 
         return new Dish(defaultDish.getId(), defaultDish.getName(), defaultDish.getDescription(),
-                defaultDish.getSize(), defaultDish.getImageName(), sideDishes, defaultDish.getMixture());
+                defaultDish.getSize(), defaultDish.getPrice(), defaultDish.getImageName(),
+                sideDishes, defaultDish.getMixture());
     }
 
     /**
@@ -424,13 +430,14 @@ public class LocalDataSource implements DataSource {
         String itemId = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_ENTRY_ID));
         String name = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_NAME));
         String description = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_DESCRIPTION));
-        DishSize size = DishSize.valueOf(c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_DISH_SIZE)));
+        DishSize size = DishSize.valueOf(c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_SIZE)));
+        float price = c.getFloat(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_PRICE));
         String imageName = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_IMAGE_NAME));
 
         String mixtureId = c.getString(c.getColumnIndexOrThrow(DishEntry.COLUMN_NAME_MIXTURE_ID));
         Mixture mixture = getMixtureFromId(mixtureId);
 
-        return new Dish(itemId, name, description, size, imageName, mixture);
+        return new Dish(itemId, name, description, size, price, imageName, mixture);
     }
 
     /**
@@ -471,9 +478,10 @@ public class LocalDataSource implements DataSource {
         String itemId = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_ENTRY_ID));
         String name = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_NAME));
         String description = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_DESCRIPTION));
+        float price = c.getFloat(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_PRICE));
         String imageName = c.getString(c.getColumnIndexOrThrow(DrinkEntry.COLUMN_NAME_IMAGE_NAME));
 
-        return new Drink(itemId, name, description, imageName);
+        return new Drink(itemId, name, description, price, imageName);
     }
 
     /**

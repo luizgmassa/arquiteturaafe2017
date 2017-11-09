@@ -1,7 +1,6 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
@@ -41,14 +40,6 @@ public interface DishDetailsContract {
          * @param dishToEdit the dish to edit item on the View (UI).
          */
         void openEditDish(Activity activity, @NonNull Dish dishToEdit);
-
-        /**
-         * Method called when the View (UI) wants to open the Payment activity.
-         *
-         * @param context the context.
-         * @param selectedDish the dish item on the View (UI).
-         */
-        void openPayment(Context context, @NonNull Dish selectedDish);
 
         /**
          * Method called when the View (UI) wants to open the Select Drink activity.

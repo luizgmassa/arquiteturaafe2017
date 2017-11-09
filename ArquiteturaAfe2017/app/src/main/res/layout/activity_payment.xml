@@ -1,42 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.motorola.eldorado.arquiteturaafe2017.view.PaymentActivity">
 
-    <include
-        android:id="@+id/activity_payment_common_details"
-        layout="@layout/dish_details" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/activity_payment_payment_methods_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_payment_common_details" />
+        <include
+            android:id="@+id/activity_payment_common_details"
+            layout="@layout/dish_details" />
 
-    <TextView
-        android:id="@+id/activity_payment_value_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_payment_payment_methods_spinner"
-        android:layout_margin="10dp"
-        android:text="@string/activity_payment_value" />
+        <TextView
+            android:id="@+id/activity_payment_dish_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_payment_common_details"
+            android:layout_margin="10dp"
+            android:text="@string/activity_payment_dish_price" />
 
-    <TextView
-        android:id="@+id/activity_payment_value_final"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_payment_value_text_view"
-        android:layout_margin="10dp" />
+        <TextView
+            android:id="@+id/activity_payment_dish_price_final"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/activity_payment_dish_price_text_view"
+            android:layout_alignBottom="@+id/activity_payment_dish_price_text_view"
+            android:layout_toEndOf="@+id/activity_payment_dish_price_text_view"
+            android:text="@string/activity_payment_default_price" />
 
-    <Button
-        android:id="@+id/activity_payment_order_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_payment_value_final"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/activity_payment_order" />
+        <TextView
+            android:id="@+id/activity_payment_drink_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_payment_dish_price_text_view"
+            android:layout_margin="10dp"
+            android:text="@string/activity_payment_drink_price" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/activity_payment_drink_price_final"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/activity_payment_drink_price_text_view"
+            android:layout_alignBottom="@+id/activity_payment_drink_price_text_view"
+            android:layout_toEndOf="@+id/activity_payment_drink_price_text_view"
+            android:text="@string/activity_payment_default_price" />
+
+        <TextView
+            android:id="@+id/activity_payment_final_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_payment_drink_price_text_view"
+            android:layout_margin="10dp"
+            android:text="@string/activity_payment_final_price" />
+
+        <TextView
+            android:id="@+id/activity_payment_final_price_final"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/activity_payment_final_price_text_view"
+            android:layout_alignBottom="@+id/activity_payment_final_price_text_view"
+            android:layout_toEndOf="@+id/activity_payment_final_price_text_view"
+            android:text="@string/activity_payment_default_price" />
+
+        <Spinner
+            android:id="@+id/activity_payment_payment_methods_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_payment_final_price_final"
+            android:layout_margin="10dp"
+            android:entries="@array/payment_methods" />
+
+        <Button
+            android:id="@+id/activity_payment_order_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_payment_payment_methods_spinner"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/activity_payment_order" />
+
+    </RelativeLayout>
+
+</ScrollView>

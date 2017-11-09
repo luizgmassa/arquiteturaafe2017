@@ -41,9 +41,14 @@ final class PersistenceContract {
         static final String COLUMN_NAME_DESCRIPTION = "description";
 
         /**
-         * Holds the dish size name column name.
+         * Holds the dish size column name.
          */
-        static final String COLUMN_NAME_DISH_SIZE = "size";
+        static final String COLUMN_NAME_SIZE = "size";
+
+        /**
+         * Holds the dish price column name.
+         */
+        static final String COLUMN_NAME_PRICE = "price";
 
         /**
          * Holds the dish image file name column name.
@@ -114,32 +119,37 @@ final class PersistenceContract {
     }
 
     /**
-     * Inner class that defines the side dish table contents
+     * Inner class that defines the drink table contents
      */
     static abstract class DrinkEntry implements BaseColumns {
 
         /**
-         * Holds the side dish table name.
+         * Holds the drink table name.
          */
         static final String TABLE_NAME = "drink";
 
         /**
-         * Holds the side dish id column name.
+         * Holds the drink id column name.
          */
         static final String COLUMN_NAME_ENTRY_ID = "entry_id";
 
         /**
-         * Holds the side dish name column name.
+         * Holds the drink name column name.
          */
         static final String COLUMN_NAME_NAME = "name";
 
         /**
-         * Holds the side dish description column name.
+         * Holds the drink description column name.
          */
         static final String COLUMN_NAME_DESCRIPTION = "description";
 
         /**
-         * Holds the dish image file name column name.
+         * Holds the drink price column name.
+         */
+        static final String COLUMN_NAME_PRICE = "price";
+
+        /**
+         * Holds the drink file name column name.
          */
         static final String COLUMN_NAME_IMAGE_NAME = "image_name";
     }

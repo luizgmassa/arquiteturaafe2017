@@ -47,9 +47,9 @@ class DbHelper extends SQLiteOpenHelper {
     private static final String TEXT_TYPE = " TEXT";
 
     /**
-     * Holds the string for Boolean type.
+     * Holds the string for Float type.
      */
-    private static final String BOOLEAN_TYPE = " INTEGER";
+    private static final String FLOAT_TYPE = " REAL";
 
     /**
      * Holds the string for comma separation.
@@ -65,7 +65,8 @@ class DbHelper extends SQLiteOpenHelper {
                     PersistenceContract.DishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_DISH_SIZE + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.COLUMN_NAME_PRICE + FLOAT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID + TEXT_TYPE +
@@ -102,6 +103,7 @@ class DbHelper extends SQLiteOpenHelper {
                     PersistenceContract.DrinkEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.COLUMN_NAME_PRICE + FLOAT_TYPE + COMMA_SEP +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE +
                     " )";
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ArquiteturaAfe2017</string>
+    <string name="app_name">Que Delícia Restaurante</string>
     <string name="dish_image_content_description">Dish image</string>
     <string name="dishes_activity_loading_dishes">Carregando os pratos…</string>
     <string name="list_view_no_results">No Results</string>
@@ -21,7 +21,18 @@
     <string name="drink_not_selected">Nenhuma bebida selecionada</string>
     <string name="edit_dish_activity_loading_dishes">Carregando todos os pratos ...</string>
     <string name="activity_edit_dish_save">Salvar</string>
-    <string name="activity_payment_value">Valor:</string>
+    <string name="activity_payment_final_price">TOTAL: R$</string>
     <string name="activity_payment_order">Fazer pedido</string>
     <string name="size">Tamanho:</string>
+    <string name="activity_payment_default_price">0.0</string>
+    <string name="activity_payment_dish_price">Prato: R$</string>
+    <string name="activity_payment_drink_price">Bebida: R$</string>
+
+    <string-array name="payment_methods">
+        <item>Cartão de crédito</item>
+        <item>Cartão de dédito</item>
+        <item>Sodexo Refeição</item>
+        <item>Alelo Refeição</item>
+        <item>Dinheiro</item>
+    </string-array>
 </resources>
