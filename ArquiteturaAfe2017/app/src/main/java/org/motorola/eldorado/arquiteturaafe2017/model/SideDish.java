@@ -19,14 +19,14 @@ public final class SideDish extends Item implements Parcelable {
      * @param name the name of the side dish.
      * @param description the description of the side dish.
      */
-    public SideDish(@NonNull String id, @NonNull String name, @NonNull String description) {
+    public SideDish(int id, @NonNull String name, @NonNull String description) {
         mId = id;
         mName = name;
         mDescription = description;
     }
 
     private SideDish(Parcel in) {
-        mId = in.readString();
+        mId = in.readInt();
         mName = in.readString();
         mDescription = in.readString();
     }
@@ -50,7 +50,7 @@ public final class SideDish extends Item implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
         dest.writeString(mDescription);
     }

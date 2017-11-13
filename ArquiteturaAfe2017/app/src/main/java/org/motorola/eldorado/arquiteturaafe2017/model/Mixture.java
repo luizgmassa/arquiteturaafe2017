@@ -20,14 +20,14 @@ public final class Mixture extends Item implements Parcelable {
      * @param name the name of the Mixture.
      * @param description the description of the Mixture.
      */
-    public Mixture(@NonNull String id, @NonNull String name, @Nullable String description) {
+    public Mixture(int id, @NonNull String name, @Nullable String description) {
         mId = id;
         mName = name;
         mDescription = description;
     }
 
     private Mixture(Parcel in) {
-        mId = in.readString();
+        mId = in.readInt();
         mName = in.readString();
         mDescription = in.readString();
     }
@@ -46,12 +46,12 @@ public final class Mixture extends Item implements Parcelable {
 
     @Override
     public int describeContents() {
-        return 1;
+        return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
         dest.writeString(mDescription);
     }

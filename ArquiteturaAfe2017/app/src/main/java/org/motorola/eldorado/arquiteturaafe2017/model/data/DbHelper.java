@@ -52,6 +52,11 @@ class DbHelper extends SQLiteOpenHelper {
     private static final String FLOAT_TYPE = " REAL";
 
     /**
+     * Holds the string for Integer type.
+     */
+    private static final String INTEGER_TYPE = " INTEGER";
+
+    /**
      * Holds the string for comma separation.
      */
     private static final String COMMA_SEP = ",";
@@ -61,8 +66,7 @@ class DbHelper extends SQLiteOpenHelper {
      */
     private static final String SQL_DISH_CREATE_ENTRIES =
             "CREATE TABLE " + PersistenceContract.DishEntry.TABLE_NAME + " (" +
-                    PersistenceContract.DishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    PersistenceContract.DishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
                     PersistenceContract.DishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DishEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
@@ -77,8 +81,7 @@ class DbHelper extends SQLiteOpenHelper {
      */
     private static final String SQL_SIDE_DISH_CREATE_ENTRIES =
             "CREATE TABLE " + PersistenceContract.SideDishEntry.TABLE_NAME + " (" +
-                    PersistenceContract.SideDishEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    PersistenceContract.SideDishEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.SideDishEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
                     PersistenceContract.SideDishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE +
                     " )";
@@ -88,8 +91,7 @@ class DbHelper extends SQLiteOpenHelper {
      */
     private static final String SQL_MIXTURE_CREATE_ENTRIES =
             "CREATE TABLE " + PersistenceContract.MixtureEntry.TABLE_NAME + " (" +
-                    PersistenceContract.MixtureEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    PersistenceContract.MixtureEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.MixtureEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
                     PersistenceContract.MixtureEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.MixtureEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE +
                     " )";
@@ -99,12 +101,27 @@ class DbHelper extends SQLiteOpenHelper {
      */
     private static final String SQL_DRINKS_CREATE_ENTRIES =
             "CREATE TABLE " + PersistenceContract.DrinkEntry.TABLE_NAME + " (" +
-                    PersistenceContract.DrinkEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
-                    PersistenceContract.DrinkEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_PRICE + FLOAT_TYPE + COMMA_SEP +
                     PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE +
+                    " )";
+
+    /**
+     * Holds the SQL query for Drinks table creation.
+     */
+    private static final String SQL_HISTORY_CREATE_ENTRIES =
+            "CREATE TABLE " + PersistenceContract.HistoryEntry.TABLE_NAME + " (" +
+                    PersistenceContract.HistoryEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_SIZE + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_SIDE_DISHES_IDS + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_PRICE + FLOAT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_PRICE + FLOAT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.COLUMN_NAME_PAYMENT_METHOD + TEXT_TYPE +
                     " )";
 
     /**
@@ -124,6 +141,7 @@ class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_SIDE_DISH_CREATE_ENTRIES);
         db.execSQL(SQL_MIXTURE_CREATE_ENTRIES);
         db.execSQL(SQL_DRINKS_CREATE_ENTRIES);
+        db.execSQL(SQL_HISTORY_CREATE_ENTRIES);
     }
 
     @Override

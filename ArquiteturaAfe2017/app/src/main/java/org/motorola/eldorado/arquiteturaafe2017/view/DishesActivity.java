@@ -1,11 +1,15 @@
 package org.motorola.eldorado.arquiteturaafe2017.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,10 +18,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
+import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishes.DishesContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishes.DishesPresenter;
-import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
 
 import java.io.IOException;
@@ -101,7 +105,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
             return;
         }
 
-        if (mProgressDialog.isShowing()){
+        if (mProgressDialog.isShowing()) {
             mProgressDialog.show();
         } else {
             mProgressDialog.dismiss();
@@ -206,6 +210,26 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
             return rowView;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater findMenuItems = getMenuInflater();
+        findMenuItems.inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_main_history:
+                Intent historyIntent = new Intent(DishesActivity.this, HistoryActivity.class);
+                startActivity(historyIntent);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**

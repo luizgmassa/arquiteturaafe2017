@@ -16,7 +16,7 @@ public final class Order implements Parcelable {
     /**
      * Holds the Order id.
      */
-    private String mId;
+    private int mId;
 
     /**
      * Holds the mixture.
@@ -31,16 +31,6 @@ public final class Order implements Parcelable {
     private Drink mDrink;
 
     /**
-     * Holds the Order dish price.
-     */
-    private float mDishPrice;
-
-    /**
-     * Holds the Order drink price.
-     */
-    private float mDrinkPrice;
-
-    /**
      * Holds the Order final price.
      */
     private float mFinalPrice;
@@ -48,7 +38,19 @@ public final class Order implements Parcelable {
     /**
      * Holds the Order payment method.
      */
+    @NonNull
     private String mPaymentMethod;
+
+    /**
+     * Constructor.
+     *
+     * @param dish          the ordered dish.
+     * @param drink         the ordered drink
+     * @param paymentMethod the payment method.
+     */
+    public Order(@NonNull Dish dish, @Nullable Drink drink, @NonNull String paymentMethod) {
+        this(-1, dish, drink, paymentMethod);
+    }
 
     /**
      * Constructor.
@@ -56,26 +58,24 @@ public final class Order implements Parcelable {
      * @param id            the order id.
      * @param dish          the ordered dish.
      * @param drink         the ordered drink
-     * @param dishPrice     the order dish price.
-     * @param drinkPrice    the order drink price.
      * @param paymentMethod the payment method.
      */
-    public Order(@NonNull String id, @NonNull Dish dish, @Nullable Drink drink, float dishPrice, float drinkPrice, @NonNull String paymentMethod) {
+    public Order(int id, @NonNull Dish dish, @Nullable Drink drink, @NonNull String paymentMethod) {
         mId = id;
-        mDishPrice = dishPrice;
-        mDrinkPrice = drinkPrice;
-        mFinalPrice = dishPrice + drinkPrice;
-        mPaymentMethod = paymentMethod;
         mDrink = drink;
         mDish = dish;
+        mPaymentMethod = paymentMethod;
+        mFinalPrice = dish.getPrice();
+
+        if (drink != null) {
+            mFinalPrice += drink.getPrice();
+        }
     }
 
     protected Order(Parcel in) {
-        mId = in.readString();
+        mId = in.readInt();
         mDish = in.readParcelable(Dish.class.getClassLoader());
         mDrink = in.readParcelable(Drink.class.getClassLoader());
-        mDishPrice = in.readFloat();
-        mDrinkPrice = in.readFloat();
         mFinalPrice = in.readFloat();
         mPaymentMethod = in.readString();
     }
@@ -141,8 +141,7 @@ public final class Order implements Parcelable {
      *
      * @return the Item id.
      */
-    @NonNull
-    public String getId() {
+    public int getId() {
         return mId;
     }
 
@@ -174,11 +173,9 @@ public final class Order implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
+        dest.writeInt(mId);
         dest.writeParcelable(mDish, flags);
         dest.writeParcelable(mDrink, flags);
-        dest.writeFloat(mDishPrice);
-        dest.writeFloat(mDrinkPrice);
         dest.writeFloat(mFinalPrice);
         dest.writeString(mPaymentMethod);
     }

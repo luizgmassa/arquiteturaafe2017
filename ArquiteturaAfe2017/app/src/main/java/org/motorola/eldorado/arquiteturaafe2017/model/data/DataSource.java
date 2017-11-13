@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
+import org.motorola.eldorado.arquiteturaafe2017.model.Order;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 
 import java.util.List;
@@ -25,10 +26,28 @@ interface DataSource {
          *
          * @param dishes the list of dishes.
          */
-        void onDishesLoaded(List<Dish> dishes);
+        void onDishesLoaded(@NonNull List<Dish> dishes);
 
         /**
          * Callback for when dishes data are not available.
+         */
+        void onDataNotAvailable();
+    }
+
+    /**
+     * The interface for Load History callback. Do the communication between History Presenter and Data Source.
+     */
+    interface LoadHistoryCallback {
+
+        /**
+         * Callback for when history have been loaded.
+         *
+         * @param history the list of history.
+         */
+        void onHistoryLoaded(@NonNull List<Order> history);
+
+        /**
+         * Callback for when history data are not available.
          */
         void onDataNotAvailable();
     }
@@ -45,7 +64,7 @@ interface DataSource {
          * @param sideDishes the list of side dishes.
          * @param mixtures the list of mixture.
          */
-        void onDishesLoaded(List<Dish> dishes, List<SideDish> sideDishes, List<Mixture> mixtures);
+        void onDishesLoaded(@NonNull List<Dish> dishes, @NonNull List<SideDish> sideDishes, @NonNull List<Mixture> mixtures);
 
         /**
          * Callback for when dishes data are not available.
@@ -63,7 +82,7 @@ interface DataSource {
          *
          * @param dish the dish.
          */
-        void onDishLoaded(Dish dish);
+        void onDishLoaded(@NonNull Dish dish);
 
         /**
          * Callback for when dishes data are not available.
@@ -81,12 +100,30 @@ interface DataSource {
          *
          * @param drinks the list of drinks.
          */
-        void onDrinksLoaded(List<Drink> drinks);
+        void onDrinksLoaded(@NonNull List<Drink> drinks);
 
         /**
          * Callback for when drinks data are not available.
          */
         void onDataNotAvailable();
+    }
+
+    /**
+     * The interface for Save Order callback. Do the communication between History Presenter and Data Source.
+     */
+    interface SaveOrderCallback {
+
+        /**
+         * Callback for when order has been saved.
+         *
+         * @param order the order.
+         */
+        void onSaveOrderSaved(@NonNull Order order);
+
+        /**
+         * Callback for when order has not been saved
+         */
+        void onSaveOrderFailed();
     }
 
     /**
@@ -123,7 +160,22 @@ interface DataSource {
      *
      * @param context the context.
      */
-    void fillDishes(Context context);
+    void fillDishes(@NonNull Context context);
+
+    /**
+     * Saves a order made by the user.
+     *
+     * @param order the order to be saved.
+     * @param callback the save order callback.
+     */
+    void saveOrder(@NonNull Order order, @NonNull SaveOrderCallback callback);
+
+    /**
+     * Gets all history of orders made by the user.
+     *
+     * @param loadHistoryCallback the load history callback.
+     */
+    void getHistory(@NonNull LoadHistoryCallback loadHistoryCallback);
 
     /**
      * Fill drinks list and objects retrieving information from Data Source.

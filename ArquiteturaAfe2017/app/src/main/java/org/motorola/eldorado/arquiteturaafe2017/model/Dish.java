@@ -36,7 +36,7 @@ public final class Dish extends Item implements Parcelable {
      * Holds the size of the dish.
      */
     @NonNull
-    private DishSize mSize;
+    private DishSize mDishSize;
 
     /**
      * Holds the price of the dish.
@@ -53,7 +53,7 @@ public final class Dish extends Item implements Parcelable {
      * @param sideDishes the list of side dishes.
      * @param mixture the mixture.
      */
-    public Dish(@NonNull String id, @NonNull String name, @NonNull String description,
+    public Dish(int id, @NonNull String name, @NonNull String description,
                 @NonNull DishSize size, float price, @NonNull String image,
                 @NonNull List<SideDish> sideDishes, @NonNull Mixture mixture) {
         this(id, name, description, size, price, image, mixture);
@@ -68,23 +68,23 @@ public final class Dish extends Item implements Parcelable {
      * @param description the description of the dish.
      * @param image the image file name of the dish.
      */
-    public Dish(@NonNull String id, @NonNull String name, @NonNull String description,
+    public Dish(int id, @NonNull String name, @NonNull String description,
                 @NonNull DishSize size, float price, @NonNull String image, @NonNull Mixture mixture) {
         mId = id;
         mName = name;
         mDescription = description;
         mImageName = image;
-        mSize = size;
+        mDishSize = size;
         mPrice = price;
         mMixture = mixture;
     }
 
     protected Dish(Parcel in) {
-        mId = in.readString();
+        mId = in.readInt();
         mName = in.readString();
         mDescription = in.readString();
         mImageName = in.readString();
-        mSize = DishSize.valueOf(in.readString());
+        mDishSize = DishSize.valueOf(in.readString());
         mPrice = in.readFloat();
         mSideDishes = in.createTypedArrayList(SideDish.CREATOR);
         mMixture = in.readParcelable(SideDish.class.getClassLoader());
@@ -158,6 +158,25 @@ public final class Dish extends Item implements Parcelable {
     }
 
     /**
+     * Gets the list of Side Dishes separated with Commas.
+     *
+     * @return the side dishes separated with commas.
+     */
+    public String getSideDishesWithCommas() {
+        StringBuilder strBld = new StringBuilder();
+
+        for (SideDish sideDish : mSideDishes) {
+            strBld.append(sideDish.getId());
+            strBld.append(",");
+        }
+
+        // deletes last "," char
+        strBld.deleteCharAt(strBld.length() - 1);
+
+        return strBld.toString();
+    }
+
+    /**
      * Gets the Mixture.
      *
      * @return the mixture.
@@ -183,8 +202,8 @@ public final class Dish extends Item implements Parcelable {
      * @return the dish size.
      */
     @NonNull
-    public DishSize getSize() {
-        return mSize;
+    public DishSize getDishSize() {
+        return mDishSize;
     }
 
     @Override
@@ -194,11 +213,11 @@ public final class Dish extends Item implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
         dest.writeString(mDescription);
         dest.writeString(mImageName);
-        dest.writeString(mSize.name());
+        dest.writeString(mDishSize.name());
         dest.writeFloat(mPrice);
         dest.writeTypedList(mSideDishes);
         dest.writeParcelable(mMixture, flags);
@@ -236,8 +255,8 @@ public final class Dish extends Item implements Parcelable {
      *
      * @param size the dish size.
      */
-    public void setSize(@NonNull DishSize size) {
-        this.mSize = size;
+    public void setDishSize(@NonNull DishSize size) {
+        this.mDishSize = size;
     }
 
     /**

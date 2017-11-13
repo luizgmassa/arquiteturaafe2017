@@ -10,7 +10,7 @@ public class Item {
     /**
      * Holds the Item id.
      */
-    String mId;
+    int mId;
 
     /**
      * Holds the Item name.
@@ -27,8 +27,7 @@ public class Item {
      *
      * @return the Item id.
      */
-    @NonNull
-    public String getId() {
+    public int getId() {
         return mId;
     }
 
@@ -57,7 +56,7 @@ public class Item {
      * 
      * @param id the item id.
      */
-    public void setId(@NonNull String id) {
+    public void setId(int id) {
         this.mId = id;
     }
 

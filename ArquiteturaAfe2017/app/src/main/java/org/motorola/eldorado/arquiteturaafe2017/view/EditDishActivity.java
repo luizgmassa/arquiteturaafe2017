@@ -241,7 +241,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         spinnerPosition = sideDish3Adapter.getPosition(mCurrentDish.getSideDishes().get(2));
         mSpinners[3].setSelection(spinnerPosition);
 
-        spinnerPosition = dishSizeAdapter.getPosition(mCurrentDish.getSize());
+        spinnerPosition = dishSizeAdapter.getPosition(mCurrentDish.getDishSize());
         mDishSizeSpinner.setSelection(spinnerPosition);
     }
 
@@ -254,7 +254,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         Mixture mixture = (Mixture) mSpinners[0].getSelectedItem();
 
         for (Dish dish : dishes) {
-            if (dish.getMixture().getId().equals(mixture.getId())) {
+            if (dish.getMixture().getId() == mixture.getId()) {
                 mCurrentDish.setName(dish.getName());
                 mCurrentDish.setDescription(dish.getDescription());
                 mCurrentDish.setImageName(dish.getImageName());
@@ -266,7 +266,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
                 sideDishes.add((SideDish) mSpinners[3].getSelectedItem());
 
                 mCurrentDish.setSideDishes(sideDishes);
-                mCurrentDish.setSize((DishSize) mDishSizeSpinner.getSelectedItem());
+                mCurrentDish.setDishSize((DishSize) mDishSizeSpinner.getSelectedItem());
                 break;
             }
         }

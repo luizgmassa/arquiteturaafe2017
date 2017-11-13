@@ -33,7 +33,7 @@ public final class Drink extends Item implements Parcelable {
      * @param price the price of the Drink.
      * @param image the image file name of the Drink.
      */
-    public Drink(@NonNull String id, @NonNull String name,
+    public Drink(int id, @NonNull String name,
                  @Nullable String description, float price, @NonNull String image) {
         mId = id;
         mName = name;
@@ -43,7 +43,7 @@ public final class Drink extends Item implements Parcelable {
     }
 
     private Drink(Parcel in) {
-        mId = in.readString();
+        mId = in.readInt();
         mName = in.readString();
         mDescription = in.readString();
         mPrice = in.readFloat();
@@ -124,7 +124,7 @@ public final class Drink extends Item implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
         dest.writeString(mDescription);
         dest.writeFloat(mPrice);

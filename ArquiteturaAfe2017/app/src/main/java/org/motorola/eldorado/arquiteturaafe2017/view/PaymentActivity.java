@@ -124,10 +124,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Order order = new Order("0", mCurrentDish, mCurrentDrink,
-                        Float.valueOf(mDishPrice.getText().toString()),
-                        Float.valueOf(mDrinkPrice.getText().toString()),
-                        mPaymentMethod.getSelectedItem().toString());
+                Order order = new Order(mCurrentDish, mCurrentDrink, mPaymentMethod.getSelectedItem().toString());
 
                 mItemListener.onPayButtonClick(order);
             }

@@ -27,6 +27,7 @@
     <string name="activity_payment_default_price">0.0</string>
     <string name="activity_payment_dish_price">Prato: R$</string>
     <string name="activity_payment_drink_price">Bebida: R$</string>
+    <string name="menu_history_button">Histórico</string>
 
     <string-array name="payment_methods">
         <item>Cartão de crédito</item>
