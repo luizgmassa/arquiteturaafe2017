@@ -1,15 +1,13 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.editdish;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
-import org.motorola.eldorado.arquiteturaafe2017.view.EditDishActivity;
 
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class EditDishPresenter implements EditDishContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalDataSource mLocalDataSource;
+    private final DataSource mLocalDataSource;
 
     /**
      * Holds the instance of View contract.
@@ -50,44 +48,31 @@ public class EditDishPresenter implements EditDishContract.Presenter {
 
     @Override
     public void start() {
-        loadAllDishesInfos(true);
+        loadAllDishesInfos();
     }
 
     @Override
-    public void loadAllDishesInfos(final boolean showLoadingUI) {
-        if (showLoadingUI) {
-            mEditDishView.setLoadingIndicator(true);
-        }
+    public void loadAllDishesInfos() {
+        mEditDishView.switchLoadingIndicator();
 
         Log.d(LOG_TAG, "Starting loading all dishes...");
 
         mLocalDataSource.getAllInfo(new LocalDataSource.LoadAllInfoCallback() {
             @Override
-            public void onDishesLoaded(List<Dish> dishes, List<SideDish> sideDishes, List<Mixture> mixtures) {
-                if (!dishes.isEmpty() && !sideDishes.isEmpty() && !mixtures.isEmpty()) {
-                    Log.d(LOG_TAG, "Getting all dishes, side dishes and mixtures...");
+            public void onDishesLoaded(@NonNull List<Dish> dishes, @NonNull List<SideDish> sideDishes, @NonNull List<Mixture> mixtures) {
+                Log.d(LOG_TAG, "Getting all dishes, side dishes and mixtures...");
 
-                    // Show the list of dishes
-                    mEditDishView.showDishes(dishes, sideDishes, mixtures);
-                }
+                // Show the list of dishes
+                mEditDishView.showDishes(dishes, sideDishes, mixtures);
 
-                if (showLoadingUI) {
-                    mEditDishView.setLoadingIndicator(false);
-                }
+                mEditDishView.switchLoadingIndicator();
             }
 
             @Override
             public void onDataNotAvailable() {
+                mEditDishView.switchLoadingIndicator();
                 Log.d(LOG_TAG, "No dishes / side dishes / mixtures !!");
             }
         });
-    }
-
-    @Override
-    public void saveDish(Activity activity, @NonNull Dish newDish) {
-        Intent intent = new Intent();
-        intent.putExtra(EditDishActivity.EXTRA_EDIT_DISH, newDish);
-        activity.setResult(Activity.RESULT_OK, intent);
-        activity.finish();
     }
 }

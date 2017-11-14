@@ -1,13 +1,11 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.drink;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
-import org.motorola.eldorado.arquiteturaafe2017.view.DrinksActivity;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalDataSource mLocalDataSource;
+    private final DataSource mLocalDataSource;
 
     /**
      * Holds the instance of View contract.
@@ -48,45 +46,31 @@ public class DrinksPresenter implements DrinksContract.Presenter {
 
     @Override
     public void start() {
-        loadDrinks(false);
+        loadDrinks();
     }
 
     @Override
-    public void loadDrinks(final boolean showLoadingUI) {
-        if (showLoadingUI) {
-            mDrinksView.setLoadingIndicator(true);
-        }
+    public void loadDrinks() {
+        mDrinksView.switchLoadingIndicator();
 
         Log.d(LOG_TAG, "Starting loading all drinks...");
 
         mLocalDataSource.getDrinks(new LocalDataSource.LoadDrinksCallback() {
             @Override
-            public void onDrinksLoaded(List<Drink> drinks) {
-                if (!drinks.isEmpty()) {
-                    Log.d(LOG_TAG, "Showing all drinks...");
+            public void onDrinksLoaded(@NonNull List<Drink> drinks) {
+                Log.d(LOG_TAG, "Showing all drinks...");
 
-                    // Show the list of drinks
-                    mDrinksView.showDrinks(drinks);
-                }
+                // Show the list of drinks
+                mDrinksView.showDrinks(drinks);
 
-                if (showLoadingUI) {
-                    mDrinksView.setLoadingIndicator(false);
-                }
+                mDrinksView.switchLoadingIndicator();
             }
 
             @Override
             public void onDataNotAvailable() {
+                mDrinksView.switchLoadingIndicator();
                 Log.d(LOG_TAG, "No drinks!!");
             }
         });
-    }
-
-    @Override
-    public void selectCurrentDrink(Activity activity, @NonNull Drink selectedDrink) {
-        Intent intent = new Intent();
-        intent.putExtra(DrinksActivity.EXTRA_SELECTED_DRINK, selectedDrink);
-
-        activity.setResult(Activity.RESULT_OK, intent);
-        activity.finish();
     }
 }

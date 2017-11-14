@@ -1,8 +1,5 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.drink;
 
-import android.app.Activity;
-import android.support.annotation.NonNull;
-
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.base.BasePresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseView;
@@ -20,11 +17,9 @@ public interface DrinksContract {
     interface View extends BaseView<Presenter> {
 
         /**
-         * Sets the loading indicator to show or hide.
-         *
-         * @param active true if loading indicator needs to be show on screen, otherwise false.
+         * Switches the loading indicator to show or hide.
          */
-        void setLoadingIndicator(boolean active);
+        void switchLoadingIndicator();
 
         /**
          * Sets the received loaded drinks from Presenter to the View (UI).
@@ -32,6 +27,11 @@ public interface DrinksContract {
          * @param dishes the list of loaded drinks.
          */
         void showDrinks(List<Drink> dishes);
+
+        /**
+         * Callback used to return error from the Presenter to the View (UI).
+         */
+        void handleError();
     }
 
     /**
@@ -41,17 +41,7 @@ public interface DrinksContract {
 
         /**
          * Method called when the View (UI) requests the Drinks from the Data Source.
-         *
-         * @param showLoadingUI true if wants to display a loading icon on the View (UI), otherwise false.
          */
-        void loadDrinks(boolean showLoadingUI);
-
-        /**
-         * Method called when the View (UI) wants to returns the selected drink to previous activity.
-         *
-         * @param activity the activity.
-         * @param selectedDrink the clicked drink item on the View (UI).
-         */
-        void selectCurrentDrink(Activity activity, @NonNull Drink selectedDrink);
+        void loadDrinks();
     }
 }

@@ -1,6 +1,8 @@
 package org.motorola.eldorado.arquiteturaafe2017.view;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,14 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.DishSize;
+import org.motorola.eldorado.arquiteturaafe2017.model.Item;
 import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
-import org.motorola.eldorado.arquiteturaafe2017.model.Item;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.editdish.EditDishContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.editdish.EditDishPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -53,7 +56,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
     /**
      * Holds the Spinner Ids of Mixture and the 3 Side Dishes.
      */
-    private int[] mSpinnersIds = {
+    private final int[] mSpinnersIds = {
             R.id.activity_edit_dish_mixture_spinner,
             R.id.activity_edit_dish_side_dish1_spinner,
             R.id.activity_edit_dish_side_dish2_spinner,
@@ -62,7 +65,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
     /**
      * Holds the Text View's descriptions ids.
      */
-    private int[] mDescriptionsIds = {
+    private final int[] mDescriptionsIds = {
             R.id.activity_edit_dish_mixture_description,
             R.id.activity_edit_dish_side_dish1_description,
             R.id.activity_edit_dish_side_dish2_description,
@@ -90,7 +93,10 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
 
         @Override
         public void onSaveButtonClick(Dish newDish) {
-            mPresenter.saveDish(EditDishActivity.this, newDish);
+            Intent intent = new Intent();
+            intent.putExtra(EditDishActivity.EXTRA_EDIT_DISH, newDish);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     };
 
@@ -100,6 +106,12 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         setContentView(R.layout.activity_edit_dish);
 
         Bundle data = getIntent().getExtras();
+
+        if (data == null) {
+            Log.e(LOG_TAG, "Bundle is null");
+            return;
+        }
+        
         mCurrentDish = data.getParcelable(EXTRA_EDIT_DISH);
 
         if (mCurrentDish == null) {
@@ -138,7 +150,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void switchLoadingIndicator() {
         if (mProgressDialog == null || isDestroyed()) {
             return;
         }
@@ -161,7 +173,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         ArrayAdapter spinner3ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,  sideDishes.toArray());
         ArrayAdapter spinner4ArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, DishSize.values());
+                android.R.layout.simple_spinner_item, DishSize.getAll(this));
 
         mSpinners[0].setAdapter(spinnerArrayAdapter);
         mSpinners[1].setAdapter(spinner1ArrayAdapter);
@@ -183,6 +195,11 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
                 mItemListener.onSaveButtonClick(mCurrentDish);
             }
         });
+    }
+
+    @Override
+    public void handleError() {
+        Toast.makeText(this, R.string.data_load_error, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -241,7 +258,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         spinnerPosition = sideDish3Adapter.getPosition(mCurrentDish.getSideDishes().get(2));
         mSpinners[3].setSelection(spinnerPosition);
 
-        spinnerPosition = dishSizeAdapter.getPosition(mCurrentDish.getDishSize());
+        spinnerPosition = dishSizeAdapter.getPosition(getString(mCurrentDish.getDishSize().getResourceId()));
         mDishSizeSpinner.setSelection(spinnerPosition);
     }
 

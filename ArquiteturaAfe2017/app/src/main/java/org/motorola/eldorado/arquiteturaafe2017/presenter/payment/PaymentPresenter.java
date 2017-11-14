@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -26,7 +27,7 @@ public class PaymentPresenter implements PaymentContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalDataSource mLocalDataSource;
+    private final DataSource mLocalDataSource;
 
     /**
      * Constructor.
@@ -52,29 +53,27 @@ public class PaymentPresenter implements PaymentContract.Presenter {
 
     @Override
     public void doPayment(@NonNull Order order) {
-        mPaymentView.setLoadingIndicator(true);
+        mPaymentView.switchLoadingIndicator();
 
         Log.d(LOG_TAG, "Starting payment...");
 
         mLocalDataSource.saveOrder(order, new LocalDataSource.SaveOrderCallback() {
             @Override
             public void onSaveOrderSaved(@NonNull Order order) {
-                mPaymentView.setLoadingIndicator(false);
+                mPaymentView.switchLoadingIndicator();
 
                 // TODO: send e-mail to restaurant
-
                 // Saves the order and process payment
-                // TODO move this to Email part: mPaymentView.onPaymentSuccess();
+                // TODO move this to Email part
+                mPaymentView.paymentSuccess();
             }
 
             @Override
             public void onSaveOrderFailed() {
-                mPaymentView.setLoadingIndicator(false);
-                mPaymentView.onPaymentError();
+                mPaymentView.switchLoadingIndicator();
+                mPaymentView.handleError();
                 Log.d(LOG_TAG, "Save failed!!");
             }
         });
-
-
     }
 }

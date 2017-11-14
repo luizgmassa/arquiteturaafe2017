@@ -7,9 +7,9 @@ import android.os.Bundle;
 import org.motorola.eldorado.arquiteturaafe2017.R;
 
 /**
- * The Entrypoint activity class.
+ * The EntryPoint activity class.
  */
-public class EntrypointActivity extends AppCompatActivity {
+public class EntryPointActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

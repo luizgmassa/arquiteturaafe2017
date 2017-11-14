@@ -57,7 +57,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
     /**
      * Holds the Text Views IDs.
      */
-    private int[] mDishInformationTextViewsIds = {
+    private final int[] mDishInformationTextViewsIds = {
             R.id.activity_dish_detail_name,
             R.id.activity_dish_detail_description,
             R.id.activity_dish_detail_side_dishes,
@@ -119,7 +119,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         mPresenter = new PaymentPresenter(LocalDataSource.getInstance(this), this);
 
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage(getString(R.string.dishes_activity_loading_dishes));
+        mProgressDialog.setMessage(getString(R.string.payment_activity_paying));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -132,8 +132,8 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         mDrinkPrice = (TextView) findViewById(R.id.activity_payment_drink_price_final);
         mFinalPrice = (TextView) findViewById(R.id.activity_payment_final_price_final);
 
-        // we dont need this button here
-        ((Button) findViewById(R.id.activity_dish_detail_drinks_button)).setVisibility(Button.GONE);
+        // we don't need this button here
+        (findViewById(R.id.activity_dish_detail_drinks_button)).setVisibility(Button.GONE);
 
         Button payButton = (Button) findViewById(R.id.activity_payment_order_button);
         payButton.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +160,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void switchLoadingIndicator() {
         if (mProgressDialog == null || isDestroyed()) {
             return;
         }
@@ -180,6 +180,12 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         }
 
         Bundle data = getIntent().getExtras();
+
+        if (data == null) {
+            Log.e(LOG_TAG, "Bundle is null");
+            return;
+        }
+
         mCurrentDish = data.getParcelable(EXTRA_DISH_TO_PAY);
         mCurrentDrink = data.getParcelable(EXTRA_DRINK_TO_PAY);
 
@@ -192,15 +198,15 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
     }
 
     @Override
-    public void onPaymentError() {
+    public void handleError() {
         Toast.makeText(this, R.string.payment_failed, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onPaymentSuccess() {
+    public void paymentSuccess() {
         Toast.makeText(this, R.string.payment_success, Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, EntrypointActivity.class);
+        Intent intent = new Intent(this, EntryPointActivity.class);
         startActivity(intent);
         finish();
     }

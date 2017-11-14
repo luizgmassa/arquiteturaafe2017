@@ -1,9 +1,5 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail;
 
-import android.app.Activity;
-import android.support.annotation.NonNull;
-
-import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.base.BasePresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseView;
 
@@ -32,20 +28,5 @@ public interface DishDetailsContract {
          * Method called when the View (UI) requests the Dishes from the Data Source.
          */
         void loadDish();
-
-        /**
-         * Method called when the View (UI) wants to open the Edit Dish activity.
-         *
-         * @param activity the activity.
-         * @param dishToEdit the dish to edit item on the View (UI).
-         */
-        void openEditDish(Activity activity, @NonNull Dish dishToEdit);
-
-        /**
-         * Method called when the View (UI) wants to open the Select Drink activity.
-         *
-         * @param activity the activity.
-         */
-        void openSelectDrink(Activity activity);
     }
 }

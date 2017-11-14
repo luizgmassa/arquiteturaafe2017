@@ -2,7 +2,6 @@
     <string name="app_name">QueDlç Restaurante</string>
     <string name="dish_image_content_description">Dish image</string>
     <string name="dishes_activity_loading_dishes">Carregando os pratos…</string>
-    <string name="list_view_no_results">No Results</string>
     <string name="title_activity_dish_detail">DishDetailActivity</string>
     <string name="button_payment">Pagamento</string>
     <string name="button_edit_dish">Alterar prato</string>
@@ -13,7 +12,7 @@
     <string name="mixture">Mistura: </string>
     <string name="drink">Bebida:</string>
     <string name="button_drinks">Bebida</string>
-    <string name="activity_dish_detail_no_drink_selected">Nada selecionado</string>
+    <string name="no_drink_selected">Nada selecionado</string>
     <string name="activity_payment_no_drink_selected">Nada selecionado</string>
     <string name="activity_drink_select_button">Selecionar</string>
     <string name="drink_error">Erro ao escolher a bebida</string>
@@ -31,6 +30,14 @@
     <string name="payment_method">Pagamento: </string>
     <string name="payment_success">Pagamento feito com sucesso!!</string>
     <string name="payment_failed">Erro no pagamento, por favor tente mais tarde!</string>
+    <string name="dish_size_small">Pequeno</string>
+    <string name="dish_size_medium">Médio</string>
+    <string name="dish_size_large">Grande</string>
+    <string name="dish_size_extra_large">Extra grande</string>
+    <string name="empty_list">Vazio</string>
+    <string name="data_load_error">Erro ao carregar dados! Tente novamente mais tarde...</string>
+    <string name="history_activity_loading_history">Carregando histórico...</string>
+    <string name="payment_activity_paying">Processando pagamento...</string>
 
     <string-array name="payment_methods">
         <item>Cartão de crédito</item>

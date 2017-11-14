@@ -18,10 +18,8 @@ public interface HistoryContract {
 
         /**
          * Sets the loading indicator to show or hide.
-         *
-         * @param active true if loading indicator needs to be show on screen, otherwise false.
          */
-        void setLoadingIndicator(boolean active);
+        void switchLoadingIndicator();
 
         /**
          * Sets the received loaded History from Presenter to the View (UI).
@@ -29,6 +27,11 @@ public interface HistoryContract {
          * @param history the list of loaded orders.
          */
         void showHistory(List<Order> history);
+
+        /**
+         * Callback used to return error from the Presenter to the View (UI).
+         */
+        void handleError();
     }
 
     /**
@@ -38,10 +41,7 @@ public interface HistoryContract {
 
         /**
          * Method called when the View (UI) requests the History from the Data Source.
-         *
-         * @param showLoadingUI true if wants to display a loading icon on the View (UI), otherwise false.
          */
-        void loadHistory(boolean showLoadingUI);
-
+        void loadHistory();
     }
 }

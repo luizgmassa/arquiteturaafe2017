@@ -16,7 +16,7 @@ public final class Order implements Parcelable {
     /**
      * Holds the Order id.
      */
-    private int mId;
+    private final int mId;
 
     /**
      * Holds the mixture.
@@ -72,7 +72,7 @@ public final class Order implements Parcelable {
         }
     }
 
-    protected Order(Parcel in) {
+    private Order(Parcel in) {
         mId = in.readInt();
         mDish = in.readParcelable(Dish.class.getClassLoader());
         mDrink = in.readParcelable(Drink.class.getClassLoader());
@@ -141,7 +141,7 @@ public final class Order implements Parcelable {
      *
      * @return the Item id.
      */
-    public int getId() {
+    private int getId() {
         return mId;
     }
 

@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
@@ -62,7 +63,9 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     private final DishItemListener mItemListener = new DishItemListener() {
         @Override
         public void onDishClick(Dish clickedDish) {
-            mPresenter.openDishDetails(DishesActivity.this, clickedDish);
+            Intent intent = new Intent(DishesActivity.this, DishDetailsActivity.class);
+            intent.putExtra(DishDetailsActivity.EXTRA_SELECTED_DISH, clickedDish);
+            startActivity(intent);
         }
     };
 
@@ -82,6 +85,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         mListAdapter = new DishesAdapter(new ArrayList<Dish>(0), mItemListener);
 
         TextView emptyView = (TextView) findViewById(android.R.id.empty);
+        emptyView.setText(R.string.empty_list);
 
         ListView listView = (ListView) findViewById(R.id.activity_dishes_list);
         listView.setAdapter(mListAdapter);
@@ -100,7 +104,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void switchLoadingIndicator() {
         if (mProgressDialog == null || isDestroyed()) {
             return;
         }
@@ -115,6 +119,11 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     @Override
     public void showDishes(List<Dish> dishes) {
         mListAdapter.replaceData(dishes);
+    }
+
+    @Override
+    public void handleError() {
+        Toast.makeText(this, R.string.data_load_error, Toast.LENGTH_LONG).show();
     }
 
     /**

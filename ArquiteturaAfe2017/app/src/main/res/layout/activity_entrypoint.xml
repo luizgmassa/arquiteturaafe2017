@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.motorola.eldorado.arquiteturaafe2017.view.EntrypointActivity">
+    tools:context="org.motorola.eldorado.arquiteturaafe2017.view.EntryPointActivity">
 
 </android.support.constraint.ConstraintLayout>

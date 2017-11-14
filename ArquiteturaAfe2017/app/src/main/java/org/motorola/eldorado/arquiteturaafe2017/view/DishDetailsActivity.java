@@ -38,12 +38,12 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     /**
      * Holds the Activity For Result code for Drink activity.
      */
-    public static final int ACTIVITY_RESULT_DRINK = 0;
+    private static final int ACTIVITY_RESULT_DRINK = 0;
 
     /**
      * Holds the Activity For Result code for Edit Dish activity.
      */
-    public static final int ACTIVITY_RESULT_EDIT_DISH = 1;
+    private static final int ACTIVITY_RESULT_EDIT_DISH = 1;
 
     /**
      * Holds the extra section for intent selected dish.
@@ -68,7 +68,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     /**
      * Holds the Text Views IDs.
      */
-    private int[] mDishInformationTextViewsIds = {
+    private final int[] mDishInformationTextViewsIds = {
             R.id.activity_dish_detail_name,
             R.id.activity_dish_detail_description,
             R.id.activity_dish_detail_side_dishes,
@@ -86,7 +86,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     private Drink mSelectedDrink;
 
     /**
-     * Holds the instance of playment button click listener.
+     * Holds the instance of buttons click listener.
      */
     private final ButtonsClickListener mItemListener = new ButtonsClickListener() {
 
@@ -100,12 +100,15 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
 
         @Override
         public void onEditDishButtonClick(Dish currentDish) {
-            mPresenter.openEditDish(DishDetailsActivity.this, currentDish);
+            Intent intent = new Intent(DishDetailsActivity.this, EditDishActivity.class);
+            intent.putExtra(EditDishActivity.EXTRA_EDIT_DISH, currentDish);
+            startActivityForResult(intent, DishDetailsActivity.ACTIVITY_RESULT_EDIT_DISH);
         }
 
         @Override
         public void onSelectDrinkButtonClick() {
-            mPresenter.openSelectDrink(DishDetailsActivity.this);
+            Intent intent = new Intent(DishDetailsActivity.this, DrinksActivity.class);
+            startActivityForResult(intent, DishDetailsActivity.ACTIVITY_RESULT_DRINK);
         }
     };
 
@@ -166,6 +169,12 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         }
 
         Bundle data = getIntent().getExtras();
+
+        if (data == null) {
+            Log.e(LOG_TAG, "Bundle is null");
+            return;
+        }
+
         mCurrentDish = data.getParcelable(EXTRA_SELECTED_DISH);
 
         if (mCurrentDish == null) {
@@ -222,6 +231,12 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         if (requestCode == ACTIVITY_RESULT_DRINK) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
+
+                if (bundle == null) {
+                    Log.e(LOG_TAG, "Bundle is null");
+                    return;
+                }
+
                 mSelectedDrink = bundle.getParcelable(DrinksActivity.EXTRA_SELECTED_DRINK);
 
                 if (mSelectedDrink == null) {
@@ -239,6 +254,12 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         } else if (requestCode == ACTIVITY_RESULT_EDIT_DISH) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
+
+                if (bundle == null) {
+                    Log.e(LOG_TAG, "Bundle is null");
+                    return;
+                }
+
                 mCurrentDish = bundle.getParcelable(EditDishActivity.EXTRA_EDIT_DISH);
 
                 if (mCurrentDish == null) {

@@ -18,10 +18,8 @@ public interface PaymentContract {
 
         /**
          * Sets the loading indicator to show or hide.
-         *
-         * @param active true if loading indicator needs to be show on screen, otherwise false.
          */
-        void setLoadingIndicator(boolean active);
+        void switchLoadingIndicator();
 
         /**
          * Sets the loaded dish from Presenter to the View (UI).
@@ -29,14 +27,14 @@ public interface PaymentContract {
         void showDish();
 
         /**
-         * Callback used to return error on payment from the Presenter to the View (UI).
+         * Callback used to return error from the Presenter to the View (UI).
          */
-        void onPaymentError();
+        void handleError();
 
         /**
          * Callback used to return success on payment from the Presenter to the View (UI).
          */
-        void onPaymentSuccess();
+        void paymentSuccess();
     }
 
     /**

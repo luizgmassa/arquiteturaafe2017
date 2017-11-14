@@ -2,12 +2,14 @@ package org.motorola.eldorado.arquiteturaafe2017.view;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
@@ -48,7 +50,11 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
     private final DrinkItemListener mItemListener = new DrinkItemListener() {
         @Override
         public void onSelectButtonClick(Drink selectedDrink) {
-            mPresenter.selectCurrentDrink(DrinksActivity.this, selectedDrink);
+            Intent intent = new Intent();
+            intent.putExtra(DrinksActivity.EXTRA_SELECTED_DRINK, selectedDrink);
+
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     };
 
@@ -89,7 +95,7 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void switchLoadingIndicator() {
         if (mProgressDialog == null || isDestroyed()) {
             return;
         }
@@ -107,6 +113,11 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
                 android.R.layout.simple_spinner_item, drinks.toArray());
 
         mSpinner.setAdapter(spinnerArrayAdapter);
+    }
+
+    @Override
+    public void handleError() {
+        Toast.makeText(this, R.string.data_load_error, Toast.LENGTH_LONG).show();
     }
 
     /**

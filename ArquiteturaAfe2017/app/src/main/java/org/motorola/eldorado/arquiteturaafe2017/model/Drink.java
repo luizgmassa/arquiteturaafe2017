@@ -16,7 +16,7 @@ public final class Drink extends Item implements Parcelable {
     /**
      * Holds the price of the drink.
      */
-    private float mPrice;
+    private final float mPrice;
 
     /**
      * Holds the Drink image file name.
@@ -82,9 +82,9 @@ public final class Drink extends Item implements Parcelable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Drink Drink = (Drink) o;
+        Drink drink = (Drink) o;
 
-        return Objects.equal(getId(), Drink.getId());
+        return Objects.equal(getId(), drink.getId());
     }
 
     /**

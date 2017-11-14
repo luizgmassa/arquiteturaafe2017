@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * The Data Source interface.
  */
-interface DataSource {
+public interface DataSource {
 
     /**
      * The interface for Load Dishes callback. Do the communication between Dishes Presenter and Data Source.

@@ -1,8 +1,5 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishes;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.base.BasePresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseView;
@@ -20,11 +17,9 @@ public interface DishesContract {
     interface View extends BaseView<Presenter> {
 
         /**
-         * Sets the loading indicator to show or hide.
-         *
-         * @param active true if loading indicator needs to be show on screen, otherwise false.
+         * Switches the loading indicator to show or hide.
          */
-        void setLoadingIndicator(boolean active);
+        void switchLoadingIndicator();
 
         /**
          * Sets the received loaded dishes from Presenter to the View (UI).
@@ -32,6 +27,11 @@ public interface DishesContract {
          * @param dishes the list of loaded dishes.
          */
         void showDishes(List<Dish> dishes);
+
+        /**
+         * Callback used to return error from the Presenter to the View (UI).
+         */
+        void handleError();
     }
 
     /**
@@ -41,17 +41,7 @@ public interface DishesContract {
 
         /**
          * Method called when the View (UI) requests the Dishes from the Data Source.
-         *
-         * @param showLoadingUI true if wants to display a loading icon on the View (UI), otherwise false.
          */
-        void loadDishes(boolean showLoadingUI);
-
-        /**
-         * Method called when the View (UI) wants to open the Dish Details activity.
-         *
-         * @param context the context.
-         * @param requestedDish the clicked dish item on the View (UI).
-         */
-        void openDishDetails(Context context, @NonNull Dish requestedDish);
+        void loadDishes();
     }
 }

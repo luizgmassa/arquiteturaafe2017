@@ -1,13 +1,11 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.dishes;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
-import org.motorola.eldorado.arquiteturaafe2017.view.DishDetailsActivity;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class DishesPresenter implements DishesContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalDataSource mLocalDataSource;
+    private final DataSource mLocalDataSource;
 
     /**
      * Holds the instance of View contract.
@@ -48,41 +46,29 @@ public class DishesPresenter implements DishesContract.Presenter {
 
     @Override
     public void start() {
-        loadDishes(false);
+        loadDishes();
     }
 
     @Override
-    public void openDishDetails(Context context, @NonNull Dish requestedDish) {
-        Intent intent = new Intent(context, DishDetailsActivity.class);
-        intent.putExtra(DishDetailsActivity.EXTRA_SELECTED_DISH, requestedDish);
-        context.startActivity(intent);
-    }
-
-    @Override
-    public void loadDishes(final boolean showLoadingUI) {
-        if (showLoadingUI) {
-            mDishesView.setLoadingIndicator(true);
-        }
+    public void loadDishes() {
+        mDishesView.switchLoadingIndicator();
 
         Log.d(LOG_TAG, "Starting loading all dishes...");
 
         mLocalDataSource.getDishes(new LocalDataSource.LoadDishesCallback() {
             @Override
             public void onDishesLoaded(@NonNull List<Dish> dishes) {
-                if (!dishes.isEmpty()) {
-                    Log.d(LOG_TAG, "Showing all dishes...");
+                Log.d(LOG_TAG, "Showing all dishes...");
 
-                    // Show the list of dishes
-                    mDishesView.showDishes(dishes);
-                }
+                // Show the list of dishes
+                mDishesView.showDishes(dishes);
 
-                if (showLoadingUI) {
-                    mDishesView.setLoadingIndicator(false);
-                }
+                mDishesView.switchLoadingIndicator();
             }
 
             @Override
             public void onDataNotAvailable() {
+                mDishesView.switchLoadingIndicator();
                 Log.d(LOG_TAG, "No dishes!!");
             }
         });

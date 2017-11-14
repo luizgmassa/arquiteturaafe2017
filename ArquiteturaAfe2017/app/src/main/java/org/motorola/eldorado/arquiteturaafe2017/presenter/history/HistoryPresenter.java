@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalDataSource mLocalDataSource;
+    private final DataSource mLocalDataSource;
 
     /**
      * Holds the instance of View contract.
@@ -45,34 +46,29 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
     @Override
     public void start() {
-        loadHistory(false);
+        loadHistory();
     }
 
     @Override
-    public void loadHistory(final boolean showLoadingUI) {
-        if (showLoadingUI) {
-            mHistoryView.setLoadingIndicator(true);
-        }
+    public void loadHistory() {
+        mHistoryView.switchLoadingIndicator();
 
         Log.d(LOG_TAG, "Starting loading all history...");
 
         mLocalDataSource.getHistory(new LocalDataSource.LoadHistoryCallback() {
             @Override
             public void onHistoryLoaded(@NonNull List<Order> orders) {
-                if (!orders.isEmpty()) {
-                    Log.d(LOG_TAG, "Showing all orders...");
+                Log.d(LOG_TAG, "Showing all orders...");
 
-                    // Show the list of orders
-                    mHistoryView.showHistory(orders);
-                }
+                // Show the list of orders
+                mHistoryView.showHistory(orders);
 
-                if (showLoadingUI) {
-                    mHistoryView.setLoadingIndicator(false);
-                }
+                mHistoryView.switchLoadingIndicator();
             }
 
             @Override
             public void onDataNotAvailable() {
+                mHistoryView.switchLoadingIndicator();
                 Log.d(LOG_TAG, "No history!!");
             }
         });

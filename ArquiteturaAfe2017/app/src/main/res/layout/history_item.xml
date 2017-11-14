@@ -92,7 +92,7 @@
         android:layout_alignBaseline="@id/history_item_drink_text_view"
         android:layout_marginStart="@dimen/list_item_padding"
         android:layout_toEndOf="@id/history_item_drink_text_view"
-        android:text="@string/drink_not_selected"
+        android:text="@string/no_drink_selected"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView

@@ -41,7 +41,7 @@ public final class Dish extends Item implements Parcelable {
     /**
      * Holds the price of the dish.
      */
-    private float mPrice;
+    private final float mPrice;
 
     /**
      * Constructor.
@@ -79,7 +79,7 @@ public final class Dish extends Item implements Parcelable {
         mMixture = mixture;
     }
 
-    protected Dish(Parcel in) {
+    private Dish(Parcel in) {
         mId = in.readInt();
         mName = in.readString();
         mDescription = in.readString();

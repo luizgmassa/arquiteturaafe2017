@@ -130,7 +130,7 @@ public class LocalDataSource implements DataSource {
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
-                Dish dish = getParcialDishFromCursor(c);
+                Dish dish = getPartialDishFromCursor(c);
 
                 dishes.add(dish);
             }
@@ -272,7 +272,7 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableEmpty(db, PersistenceContract.DishEntry.DISH_TABLE_NAME)) {
+        if (isTableEmpty(db, PersistenceContract.DishEntry.DISH_TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -420,7 +420,7 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableEmpty(db, PersistenceContract.DrinkEntry.DRINK_TABLE_NAME)) {
+        if (isTableEmpty(db, PersistenceContract.DrinkEntry.DRINK_TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -466,7 +466,7 @@ public class LocalDataSource implements DataSource {
         int count = cursor.getInt(0);
         cursor.close();
 
-        return count <= 0;
+        return count > 0;
     }
 
     /**
@@ -491,12 +491,12 @@ public class LocalDataSource implements DataSource {
      * Gets a complete dish object from a single database cursor.
      *
      * @param c the cursor itself.
-     * @return the dish object retrived from the cursor database.
+     * @return the dish object retrieved from the cursor database.
      */
     private Dish getCompleteDishFromCursor(Cursor c) {
         ArrayList<SideDish> sideDishes = new ArrayList<>();
 
-        Dish defaultDish = getParcialDishFromCursor(c);
+        Dish defaultDish = getPartialDishFromCursor(c);
 
         String sideDishesIds = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_SIDE_DISH_ID));
         sideDishes.addAll(getSideDishesFromIds(sideDishesIds));
@@ -512,7 +512,7 @@ public class LocalDataSource implements DataSource {
      * @param c the cursor itself.
      * @return the dish object retrieved from the cursor database.
      */
-    private Dish getParcialDishFromCursor(Cursor c) {
+    private Dish getPartialDishFromCursor(Cursor c) {
         int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_ID));
         String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_NAME));
         String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION));

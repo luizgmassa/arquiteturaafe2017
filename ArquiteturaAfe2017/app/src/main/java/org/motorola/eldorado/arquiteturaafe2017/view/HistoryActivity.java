@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
@@ -56,7 +57,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
         setContentView(R.layout.activity_history);
 
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage(getString(R.string.dishes_activity_loading_dishes));
+        mProgressDialog.setMessage(getString(R.string.history_activity_loading_history));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -66,6 +67,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
         mListAdapter = new HistoryAdapter(new ArrayList<Order>(0));
 
         TextView emptyView = (TextView) findViewById(android.R.id.empty);
+        emptyView.setText(R.string.empty_list);
 
         ListView listView = (ListView) findViewById(R.id.activity_history_list);
         listView.setAdapter(mListAdapter);
@@ -84,7 +86,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
+    public void switchLoadingIndicator() {
         if (mProgressDialog == null || isDestroyed()) {
             return;
         }
@@ -99,6 +101,11 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
     @Override
     public void showHistory(List<Order> history) {
         mListAdapter.replaceData(history);
+    }
+
+    @Override
+    public void handleError() {
+        Toast.makeText(this, R.string.data_load_error, Toast.LENGTH_LONG).show();
     }
 
     /**

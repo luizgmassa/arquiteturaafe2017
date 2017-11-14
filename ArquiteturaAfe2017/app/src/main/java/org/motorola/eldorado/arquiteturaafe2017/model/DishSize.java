@@ -1,11 +1,54 @@
 package org.motorola.eldorado.arquiteturaafe2017.model;
 
+import android.content.Context;
+
+import org.motorola.eldorado.arquiteturaafe2017.R;
+
 /**
  * Enum that holds the dish size.
  */
 public enum DishSize {
-    SMALL,
-    MEDIUM,
-    LARGE,
-    EXTRA_LARGE
+    SMALL(R.string.dish_size_small),
+    MEDIUM(R.string.dish_size_medium),
+    LARGE(R.string.dish_size_large),
+    EXTRA_LARGE(R.string.dish_size_extra_large);
+
+    /**
+     * Holds the resource id.
+     */
+    private final int mResourceId;
+
+    /**
+     * Constructor.
+     *
+     * @param id the resource id.
+     */
+    DishSize(int id)  {
+        mResourceId = id;
+    }
+
+    /**
+     * Gets the Resource Id for the enum.
+     *
+     * @return the resource id for the enum.
+     */
+    public int getResourceId() {
+        return mResourceId;
+    }
+
+    /**
+     * Gets all enums converted to strings from resource.
+     *
+     * @param context the context.
+     * @return the enums converted to strings from resource.
+     */
+    public static String[] getAll(Context context) {
+        String[] sizes = new String[DishSize.values().length];
+
+        for (int i = 0; i < DishSize.values().length; i++ ) {
+            sizes[i] = context.getString(DishSize.values()[i].getResourceId());
+        }
+
+        return sizes;
+    }
 }
