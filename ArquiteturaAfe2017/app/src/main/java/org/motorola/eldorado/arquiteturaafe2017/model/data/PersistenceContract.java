@@ -1,7 +1,5 @@
 package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
-import android.provider.BaseColumns;
-
 /**
  * The Dishes Persistence Contract class.
  */
@@ -18,171 +16,161 @@ final class PersistenceContract {
     /**
      * Inner class that defines the dish table contents
      */
-    static abstract class DishEntry implements BaseColumns {
+    interface DishEntry {
+
+        /**
+         * Holds the dish id.
+         */
+        String DISH_COLUMN_ID = "dish_id";
 
         /**
          * Holds the dish table name.
          */
-        static final String TABLE_NAME = "dish";
+        String DISH_TABLE_NAME = "dish";
 
         /**
          * Holds the dish name column name.
          */
-        static final String COLUMN_NAME_NAME = "name";
+        String DISH_COLUMN_NAME = "dish_name";
 
         /**
          * Holds the dish description column name.
          */
-        static final String COLUMN_NAME_DESCRIPTION = "description";
+        String DISH_COLUMN_DESCRIPTION = "dish_description";
 
         /**
          * Holds the dish size column name.
          */
-        static final String COLUMN_NAME_SIZE = "size";
+        String DISH_COLUMN_SIZE = "dish_size";
 
         /**
          * Holds the dish price column name.
          */
-        static final String COLUMN_NAME_PRICE = "price";
+        String DISH_COLUMN_PRICE = "dish_price";
 
         /**
          * Holds the dish image file name column name.
          */
-        static final String COLUMN_NAME_IMAGE_NAME = "image_name";
+        String DISH_COLUMN_IMAGE_NAME = "dish_image_name";
 
         /**
          * Holds the side dishes ids column name.
          */
-        static final String COLUMN_NAME_SIDE_DISH_ID = "side_dish_id";
+        String DISH_COLUMN_SIDE_DISH_ID = "dish_side_dish_id";
 
         /**
          * Holds the mixtures ids column name.
          */
-        static final String COLUMN_NAME_MIXTURE_ID = "mixture_id";
+        String DISH_COLUMN_MIXTURE_ID = "dish_mixture_id";
     }
 
     /**
      * Inner class that defines the side dish table contents
      */
-    static abstract class SideDishEntry implements BaseColumns {
+    interface SideDishEntry {
+
+        /**
+         * Holds the side dish id.
+         */
+        String SIDE_DISH_COLUMN_ID = "side_dish_id";
 
         /**
          * Holds the side dish table name.
          */
-        static final String TABLE_NAME = "side_dish";
+        String SIDE_DISH_TABLE_NAME = "side_dish";
 
         /**
          * Holds the side dish name column name.
          */
-        static final String COLUMN_NAME_NAME = "name";
+        String SIDE_DISH_COLUMN_NAME = "side_dish_name";
 
         /**
          * Holds the side dish description column name.
          */
-        static final String COLUMN_NAME_DESCRIPTION = "description";
+        String SIDE_DISH_COLUMN_DESCRIPTION = "side_dish_description";
     }
 
     /**
      * Inner class that defines the mixture table contents
      */
-    static abstract class MixtureEntry implements BaseColumns {
+    interface MixtureEntry {
+
+        /**
+         * Holds the mixture id.
+         */
+        String MIXTURE_COLUMN_ID = "mixture_id";
 
         /**
          * Holds the mixture table name.
          */
-        static final String TABLE_NAME = "mixture";
+        String MIXTURE_TABLE_NAME = "mixture";
 
         /**
          * Holds the mixture name column name.
          */
-        static final String COLUMN_NAME_NAME = "name";
+        String MIXTURE_COLUMN_NAME = "mixture_name";
 
         /**
          * Holds the mixture description column name.
          */
-        static final String COLUMN_NAME_DESCRIPTION = "description";
+        String MIXTURE_COLUMN_DESCRIPTION = "mixture_description";
     }
 
     /**
      * Inner class that defines the drink table contents
      */
-    static abstract class DrinkEntry implements BaseColumns {
+    interface DrinkEntry {
+
+        /**
+         * Holds the drink id.
+         */
+        String DRINK_COLUMN_ID = "drink_id";
 
         /**
          * Holds the drink table name.
          */
-        static final String TABLE_NAME = "drink";
+        String DRINK_TABLE_NAME = "drink";
 
         /**
          * Holds the drink name column name.
          */
-        static final String COLUMN_NAME_NAME = "name";
+        String DRINK_COLUMN_NAME = "drink_name";
 
         /**
          * Holds the drink description column name.
          */
-        static final String COLUMN_NAME_DESCRIPTION = "description";
+        String DRINK_COLUMN_DESCRIPTION = "drink_description";
 
         /**
          * Holds the drink price column name.
          */
-        static final String COLUMN_NAME_PRICE = "price";
+        String DRINK_COLUMN_PRICE = "drink_price";
 
         /**
          * Holds the drink file name column name.
          */
-        static final String COLUMN_NAME_IMAGE_NAME = "image_name";
+        String DRINK_COLUMN_IMAGE_NAME = "drink_image_name";
     }
 
     /**
      * Inner class that defines the history table contents
      */
-    static abstract class HistoryEntry implements BaseColumns {
+    static abstract class HistoryEntry implements DishEntry, DrinkEntry {
+
+        /**
+         * Holds the history id.
+         */
+        static final String HISTORY_COLUMN_ID = "history_id";
 
         /**
          * Holds the history table name.
          */
-        static final String TABLE_NAME = "history";
-
-        /**
-         * Holds the history dish id column name.
-         */
-        static final String COLUMN_NAME_DISH_ID = "dish_id";
-
-        /**
-         * Holds the history dish size id column name.
-         */
-        static final String COLUMN_NAME_DISH_SIZE = "dish_size";
-
-        /**
-         * Holds the history mixture id column name.
-         */
-        static final String COLUMN_NAME_MIXTURE_ID = "mixture_id";
-
-        /**
-         * Holds the history side dishes ids column name.
-         */
-        static final String COLUMN_NAME_SIDE_DISHES_IDS = "side_dishes_id";
+        static final String HISTORY_TABLE_NAME = "history";
 
         /**
          * Holds the history drink id column name.
          */
-        static final String COLUMN_NAME_DISH_PRICE = "dish_price";
-
-        /**
-         * Holds the history drink id column name.
-         */
-        static final String COLUMN_NAME_DRINK_ID = "drink_id";
-
-        /**
-         * Holds the history drink id column name.
-         */
-        static final String COLUMN_NAME_DRINK_PRICE = "drink_price";
-
-        /**
-         * Holds the history drink id column name.
-         */
-        static final String COLUMN_NAME_PAYMENT_METHOD = "payment_method";
+        static final String HISTORY_COLUMN_PAYMENT_METHOD = "payment_method";
 
     }
 }

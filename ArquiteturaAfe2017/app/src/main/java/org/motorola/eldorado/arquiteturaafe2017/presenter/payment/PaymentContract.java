@@ -17,9 +17,26 @@ public interface PaymentContract {
     interface View extends BaseView<PaymentContract.Presenter> {
 
         /**
+         * Sets the loading indicator to show or hide.
+         *
+         * @param active true if loading indicator needs to be show on screen, otherwise false.
+         */
+        void setLoadingIndicator(boolean active);
+
+        /**
          * Sets the loaded dish from Presenter to the View (UI).
          */
         void showDish();
+
+        /**
+         * Callback used to return error on payment from the Presenter to the View (UI).
+         */
+        void onPaymentError();
+
+        /**
+         * Callback used to return success on payment from the Presenter to the View (UI).
+         */
+        void onPaymentSuccess();
     }
 
     /**

@@ -23,7 +23,7 @@
         <activity android:name=".view.DrinksActivity" />
         <activity android:name=".view.EditDishActivity" />
         <activity android:name=".view.PaymentActivity" />
-        <activity android:name=".view.HistoryActivity"></activity>
+        <activity android:name=".view.HistoryActivity" />
     </application>
 
 </manifest>

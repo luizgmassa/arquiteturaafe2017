@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Que Delícia Restaurante</string>
+    <string name="app_name">QueDlç Restaurante</string>
     <string name="dish_image_content_description">Dish image</string>
     <string name="dishes_activity_loading_dishes">Carregando os pratos…</string>
     <string name="list_view_no_results">No Results</string>
@@ -28,6 +28,9 @@
     <string name="activity_payment_dish_price">Prato: R$</string>
     <string name="activity_payment_drink_price">Bebida: R$</string>
     <string name="menu_history_button">Histórico</string>
+    <string name="payment_method">Pagamento: </string>
+    <string name="payment_success">Pagamento feito com sucesso!!</string>
+    <string name="payment_failed">Erro no pagamento, por favor tente mais tarde!</string>
 
     <string-array name="payment_methods">
         <item>Cartão de crédito</item>

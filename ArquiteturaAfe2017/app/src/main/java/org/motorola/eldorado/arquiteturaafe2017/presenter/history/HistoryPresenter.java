@@ -34,11 +34,11 @@ public class HistoryPresenter implements HistoryContract.Presenter {
      * Constructor.
      *
      * @param localDataSource the local data source object.
-     * @param dishesView the History view contract object.
+     * @param historyView the History view contract object.
      */
-    public HistoryPresenter(@NonNull LocalDataSource localDataSource, @NonNull HistoryContract.View dishesView) {
+    public HistoryPresenter(@NonNull LocalDataSource localDataSource, @NonNull HistoryContract.View historyView) {
         mLocalDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
-        mHistoryView = checkNotNull(dishesView, "dishesView cannot be null!");
+        mHistoryView = checkNotNull(historyView, "historyView cannot be null!");
 
         mHistoryView.setPresenter(this);
     }

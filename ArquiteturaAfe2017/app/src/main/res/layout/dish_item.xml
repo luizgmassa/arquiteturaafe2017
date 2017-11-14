@@ -9,14 +9,14 @@
     android:paddingTop="@dimen/list_item_padding">
 
     <ImageView
-        android:id="@+id/dish_image"
+        android:id="@+id/dish_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/dish_image_content_description" />
 
     <TextView
-        android:id="@+id/dish_name"
+        android:id="@+id/dish_item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -24,7 +24,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
-        android:id="@+id/dish_description"
+        android:id="@+id/dish_item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

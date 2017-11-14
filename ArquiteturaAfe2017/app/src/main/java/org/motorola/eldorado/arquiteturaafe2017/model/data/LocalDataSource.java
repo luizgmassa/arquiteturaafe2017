@@ -78,27 +78,28 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projectionSideDishes = {
-                PersistenceContract.SideDishEntry._ID,
-                PersistenceContract.SideDishEntry.COLUMN_NAME_NAME,
-                PersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION
+                PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_ID,
+                PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_NAME,
+                PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_DESCRIPTION
         };
 
         String[] projectionMixture = {
-                PersistenceContract.MixtureEntry._ID,
-                PersistenceContract.MixtureEntry.COLUMN_NAME_NAME,
-                PersistenceContract.MixtureEntry.COLUMN_NAME_DESCRIPTION
+                PersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID,
+                PersistenceContract.MixtureEntry.MIXTURE_COLUMN_NAME,
+                PersistenceContract.MixtureEntry.MIXTURE_COLUMN_DESCRIPTION
         };
 
         String[] projection = {
-                PersistenceContract.DishEntry._ID,
-                PersistenceContract.DishEntry.COLUMN_NAME_NAME,
-                PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION,
-                PersistenceContract.DishEntry.COLUMN_NAME_SIZE,
-                PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME,
-                PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID
+                PersistenceContract.DishEntry.DISH_COLUMN_ID,
+                PersistenceContract.DishEntry.DISH_COLUMN_NAME,
+                PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION,
+                PersistenceContract.DishEntry.DISH_COLUMN_SIZE,
+                PersistenceContract.DishEntry.DISH_COLUMN_PRICE,
+                PersistenceContract.DishEntry.DISH_COLUMN_IMAGE_NAME,
+                PersistenceContract.DishEntry.DISH_COLUMN_MIXTURE_ID
         };
 
-        Cursor c = db.query(PersistenceContract.SideDishEntry.TABLE_NAME, projectionSideDishes, null,
+        Cursor c = db.query(PersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME, projectionSideDishes, null,
                 null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
@@ -111,7 +112,7 @@ public class LocalDataSource implements DataSource {
             c.close();
         }
 
-        c = db.query(PersistenceContract.MixtureEntry.TABLE_NAME, projectionMixture, null,
+        c = db.query(PersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME, projectionMixture, null,
                 null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
@@ -124,7 +125,7 @@ public class LocalDataSource implements DataSource {
             c.close();
         }
 
-        c = db.query(PersistenceContract.DishEntry.TABLE_NAME, projection, null,
+        c = db.query(PersistenceContract.DishEntry.DISH_TABLE_NAME, projection, null,
                 null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
@@ -153,18 +154,18 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-                PersistenceContract.DishEntry._ID,
-                PersistenceContract.DishEntry.COLUMN_NAME_NAME,
-                PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION,
-                PersistenceContract.DishEntry.COLUMN_NAME_SIZE,
-                PersistenceContract.DishEntry.COLUMN_NAME_PRICE,
-                PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME,
-                PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID,
-                PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID
+                PersistenceContract.DishEntry.DISH_COLUMN_ID,
+                PersistenceContract.DishEntry.DISH_COLUMN_NAME,
+                PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION,
+                PersistenceContract.DishEntry.DISH_COLUMN_SIZE,
+                PersistenceContract.DishEntry.DISH_COLUMN_PRICE,
+                PersistenceContract.DishEntry.DISH_COLUMN_IMAGE_NAME,
+                PersistenceContract.DishEntry.DISH_COLUMN_MIXTURE_ID,
+                PersistenceContract.DishEntry.DISH_COLUMN_SIDE_DISH_ID
         };
 
         Cursor c = db.query(
-                PersistenceContract.DishEntry.TABLE_NAME, projection, null, null, null, null, null);
+                PersistenceContract.DishEntry.DISH_TABLE_NAME, projection, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -194,15 +195,15 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-                PersistenceContract.DrinkEntry._ID,
-                PersistenceContract.DrinkEntry.COLUMN_NAME_NAME,
-                PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION,
-                PersistenceContract.DrinkEntry.COLUMN_NAME_PRICE,
-                PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME
+                PersistenceContract.DrinkEntry.DRINK_COLUMN_ID,
+                PersistenceContract.DrinkEntry.DRINK_COLUMN_NAME,
+                PersistenceContract.DrinkEntry.DRINK_COLUMN_DESCRIPTION,
+                PersistenceContract.DrinkEntry.DRINK_COLUMN_PRICE,
+                PersistenceContract.DrinkEntry.DRINK_COLUMN_IMAGE_NAME
         };
 
         Cursor c = db.query(
-                PersistenceContract.DrinkEntry.TABLE_NAME, projection, null, null, null, null, null);
+                PersistenceContract.DrinkEntry.DRINK_TABLE_NAME, projection, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -231,21 +232,21 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-                PersistenceContract.DishEntry._ID,
-                PersistenceContract.DishEntry.COLUMN_NAME_NAME,
-                PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION,
-                PersistenceContract.DishEntry.COLUMN_NAME_SIZE,
-                PersistenceContract.DishEntry.COLUMN_NAME_PRICE,
-                PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME,
-                PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID,
-                PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID
+                PersistenceContract.DishEntry.DISH_COLUMN_ID,
+                PersistenceContract.DishEntry.DISH_COLUMN_NAME,
+                PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION,
+                PersistenceContract.DishEntry.DISH_COLUMN_SIZE,
+                PersistenceContract.DishEntry.DISH_COLUMN_PRICE,
+                PersistenceContract.DishEntry.DISH_COLUMN_IMAGE_NAME,
+                PersistenceContract.DishEntry.DISH_COLUMN_MIXTURE_ID,
+                PersistenceContract.DishEntry.DISH_COLUMN_SIDE_DISH_ID
         };
 
-        String selection = PersistenceContract.DishEntry._ID + " LIKE ?";
+        String selection = PersistenceContract.DishEntry.DISH_COLUMN_ID + " LIKE ?";
         String[] selectionArgs = { dishId };
 
         Cursor c = db.query(
-                PersistenceContract.DishEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+                PersistenceContract.DishEntry.DISH_TABLE_NAME, projection, selection, selectionArgs, null, null, null);
 
         Dish dish = null;
 
@@ -271,7 +272,7 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableEmpty(db, PersistenceContract.DishEntry.TABLE_NAME)) {
+        if (!isTableEmpty(db, PersistenceContract.DishEntry.DISH_TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -285,15 +286,15 @@ public class LocalDataSource implements DataSource {
                 lineValues = currentLine.split(";");
 
                 values = new ContentValues();
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_NAME, lineValues[0]);
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_SIZE, lineValues[2]);
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_PRICE, lineValues[3]);
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME, lineValues[4]);
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID, lineValues[5]);
-                values.put(PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID, lineValues[6]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_NAME, lineValues[0]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION, lineValues[1]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_SIZE, lineValues[2]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_PRICE, lineValues[3]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_IMAGE_NAME, lineValues[4]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_MIXTURE_ID, lineValues[5]);
+                values.put(PersistenceContract.DishEntry.DISH_COLUMN_SIDE_DISH_ID, lineValues[6]);
 
-                db.insert(PersistenceContract.DishEntry.TABLE_NAME, null, values);
+                db.insert(PersistenceContract.DishEntry.DISH_TABLE_NAME, null, values);
             }
 
         } catch (IOException e) {
@@ -305,10 +306,10 @@ public class LocalDataSource implements DataSource {
                 lineValues = currentLine.split(";");
 
                 values = new ContentValues();
-                values.put(PersistenceContract.MixtureEntry.COLUMN_NAME_NAME, lineValues[0]);
-                values.put(PersistenceContract.MixtureEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
+                values.put(PersistenceContract.MixtureEntry.MIXTURE_COLUMN_NAME, lineValues[0]);
+                values.put(PersistenceContract.MixtureEntry.MIXTURE_COLUMN_DESCRIPTION, lineValues[1]);
 
-                db.insert(PersistenceContract.MixtureEntry.TABLE_NAME, null, values);
+                db.insert(PersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME, null, values);
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
@@ -319,10 +320,10 @@ public class LocalDataSource implements DataSource {
                 lineValues = currentLine.split(";");
 
                 values = new ContentValues();
-                values.put(PersistenceContract.SideDishEntry.COLUMN_NAME_NAME, lineValues[0]);
-                values.put(PersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
+                values.put(PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_NAME, lineValues[0]);
+                values.put(PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_DESCRIPTION, lineValues[1]);
 
-                db.insert(PersistenceContract.SideDishEntry.TABLE_NAME, null, values);
+                db.insert(PersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME, null, values);
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
@@ -336,20 +337,26 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_ID, order.getDish().getId());
-        values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_SIZE, order.getDish().getDishSize().getSize());
-        values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_MIXTURE_ID, order.getDish().getMixture().getId());
-        values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_SIDE_DISHES_IDS, order.getDish().getSideDishesWithCommas());
-        values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_PRICE, order.getDish().getPrice());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_ID, order.getDish().getId());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_NAME, order.getDish().getName());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_DESCRIPTION, order.getDish().getDescription());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_SIZE, order.getDish().getDishSize().toString());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_PRICE, order.getDish().getPrice());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_IMAGE_NAME, order.getDish().getImageName());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_SIDE_DISH_ID, order.getDish().getSideDishesWithCommas());
+        values.put(PersistenceContract.HistoryEntry.DISH_COLUMN_MIXTURE_ID, order.getDish().getMixture().getId());
 
         if (order.getDrink() != null) {
-            values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_ID, order.getDrink().getId());
-            values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_PRICE, order.getDrink().getPrice());
+            values.put(PersistenceContract.HistoryEntry.DRINK_COLUMN_ID, order.getDrink().getId());
+            values.put(PersistenceContract.HistoryEntry.DRINK_COLUMN_NAME, order.getDrink().getName());
+            values.put(PersistenceContract.HistoryEntry.DRINK_COLUMN_DESCRIPTION, order.getDrink().getDescription());
+            values.put(PersistenceContract.HistoryEntry.DRINK_COLUMN_PRICE, order.getDrink().getPrice());
+            values.put(PersistenceContract.HistoryEntry.DRINK_COLUMN_IMAGE_NAME, order.getDrink().getImageName());
         }
 
-        values.put(PersistenceContract.HistoryEntry.COLUMN_NAME_PAYMENT_METHOD, order.getPaymentMethod());
+        values.put(PersistenceContract.HistoryEntry.HISTORY_COLUMN_PAYMENT_METHOD, order.getPaymentMethod());
 
-        long result = db.insert(PersistenceContract.HistoryEntry.TABLE_NAME, null, values);
+        long result = db.insert(PersistenceContract.HistoryEntry.HISTORY_TABLE_NAME, null, values);
 
         if (result != -1) {
             callback.onSaveOrderSaved(order);
@@ -366,19 +373,25 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
-                PersistenceContract.HistoryEntry._ID,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_ID,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_SIZE,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_MIXTURE_ID,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_SIDE_DISHES_IDS,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_PRICE,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_ID,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_PRICE,
-                PersistenceContract.HistoryEntry.COLUMN_NAME_PAYMENT_METHOD
+                PersistenceContract.HistoryEntry.HISTORY_COLUMN_ID,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_ID,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_NAME,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_DESCRIPTION,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_SIZE,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_PRICE,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_IMAGE_NAME,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_SIDE_DISH_ID,
+                PersistenceContract.HistoryEntry.DISH_COLUMN_MIXTURE_ID,
+                PersistenceContract.HistoryEntry.DRINK_COLUMN_ID,
+                PersistenceContract.HistoryEntry.DRINK_COLUMN_NAME,
+                PersistenceContract.HistoryEntry.DRINK_COLUMN_DESCRIPTION,
+                PersistenceContract.HistoryEntry.DRINK_COLUMN_PRICE,
+                PersistenceContract.HistoryEntry.DRINK_COLUMN_IMAGE_NAME,
+                PersistenceContract.HistoryEntry.HISTORY_COLUMN_PAYMENT_METHOD
         };
 
         Cursor c = db.query(
-                PersistenceContract.HistoryEntry.TABLE_NAME, projection, null, null, null, null, null);
+                PersistenceContract.HistoryEntry.HISTORY_TABLE_NAME, projection, null, null, null, null, null);
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -407,7 +420,7 @@ public class LocalDataSource implements DataSource {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values;
 
-        if (!isTableEmpty(db, PersistenceContract.DrinkEntry.TABLE_NAME)) {
+        if (!isTableEmpty(db, PersistenceContract.DrinkEntry.DRINK_TABLE_NAME)) {
             Log.d(LOG_TAG, "No need to insert again");
             return;
         }
@@ -422,12 +435,12 @@ public class LocalDataSource implements DataSource {
                 lineValues = currentLine.split(";");
 
                 values = new ContentValues();
-                values.put(PersistenceContract.DrinkEntry.COLUMN_NAME_NAME, lineValues[0]);
-                values.put(PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION, lineValues[1]);
-                values.put(PersistenceContract.DrinkEntry.COLUMN_NAME_PRICE, lineValues[2]);
-                values.put(PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME, lineValues[3]);
+                values.put(PersistenceContract.DrinkEntry.DRINK_COLUMN_NAME, lineValues[0]);
+                values.put(PersistenceContract.DrinkEntry.DRINK_COLUMN_DESCRIPTION, lineValues[1]);
+                values.put(PersistenceContract.DrinkEntry.DRINK_COLUMN_PRICE, lineValues[2]);
+                values.put(PersistenceContract.DrinkEntry.DRINK_COLUMN_IMAGE_NAME, lineValues[3]);
 
-                db.insert(PersistenceContract.DrinkEntry.TABLE_NAME, null, values);
+                db.insert(PersistenceContract.DrinkEntry.DRINK_TABLE_NAME, null, values);
                 i++;
             }
 
@@ -463,10 +476,13 @@ public class LocalDataSource implements DataSource {
      * @return the order object retrieved from the cursor database.
      */
     private Order getOrderFromCursor(Cursor c) {
-        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.HistoryEntry._ID));
+        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.HistoryEntry.HISTORY_COLUMN_ID));
+
         Dish dish = getCompleteDishFromCursor(c);
+
         Drink drink = getDrinkFromCursor(c);
-        String paymentMethod = c.getString(c.getColumnIndexOrThrow(PersistenceContract.HistoryEntry.COLUMN_NAME_PAYMENT_METHOD));
+
+        String paymentMethod = c.getString(c.getColumnIndexOrThrow(PersistenceContract.HistoryEntry.HISTORY_COLUMN_PAYMENT_METHOD));
 
         return new Order(itemId, dish, drink, paymentMethod);
     }
@@ -482,9 +498,8 @@ public class LocalDataSource implements DataSource {
 
         Dish defaultDish = getParcialDishFromCursor(c);
 
-        String sideDishesIds = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID));
-        String[] sideDishesIdsSplitted = sideDishesIds.split(",");
-        sideDishes.addAll(getSideDishesFromIds(sideDishesIdsSplitted));
+        String sideDishesIds = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_SIDE_DISH_ID));
+        sideDishes.addAll(getSideDishesFromIds(sideDishesIds));
 
         return new Dish(defaultDish.getId(), defaultDish.getName(), defaultDish.getDescription(),
                 defaultDish.getDishSize(), defaultDish.getPrice(), defaultDish.getImageName(),
@@ -498,14 +513,14 @@ public class LocalDataSource implements DataSource {
      * @return the dish object retrieved from the cursor database.
      */
     private Dish getParcialDishFromCursor(Cursor c) {
-        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.DishEntry._ID));
-        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_NAME));
-        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION));
-        DishSize size = DishSize.valueOf(c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_SIZE)));
-        float price = c.getFloat(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_PRICE));
-        String imageName = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME));
+        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION));
+        DishSize size = DishSize.valueOf(c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_SIZE)));
+        float price = c.getFloat(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_PRICE));
+        String imageName = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_IMAGE_NAME));
 
-        String mixtureId = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID));
+        String mixtureId = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DishEntry.DISH_COLUMN_MIXTURE_ID));
         Mixture mixture = getMixtureFromId(mixtureId);
 
         return new Dish(itemId, name, description, size, price, imageName, mixture);
@@ -518,9 +533,9 @@ public class LocalDataSource implements DataSource {
      * @return the side dish object retrieved from the cursor database.
      */
     private SideDish getSideDishFromCursor(Cursor c) {
-        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.SideDishEntry._ID));
-        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.SideDishEntry.COLUMN_NAME_NAME));
-        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION));
+        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_DESCRIPTION));
 
         return new SideDish(itemId, name, description);
     }
@@ -532,9 +547,9 @@ public class LocalDataSource implements DataSource {
      * @return the mixture object retrieved from the cursor database.
      */
     private Mixture getMixtureFromCursor(Cursor c) {
-        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.MixtureEntry._ID));
-        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.MixtureEntry.COLUMN_NAME_NAME));
-        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.MixtureEntry.COLUMN_NAME_DESCRIPTION));
+        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.MixtureEntry.MIXTURE_COLUMN_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.MixtureEntry.MIXTURE_COLUMN_DESCRIPTION));
 
         return new Mixture(itemId, name, description);
     }
@@ -546,11 +561,11 @@ public class LocalDataSource implements DataSource {
      * @return the drink object retrieved from the cursor database.
      */
     private Drink getDrinkFromCursor(Cursor c) {
-        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry._ID));
-        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.COLUMN_NAME_NAME));
-        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION));
-        float price = c.getFloat(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.COLUMN_NAME_PRICE));
-        String imageName = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME));
+        int itemId = c.getInt(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.DRINK_COLUMN_ID));
+        String name = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.DRINK_COLUMN_NAME));
+        String description = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.DRINK_COLUMN_DESCRIPTION));
+        float price = c.getFloat(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.DRINK_COLUMN_PRICE));
+        String imageName = c.getString(c.getColumnIndexOrThrow(PersistenceContract.DrinkEntry.DRINK_COLUMN_IMAGE_NAME));
 
         return new Drink(itemId, name, description, price, imageName);
     }
@@ -566,8 +581,8 @@ public class LocalDataSource implements DataSource {
         Mixture mixture = null;
 
         try {
-            String query = "SELECT * FROM " + PersistenceContract.MixtureEntry.TABLE_NAME
-                    + " WHERE " + PersistenceContract.MixtureEntry._ID + " = '" + id + "'";
+            String query = "SELECT * FROM " + PersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME
+                    + " WHERE " + PersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID + " = '" + id + "'";
             Cursor c = db.rawQuery(query, null);
 
             if (c != null && c.getCount() > 0) {
@@ -587,16 +602,18 @@ public class LocalDataSource implements DataSource {
     /**
      * Gets a list of side dishes.
      *
-     * @param sideDishes the side dishes array ids.
+     * @param sideDishesIds the side dishes ids.
      * @return the list of side dishes objects retrieved from data base.
      */
-    private List<SideDish> getSideDishesFromIds(String[] sideDishes) {
+    private List<SideDish> getSideDishesFromIds(String sideDishesIds) {
+        String[] sideDishes = sideDishesIds.split(",");
+
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         ArrayList<SideDish> sideDishesList = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM " + PersistenceContract.SideDishEntry.TABLE_NAME
-                    + " WHERE " + PersistenceContract.SideDishEntry._ID + " IN (" + makePlaceholders(sideDishes.length) + ")";
+            String query = "SELECT * FROM " + PersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME
+                    + " WHERE " + PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_ID + " IN (" + makePlaceholders(sideDishes.length) + ")";
             Cursor c = db.rawQuery(query, sideDishes);
 
             if (c != null && c.getCount() > 0) {

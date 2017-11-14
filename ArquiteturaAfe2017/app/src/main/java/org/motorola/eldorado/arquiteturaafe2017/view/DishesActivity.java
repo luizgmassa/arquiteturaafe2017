@@ -132,8 +132,14 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
          */
         private final DishItemListener mItemListener;
 
-        DishesAdapter(List<Dish> tasks, DishItemListener itemListener) {
-            setList(tasks);
+        /**
+         * Constructor.
+         *
+         * @param dishes the list of dishes.
+         * @param itemListener the dish click item listener.
+         */
+        DishesAdapter(List<Dish> dishes, DishItemListener itemListener) {
+            setList(dishes);
             mItemListener = itemListener;
         }
 
@@ -181,10 +187,10 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
             final Dish dish = getItem(i);
 
-            TextView name = (TextView) rowView.findViewById(R.id.dish_name);
+            TextView name = (TextView) rowView.findViewById(R.id.dish_item_name);
             name.setText(dish.getName());
 
-            TextView description = (TextView) rowView.findViewById(R.id.dish_description);
+            TextView description = (TextView) rowView.findViewById(R.id.dish_item_description);
             description.setText(dish.getDescription());
 
             try {
@@ -193,7 +199,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
                 // load image as Drawable
                 Drawable drawable = Drawable.createFromStream(ims, null);
 
-                ImageView image = (ImageView) rowView.findViewById(R.id.dish_image);
+                ImageView image = (ImageView) rowView.findViewById(R.id.dish_item_image);
 
                 // set image to ImageView
                 image.setImageDrawable(drawable);

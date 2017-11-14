@@ -1,5 +1,7 @@
 package org.motorola.eldorado.arquiteturaafe2017.view;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -59,6 +63,12 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
             R.id.activity_dish_detail_side_dishes,
             R.id.activity_dish_detail_mixture
     };
+
+
+    /**
+     * Holds the progress dialog for this view.
+     */
+    private ProgressDialog mProgressDialog;
 
     /**
      * Holds the current dish.
@@ -106,7 +116,12 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        mPresenter = new PaymentPresenter(this);
+        mPresenter = new PaymentPresenter(LocalDataSource.getInstance(this), this);
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getString(R.string.dishes_activity_loading_dishes));
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
 
         // Views
         mDishImage = (ImageView) findViewById(R.id.activity_dish_detail_image);
@@ -145,6 +160,19 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
     }
 
     @Override
+    public void setLoadingIndicator(boolean active) {
+        if (mProgressDialog == null || isDestroyed()) {
+            return;
+        }
+
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
     public void showDish() {
         if (getApplicationContext() == null || getBaseContext() == null || getIntent() == null) {
             Log.e(LOG_TAG, "Context is null or intent is null");
@@ -161,6 +189,20 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         }
 
         updateScreen();
+    }
+
+    @Override
+    public void onPaymentError() {
+        Toast.makeText(this, R.string.payment_failed, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPaymentSuccess() {
+        Toast.makeText(this, R.string.payment_success, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, EntrypointActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**

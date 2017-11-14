@@ -68,7 +68,7 @@ public class DishesPresenter implements DishesContract.Presenter {
 
         mLocalDataSource.getDishes(new LocalDataSource.LoadDishesCallback() {
             @Override
-            public void onDishesLoaded(List<Dish> dishes) {
+            public void onDishesLoaded(@NonNull List<Dish> dishes) {
                 if (!dishes.isEmpty()) {
                     Log.d(LOG_TAG, "Showing all dishes...");
 

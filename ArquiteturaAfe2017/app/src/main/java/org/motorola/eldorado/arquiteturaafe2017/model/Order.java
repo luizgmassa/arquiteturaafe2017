@@ -199,11 +199,11 @@ public final class Order implements Parcelable {
     }
 
     /**
-     * Gets the Order final value.
+     * Gets the Order final price.
      *
-     * @return the order final value.
+     * @return the order final price.
      */
-    public float getFinalValue() {
+    public float getFinalPrice() {
         return mFinalPrice;
     }
 

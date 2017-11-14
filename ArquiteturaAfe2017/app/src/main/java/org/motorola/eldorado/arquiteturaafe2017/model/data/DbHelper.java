@@ -65,63 +65,69 @@ class DbHelper extends SQLiteOpenHelper {
      * Holds the SQL query for Dish table creation.
      */
     private static final String SQL_DISH_CREATE_ENTRIES =
-            "CREATE TABLE " + PersistenceContract.DishEntry.TABLE_NAME + " (" +
-                    PersistenceContract.DishEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
-                    PersistenceContract.DishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_PRICE + FLOAT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DishEntry.COLUMN_NAME_SIDE_DISH_ID + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.DishEntry.DISH_TABLE_NAME + " (" +
+                    PersistenceContract.DishEntry.DISH_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+                    PersistenceContract.DishEntry.DISH_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.DISH_COLUMN_SIZE + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.DISH_COLUMN_PRICE + FLOAT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.DISH_COLUMN_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.DISH_COLUMN_MIXTURE_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DishEntry.DISH_COLUMN_SIDE_DISH_ID + TEXT_TYPE +
             " )";
 
     /**
      * Holds the SQL query for Side Dish table creation.
      */
     private static final String SQL_SIDE_DISH_CREATE_ENTRIES =
-            "CREATE TABLE " + PersistenceContract.SideDishEntry.TABLE_NAME + " (" +
-                    PersistenceContract.SideDishEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
-                    PersistenceContract.SideDishEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.SideDishEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME + " (" +
+                    PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+                    PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_DESCRIPTION + TEXT_TYPE +
                     " )";
 
     /**
      * Holds the SQL query for Mixture table creation.
      */
     private static final String SQL_MIXTURE_CREATE_ENTRIES =
-            "CREATE TABLE " + PersistenceContract.MixtureEntry.TABLE_NAME + " (" +
-                    PersistenceContract.MixtureEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
-                    PersistenceContract.MixtureEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.MixtureEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME + " (" +
+                    PersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+                    PersistenceContract.MixtureEntry.MIXTURE_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.MixtureEntry.MIXTURE_COLUMN_DESCRIPTION + TEXT_TYPE +
                     " )";
 
     /**
      * Holds the SQL query for Drinks table creation.
      */
     private static final String SQL_DRINKS_CREATE_ENTRIES =
-            "CREATE TABLE " + PersistenceContract.DrinkEntry.TABLE_NAME + " (" +
-                    PersistenceContract.DrinkEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
-                    PersistenceContract.DrinkEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DrinkEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.DrinkEntry.COLUMN_NAME_PRICE + FLOAT_TYPE + COMMA_SEP +
-                    PersistenceContract.DrinkEntry.COLUMN_NAME_IMAGE_NAME + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.DrinkEntry.DRINK_TABLE_NAME + " (" +
+                    PersistenceContract.DrinkEntry.DRINK_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+                    PersistenceContract.DrinkEntry.DRINK_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.DRINK_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.DRINK_COLUMN_PRICE + FLOAT_TYPE + COMMA_SEP +
+                    PersistenceContract.DrinkEntry.DRINK_COLUMN_IMAGE_NAME + TEXT_TYPE +
                     " )";
 
     /**
      * Holds the SQL query for Drinks table creation.
      */
     private static final String SQL_HISTORY_CREATE_ENTRIES =
-            "CREATE TABLE " + PersistenceContract.HistoryEntry.TABLE_NAME + " (" +
-                    PersistenceContract.HistoryEntry._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_ID + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_SIZE + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_MIXTURE_ID + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_SIDE_DISHES_IDS + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_DISH_PRICE + FLOAT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_ID + TEXT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_DRINK_PRICE + FLOAT_TYPE + COMMA_SEP +
-                    PersistenceContract.HistoryEntry.COLUMN_NAME_PAYMENT_METHOD + TEXT_TYPE +
+            "CREATE TABLE " + PersistenceContract.HistoryEntry.HISTORY_TABLE_NAME + " (" +
+                    PersistenceContract.HistoryEntry.HISTORY_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_SIZE + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_PRICE + FLOAT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_SIDE_DISH_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DISH_COLUMN_MIXTURE_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DRINK_COLUMN_ID + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DRINK_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DRINK_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DRINK_COLUMN_PRICE + FLOAT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.DRINK_COLUMN_IMAGE_NAME + TEXT_TYPE + COMMA_SEP +
+                    PersistenceContract.HistoryEntry.HISTORY_COLUMN_PAYMENT_METHOD + TEXT_TYPE +
                     " )";
 
     /**
