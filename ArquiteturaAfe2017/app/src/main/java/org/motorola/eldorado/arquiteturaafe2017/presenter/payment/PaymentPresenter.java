@@ -72,6 +72,7 @@ public class PaymentPresenter implements PaymentContract.Presenter {
             public void onSaveOrderFailed() {
                 mPaymentView.switchLoadingIndicator();
                 mPaymentView.handleError();
+
                 Log.d(LOG_TAG, "Save failed!!");
             }
         });

@@ -36,6 +36,9 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
      */
     private static final String LOG_TAG = EditDishActivity.class.getSimpleName();
 
+    /**
+     * Holds the extra for Edit dish.
+     */
     public static final String EXTRA_EDIT_DISH = "edit_dish";
 
     /**
@@ -164,15 +167,15 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
 
     @Override
     public void showDishes(final List<Dish> dishes, List<SideDish> sideDishes, List<Mixture> mixtures) {
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<Object> spinnerArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, mixtures.toArray());
-        ArrayAdapter spinner1ArrayAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<Object> spinner1ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, sideDishes.toArray());
-        ArrayAdapter spinner2ArrayAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<Object> spinner2ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, sideDishes.toArray());
-        ArrayAdapter spinner3ArrayAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<Object> spinner3ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,  sideDishes.toArray());
-        ArrayAdapter spinner4ArrayAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, DishSize.getAll(this));
 
         mSpinners[0].setAdapter(spinnerArrayAdapter);
@@ -243,9 +246,9 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
      * @param sideDish3Adapter the side dish 3 adapter.
      * @param dishSizeAdapter the dish size adapter.
      */
-    private void selectCurrentInformations(ArrayAdapter mixtureAdapter, ArrayAdapter sideDish1Adapter,
-                                           ArrayAdapter sideDish2Adapter, ArrayAdapter sideDish3Adapter,
-                                           ArrayAdapter dishSizeAdapter) {
+    private void selectCurrentInformations(ArrayAdapter<Object> mixtureAdapter, ArrayAdapter<Object> sideDish1Adapter,
+                                           ArrayAdapter<Object> sideDish2Adapter, ArrayAdapter<Object> sideDish3Adapter,
+                                           ArrayAdapter<String> dishSizeAdapter) {
         int spinnerPosition = mixtureAdapter.getPosition(mCurrentDish.getMixture());
         mSpinners[0].setSelection(spinnerPosition);
 

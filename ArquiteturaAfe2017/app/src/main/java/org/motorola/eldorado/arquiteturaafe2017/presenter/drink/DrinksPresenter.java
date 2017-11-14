@@ -69,6 +69,9 @@ public class DrinksPresenter implements DrinksContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 mDrinksView.switchLoadingIndicator();
+                mDrinksView.handleError();
+
+
                 Log.d(LOG_TAG, "No drinks!!");
             }
         });

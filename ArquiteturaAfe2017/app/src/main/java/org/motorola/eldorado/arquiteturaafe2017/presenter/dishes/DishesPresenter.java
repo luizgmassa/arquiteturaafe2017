@@ -69,6 +69,8 @@ public class DishesPresenter implements DishesContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 mDishesView.switchLoadingIndicator();
+                mDishesView.handleError();
+
                 Log.d(LOG_TAG, "No dishes!!");
             }
         });

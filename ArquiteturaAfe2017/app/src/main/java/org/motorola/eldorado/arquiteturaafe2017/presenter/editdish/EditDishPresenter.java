@@ -71,6 +71,8 @@ public class EditDishPresenter implements EditDishContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 mEditDishView.switchLoadingIndicator();
+                mEditDishView.handleError();
+
                 Log.d(LOG_TAG, "No dishes / side dishes / mixtures !!");
             }
         });

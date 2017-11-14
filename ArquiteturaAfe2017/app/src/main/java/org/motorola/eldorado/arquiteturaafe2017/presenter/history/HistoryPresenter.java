@@ -69,6 +69,8 @@ public class HistoryPresenter implements HistoryContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 mHistoryView.switchLoadingIndicator();
+                mHistoryView.handleError();
+
                 Log.d(LOG_TAG, "No history!!");
             }
         });
