@@ -75,6 +75,7 @@ public class LocalDataSource implements DataSource {
         List<Dish> dishes = new ArrayList<>();
         List<SideDish> sideDishes = new ArrayList<>();
         List<Mixture> mixtures = new ArrayList<>();
+        boolean failure = false;
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projectionSideDishes = {
@@ -110,6 +111,8 @@ public class LocalDataSource implements DataSource {
             }
 
             c.close();
+        } else {
+            failure = true;
         }
 
         c = db.query(PersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME, projectionMixture, null,
@@ -123,6 +126,8 @@ public class LocalDataSource implements DataSource {
             }
 
             c.close();
+        } else {
+            failure = true;
         }
 
         c = db.query(PersistenceContract.DishEntry.DISH_TABLE_NAME, projection, null,
@@ -136,12 +141,13 @@ public class LocalDataSource implements DataSource {
             }
 
             c.close();
+        } else {
+            failure = true;
         }
 
         db.close();
 
-        if (dishes.isEmpty() || sideDishes.isEmpty() || mixtures.isEmpty()) {
-            // This will be called if the table is new or just empty.
+        if (failure) {
             callback.onDataNotAvailable();
         } else {
             callback.onDishesLoaded(dishes, sideDishes, mixtures);
@@ -177,16 +183,14 @@ public class LocalDataSource implements DataSource {
             }
 
             c.close();
+        } else {
+            // We'll always have dishes, so if (cursor == null) or (count <= 0), then it's a failure.
+            callback.onDataNotAvailable();
         }
 
         db.close();
 
-        if (dishes.isEmpty()) {
-            // This will be called if the table is new or just empty.
-            callback.onDataNotAvailable();
-        } else {
-            callback.onDishesLoaded(dishes);
-        }
+        callback.onDishesLoaded(dishes);
     }
 
     @Override
@@ -215,16 +219,14 @@ public class LocalDataSource implements DataSource {
             }
 
             c.close();
+        } else {
+            // We'll always have drinks, so if (cursor == null) or (count <= 0), then it's a failure.
+            callback.onDataNotAvailable();
         }
 
         db.close();
 
-        if (drinks.isEmpty()) {
-            // This will be called if the table is new or just empty.
-            callback.onDataNotAvailable();
-        } else {
-            callback.onDrinksLoaded(drinks);
-        }
+        callback.onDrinksLoaded(drinks);
     }
 
     @Override
@@ -256,6 +258,9 @@ public class LocalDataSource implements DataSource {
             dish = getCompleteDishFromCursor(c);
 
             c.close();
+        } else {
+            // We'll always have dishes, so if (cursor == null) or (count <= 0), then it's a failure.
+            callback.onDataNotAvailable();
         }
 
         db.close();
@@ -393,26 +398,25 @@ public class LocalDataSource implements DataSource {
         Cursor c = db.query(
                 PersistenceContract.HistoryEntry.HISTORY_TABLE_NAME, projection, null, null, null, null, null);
 
-        if (c != null && c.getCount() > 0) {
-            while (c.moveToNext()) {
-                Order order = getOrderFromCursor(c);
+        if (c != null) {
+            if (c.getCount() > 0) {
+                while (c.moveToNext()) {
+                    Order order = getOrderFromCursor(c);
 
-                orders.add(order);
+                    orders.add(order);
 
-                Log.d(LOG_TAG, "Adding 1 order to list!!");
+                    Log.d(LOG_TAG, "Adding 1 order to list!!");
+                }
+
+                c.close();
             }
-
-            c.close();
+        } else {
+            callBack.onDataNotAvailable();
         }
 
         db.close();
 
-        if (orders.isEmpty()) {
-            // This will be called if the table is new or just empty.
-            callBack.onDataNotAvailable();
-        } else {
-            callBack.onHistoryLoaded(orders);
-        }
+        callBack.onHistoryLoaded(orders);
     }
 
     @Override
@@ -426,7 +430,6 @@ public class LocalDataSource implements DataSource {
         }
 
         String currentLine;
-        int i = 0;
         String[] lineValues;
         AssetManager assets = context.getAssets();
 
@@ -441,9 +444,7 @@ public class LocalDataSource implements DataSource {
                 values.put(PersistenceContract.DrinkEntry.DRINK_COLUMN_IMAGE_NAME, lineValues[3]);
 
                 db.insert(PersistenceContract.DrinkEntry.DRINK_TABLE_NAME, null, values);
-                i++;
             }
-
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
         }
@@ -461,6 +462,11 @@ public class LocalDataSource implements DataSource {
     private boolean isTableEmpty(SQLiteDatabase db, String tableName) {
         String query = "SELECT count(*) FROM " + tableName;
         Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor == null) {
+            return false;
+        }
+
         cursor.moveToFirst();
 
         int count = cursor.getInt(0);

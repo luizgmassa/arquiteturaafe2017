@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="org.motorola.eldorado.arquiteturaafe2017.view.DishesActivity">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_dishes_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/empty_list"
+        android:visibility="gone"
         android:textColor="@android:color/black"
         android:textSize="24sp" />
 

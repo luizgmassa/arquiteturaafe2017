@@ -2,9 +2,12 @@ package org.motorola.eldorado.arquiteturaafe2017.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,9 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,11 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     private ProgressDialog mProgressDialog;
 
     /**
+     * Holds the Recycler view instance.
+     */
+    private RecyclerView mRecyclerView;
+
+    /**
      * Holds the instance of dish click item listener.
      */
     private final DishItemListener mItemListener = new DishItemListener() {
@@ -84,12 +90,9 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
         mListAdapter = new DishesAdapter(new ArrayList<Dish>(0), mItemListener);
 
-        TextView emptyView = (TextView) findViewById(android.R.id.empty);
-        emptyView.setText(R.string.empty_list);
-
-        ListView listView = (ListView) findViewById(R.id.activity_dishes_list);
-        listView.setAdapter(mListAdapter);
-        listView.setEmptyView(emptyView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_dishes_list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mListAdapter);
     }
 
     @Override
@@ -119,6 +122,16 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     @Override
     public void showDishes(List<Dish> dishes) {
         mListAdapter.replaceData(dishes);
+
+        TextView emptyView = (TextView) findViewById(android.R.id.empty);
+
+        if (dishes.isEmpty()) {
+            mRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -129,7 +142,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     /**
      * Adapter for the Dishes Activity.
      */
-    private static class DishesAdapter extends BaseAdapter {
+    private static class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.ViewHolder> {
 
         /**
          * The List of dishes.
@@ -144,7 +157,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         /**
          * Constructor.
          *
-         * @param dishes the list of dishes.
+         * @param dishes       the list of dishes.
          * @param itemListener the dish click item listener.
          */
         DishesAdapter(List<Dish> dishes, DishItemListener itemListener) {
@@ -172,58 +185,134 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         }
 
         @Override
-        public int getCount() {
-            return mDishes.size();
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_item, parent, false);
+
+            return new ViewHolder(v);
         }
 
         @Override
-        public Dish getItem(int i) {
-            return mDishes.get(i);
-        }
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            final Dish dish = mDishes.get(position);
 
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
+            holder.getDishName().setText(dish.getName());
 
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View rowView = view;
-            if (rowView == null) {
-                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                rowView = inflater.inflate(R.layout.dish_item, viewGroup, false);
-            }
-
-            final Dish dish = getItem(i);
-
-            TextView name = (TextView) rowView.findViewById(R.id.dish_item_name);
-            name.setText(dish.getName());
-
-            TextView description = (TextView) rowView.findViewById(R.id.dish_item_description);
-            description.setText(dish.getDescription());
+            holder.getDishDescription().setText(dish.getDescription());
 
             try {
-                InputStream ims = rowView.getContext().getAssets().open(dish.getImageName());
+                InputStream ims = holder.getAssets().open(dish.getImageName());
 
                 // load image as Drawable
                 Drawable drawable = Drawable.createFromStream(ims, null);
 
-                ImageView image = (ImageView) rowView.findViewById(R.id.dish_item_image);
-
                 // set image to ImageView
-                image.setImageDrawable(drawable);
+                holder.getDishImage().setImageDrawable(drawable);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error loading dish image: " + e.getMessage(), e);
             }
 
-            rowView.setOnClickListener(new View.OnClickListener() {
+            holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mItemListener.onDishClick(dish);
                 }
             });
+        }
 
-            return rowView;
+        @Override
+        public int getItemCount() {
+            return mDishes.size();
+        }
+
+        /**
+         * Thew View Holder class that provides a reference to the item's view.
+         */
+        static class ViewHolder extends RecyclerView.ViewHolder {
+
+            /**
+             * Holds the Dish name text view.
+             */
+            private TextView mDishName;
+
+            /**
+             * Holds the Dish description text view.
+             */
+            private TextView mDishDescription;
+
+            /**
+             * Holds the Asset Manager to get Assets.
+             */
+            private AssetManager mAssets;
+
+            /**
+             * Holds the Dish image view.
+             */
+            private ImageView mDishImage;
+
+            /**
+             * Holds the view.
+             */
+            private View mView;
+
+            /**
+             * Constructor.
+             *
+             * @param view the view.
+             */
+            ViewHolder(View view) {
+                super(view);
+
+                mDishName = (TextView) view.findViewById(R.id.dish_item_name);
+                mDishDescription = (TextView) view.findViewById(R.id.dish_item_description);
+                mDishImage = (ImageView) view.findViewById(R.id.dish_item_image);
+                mAssets = view.getContext().getAssets();
+                mView = view;
+            }
+
+            /**
+             * Gets the Dish name text view.
+             *
+             * @return the dish name text view.
+             */
+            TextView getDishName() {
+                return mDishName;
+            }
+
+            /**
+             * Gets the Dish description text view.
+             *
+             * @return the dish name text view.
+             */
+            TextView getDishDescription() {
+                return mDishDescription;
+            }
+
+            /**
+             * Gets the Assets manager object.
+             *
+             * @return the asset manager object.
+             */
+            AssetManager getAssets() {
+                return mAssets;
+            }
+
+            /**
+             * Gets the Dish image view.
+             *
+             * @return the dish image view.
+             */
+            ImageView getDishImage() {
+                return mDishImage;
+            }
+
+            /**
+             * Sets the click listener for this view.
+             *
+             * @param listener the click listener.
+             */
+            void setOnClickListener(View.OnClickListener listener) {
+                mView.setOnClickListener(listener);
+            }
         }
     }
 
@@ -237,11 +326,11 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_main_history:
-                Intent historyIntent = new Intent(DishesActivity.this, HistoryActivity.class);
-                startActivity(historyIntent);
-                break;
+        int i = item.getItemId();
+
+        if (i == R.id.menu_main_history) {
+            Intent historyIntent = new Intent(DishesActivity.this, HistoryActivity.class);
+            startActivity(historyIntent);
         }
 
         return super.onOptionsItemSelected(item);
