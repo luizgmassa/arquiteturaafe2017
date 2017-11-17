@@ -142,7 +142,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     /**
      * Adapter for the Dishes Activity.
      */
-    private static class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.ViewHolder> {
+    private static class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.Holder> {
 
         /**
          * The List of dishes.
@@ -185,14 +185,14 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_dish_item, parent, false);
 
-            return new ViewHolder(v);
+            return new Holder(v);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(Holder holder, int position) {
             final Dish dish = mDishes.get(position);
 
             holder.getDishName().setText(dish.getName());
@@ -227,7 +227,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         /**
          * Thew View Holder class that provides a reference to the item's view.
          */
-        static class ViewHolder extends RecyclerView.ViewHolder {
+        static class Holder extends RecyclerView.ViewHolder {
 
             /**
              * Holds the Dish name text view.
@@ -259,7 +259,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
              *
              * @param view the view.
              */
-            ViewHolder(View view) {
+            Holder(View view) {
                 super(view);
 
                 mDishName = view.findViewById(R.id.dish_item_name);

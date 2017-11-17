@@ -13,11 +13,6 @@ import org.motorola.eldorado.arquiteturaafe2017.model.Order;
 public class RemoteDataSource implements RemoteData {
 
     /**
-     * Holds the Log Tag for this class.
-     */
-    private static final String LOG_TAG = RemoteDataSource.class.getSimpleName();
-
-    /**
      * Holds a instance for this class.
      */
     private static RemoteDataSource mInstance;

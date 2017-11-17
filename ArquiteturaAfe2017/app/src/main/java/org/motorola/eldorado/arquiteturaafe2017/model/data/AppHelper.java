@@ -11,6 +11,13 @@ import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 public class AppHelper {
 
     /**
+     * Constructor.
+     */
+    private AppHelper() {
+        // Avoid instantiation.
+    }
+
+    /**
      * Gets the string containing the side dishes names from the dish object.
      *
      * @param dish the dish object.

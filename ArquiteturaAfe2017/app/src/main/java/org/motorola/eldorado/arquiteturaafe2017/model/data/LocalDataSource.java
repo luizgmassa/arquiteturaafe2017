@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
@@ -32,6 +33,11 @@ public class LocalDataSource implements LocalData {
      * Holds the Log Tag for this class.
      */
     private static final String LOG_TAG = LocalDataSource.class.getSimpleName();
+
+    /**
+     * Holds the constant for Error reading files string.
+     */
+    private static final String STRING_ERROR_WHEN_READING_FILES = "Error when reading files: ";
 
     /**
      * Holds a instance for this class.
@@ -184,7 +190,7 @@ public class LocalDataSource implements LocalData {
 
             c.close();
         } else {
-            // We'll always have dishes, so if (cursor == null) or (count <= 0), then it's a failure.
+            // We'll always have dishes, so if cursor = null or count <= 0, then it's a failure.
             callback.onDataNotAvailable();
         }
 
@@ -220,7 +226,7 @@ public class LocalDataSource implements LocalData {
 
             c.close();
         } else {
-            // We'll always have drinks, so if (cursor == null) or (count <= 0), then it's a failure.
+            // We'll always have dishes, so if cursor = null or count <= 0, then it's a failure.
             callback.onDataNotAvailable();
         }
 
@@ -259,7 +265,7 @@ public class LocalDataSource implements LocalData {
 
             c.close();
         } else {
-            // We'll always have dishes, so if (cursor == null) or (count <= 0), then it's a failure.
+            // We'll always have dishes, so if cursor = null or count <= 0, then it's a failure.
             callback.onDataNotAvailable();
         }
 
@@ -303,7 +309,7 @@ public class LocalDataSource implements LocalData {
             }
 
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+            Log.e(LOG_TAG, STRING_ERROR_WHEN_READING_FILES + e.getMessage(), e);
         }
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open("mixtures.info")))) {
@@ -317,7 +323,7 @@ public class LocalDataSource implements LocalData {
                 db.insert(LocalPersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME, null, values);
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+            Log.e(LOG_TAG, STRING_ERROR_WHEN_READING_FILES + e.getMessage(), e);
         }
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open("side_dishes.info")))) {
@@ -331,7 +337,7 @@ public class LocalDataSource implements LocalData {
                 db.insert(LocalPersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME, null, values);
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+            Log.e(LOG_TAG, STRING_ERROR_WHEN_READING_FILES + e.getMessage(), e);
         }
 
         db.close();
@@ -446,7 +452,7 @@ public class LocalDataSource implements LocalData {
                 db.insert(LocalPersistenceContract.DrinkEntry.DRINK_TABLE_NAME, null, values);
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error when reading files: " + e.getMessage(), e);
+            Log.e(LOG_TAG, STRING_ERROR_WHEN_READING_FILES + e.getMessage(), e);
         }
 
         db.close();
@@ -582,11 +588,11 @@ public class LocalDataSource implements LocalData {
      * @param id the mixture id.
      * @return the mixture object from a dish.
      */
+    @Nullable
     private Mixture getMixtureFromId(String id) {
-        SQLiteDatabase db = mLocalDbHelper.getReadableDatabase();
         Mixture mixture = null;
 
-        try {
+        try (SQLiteDatabase db = mLocalDbHelper.getReadableDatabase()) {
             String query = "SELECT * FROM " + LocalPersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME
                     + " WHERE " + LocalPersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID + " = '" + id + "'";
             Cursor c = db.rawQuery(query, null);
@@ -631,7 +637,7 @@ public class LocalDataSource implements LocalData {
 
                 c.close();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
         }
 
@@ -643,12 +649,12 @@ public class LocalDataSource implements LocalData {
      *
      * @param len the number of placeholders.
      * @return a string with all needed placeholders.
-     * @throws Exception if something goes wrong with string builder.
+     * @throws IOException if something goes wrong with string builder length.
      */
-    private String makePlaceholders(int len) throws Exception {
+    private String makePlaceholders(int len) throws IOException {
         if (len < 1) {
             // It will lead to an invalid query anyway ..
-            throw new Exception("No placeholders");
+            throw new IOException("No placeholders");
         } else {
             StringBuilder sb = new StringBuilder(len * 2 - 1);
             sb.append("?");

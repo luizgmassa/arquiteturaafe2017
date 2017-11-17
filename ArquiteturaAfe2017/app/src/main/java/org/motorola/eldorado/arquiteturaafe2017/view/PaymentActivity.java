@@ -37,6 +37,17 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
     private static final String LOG_TAG = PaymentActivity.class.getSimpleName();
 
     /**
+     * Holds the Text Views IDs.
+     */
+    private static final int[] DISH_INFOS_TEXT_VIEW_IDS = {
+            R.id.activity_dish_detail_name,
+            R.id.activity_dish_detail_description,
+            R.id.activity_dish_detail_side_dishes,
+            R.id.activity_dish_detail_mixture,
+            R.id.activity_dish_detail_size
+    };
+
+    /**
      * Holds the Extra for Dish payment.
      */
     public static final String EXTRA_DISH_TO_PAY = "dish_payment";
@@ -60,17 +71,6 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
      * Holds all Text Views for Dish.
      */
     private TextView[] mDishInformationTextViews;
-
-    /**
-     * Holds the Text Views IDs.
-     */
-    private final int[] mDishInformationTextViewsIds = {
-            R.id.activity_dish_detail_name,
-            R.id.activity_dish_detail_description,
-            R.id.activity_dish_detail_side_dishes,
-            R.id.activity_dish_detail_mixture,
-            R.id.activity_dish_detail_size
-    };
 
     /**
      * Holds the progress dialog for this view.
@@ -158,10 +158,10 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
             }
         });
 
-        mDishInformationTextViews = new TextView[mDishInformationTextViewsIds.length];
+        mDishInformationTextViews = new TextView[DISH_INFOS_TEXT_VIEW_IDS.length];
 
-        for (int i = 0; i < mDishInformationTextViewsIds.length; i++) {
-            mDishInformationTextViews[i] = findViewById(mDishInformationTextViewsIds[i]);
+        for (int i = 0; i < DISH_INFOS_TEXT_VIEW_IDS.length; i++) {
+            mDishInformationTextViews[i] = findViewById(DISH_INFOS_TEXT_VIEW_IDS[i]);
         }
 
         mPresenter.start();

@@ -36,6 +36,17 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
     private static final String LOG_TAG = DishDetailsActivity.class.getSimpleName();
 
     /**
+     * Holds the Text Views IDs.
+     */
+    private static final int[] DISH_INFOS_TEXT_VIEWS_IDS = {
+            R.id.activity_dish_detail_name,
+            R.id.activity_dish_detail_description,
+            R.id.activity_dish_detail_side_dishes,
+            R.id.activity_dish_detail_mixture,
+            R.id.activity_dish_detail_size
+    };
+
+    /**
      * Holds the Activity For Result code for Drink activity.
      */
     private static final int ACTIVITY_RESULT_DRINK = 0;
@@ -64,17 +75,6 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
      * Holds all Text Views for Dish.
      */
     private TextView[] mDishInformationTextViews;
-
-    /**
-     * Holds the Text Views IDs.
-     */
-    private final int[] mDishInformationTextViewsIds = {
-            R.id.activity_dish_detail_name,
-            R.id.activity_dish_detail_description,
-            R.id.activity_dish_detail_side_dishes,
-            R.id.activity_dish_detail_mixture,
-            R.id.activity_dish_detail_size
-    };
 
     /**
      * Holds the current dish.
@@ -148,10 +148,10 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
             }
         });
 
-        mDishInformationTextViews = new TextView[mDishInformationTextViewsIds.length];
+        mDishInformationTextViews = new TextView[DISH_INFOS_TEXT_VIEWS_IDS.length];
 
-        for (int i = 0; i < mDishInformationTextViewsIds.length; i++ ) {
-            mDishInformationTextViews[i] = findViewById(mDishInformationTextViewsIds[i]);
+        for (int i = 0; i < DISH_INFOS_TEXT_VIEWS_IDS.length; i++) {
+            mDishInformationTextViews[i] = findViewById(DISH_INFOS_TEXT_VIEWS_IDS[i]);
         }
 
         mPresenter.start();
@@ -172,7 +172,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         Bundle data = getIntent().getExtras();
 
         if (data == null) {
-            Log.e(LOG_TAG, "Bundle is null");
+            Log.e(LOG_TAG, "Data bundle is null");
             return;
         }
 
@@ -226,46 +226,66 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ACTIVITY_RESULT_DRINK) {
-            if (resultCode == Activity.RESULT_OK) {
-                Bundle bundle = data.getExtras();
-
-                if (bundle == null) {
-                    Log.e(LOG_TAG, "Bundle is null");
-                    return;
-                }
-
-                mSelectedDrink = bundle.getParcelable(DrinksActivity.EXTRA_SELECTED_DRINK);
-
-                if (mSelectedDrink == null) {
-                    Log.e(LOG_TAG, "Received drink is null");
-                    return;
-                }
-
-                TextView drink = findViewById(R.id.activity_dish_detail_selected_drink);
-                drink.setText(mSelectedDrink.getName());
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, R.string.drink_not_selected, Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, R.string.drink_error, Toast.LENGTH_LONG).show();
-            }
+            handleDrinkSelection(resultCode, data);
         } else if (requestCode == ACTIVITY_RESULT_EDIT_DISH) {
-            if (resultCode == Activity.RESULT_OK) {
-                Bundle bundle = data.getExtras();
+            handleEditDish(resultCode, data);
+        }
+    }
 
-                if (bundle == null) {
-                    Log.e(LOG_TAG, "Bundle is null");
-                    return;
-                }
+    /**
+     * Handles Edit Dish activity result.
+     *
+     * @param resultCode the result code.
+     * @param data the intent data.
+     */
+    private void handleEditDish(int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
 
-                mCurrentDish = bundle.getParcelable(EditDishActivity.EXTRA_EDIT_DISH);
-
-                if (mCurrentDish == null) {
-                    Log.e(LOG_TAG, "New dish is null");
-                    return;
-                }
-
-                updateScreen();
+            if (bundle == null) {
+                Log.e(LOG_TAG, "Bundle is null");
+                return;
             }
+
+            mCurrentDish = bundle.getParcelable(EditDishActivity.EXTRA_EDIT_DISH);
+
+            if (mCurrentDish == null) {
+                Log.e(LOG_TAG, "New dish is null");
+                return;
+            }
+
+            updateScreen();
+        }
+    }
+
+    /**
+     * Handles Drink selection activity result.
+     *
+     * @param resultCode the result code.
+     * @param data the intent data.
+     */
+    private void handleDrinkSelection(int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+
+            if (bundle == null) {
+                Log.e(LOG_TAG, "Bundle is null");
+                return;
+            }
+
+            mSelectedDrink = bundle.getParcelable(DrinksActivity.EXTRA_SELECTED_DRINK);
+
+            if (mSelectedDrink == null) {
+                Log.e(LOG_TAG, "Received drink is null");
+                return;
+            }
+
+            TextView drink = findViewById(R.id.activity_dish_detail_selected_drink);
+            drink.setText(mSelectedDrink.getName());
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, R.string.drink_not_selected, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, R.string.drink_error, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -277,7 +297,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         /**
          * The Click Listener method called when user clicks on Payment button.
          *
-         * @param currentDish the clicked dish object.
+         * @param currentDish  the clicked dish object.
          * @param currentDrink the clicked drink object.
          */
         void onPaymentButtonClick(Dish currentDish, Drink currentDrink);

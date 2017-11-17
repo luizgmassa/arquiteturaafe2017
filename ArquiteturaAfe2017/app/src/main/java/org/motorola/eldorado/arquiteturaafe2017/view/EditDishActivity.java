@@ -37,6 +37,26 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
     private static final String LOG_TAG = EditDishActivity.class.getSimpleName();
 
     /**
+     * Holds the Spinner Ids of Mixture and the 3 Side Dishes.
+     */
+    private static final int[] SPINNERS_IDS = {
+            R.id.activity_edit_dish_mixture_spinner,
+            R.id.activity_edit_dish_side_dish1_spinner,
+            R.id.activity_edit_dish_side_dish2_spinner,
+            R.id.activity_edit_dish_side_dish3_spinner
+    };
+
+    /**
+     * Holds the Text View's descriptions ids.
+     */
+    private static final int[] DESCRIPTION_TEXT_VIEWS_IDS = {
+            R.id.activity_edit_dish_mixture_description,
+            R.id.activity_edit_dish_side_dish1_description,
+            R.id.activity_edit_dish_side_dish2_description,
+            R.id.activity_edit_dish_side_dish3_description
+    };
+
+    /**
      * Holds the extra for Edit dish.
      */
     public static final String EXTRA_EDIT_DISH = "edit_dish";
@@ -55,24 +75,6 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
      * Holds the Dish Size spinner.
      */
     private Spinner mDishSizeSpinner;
-
-    /**
-     * Holds the Spinner Ids of Mixture and the 3 Side Dishes.
-     */
-    private final int[] mSpinnersIds = {
-            R.id.activity_edit_dish_mixture_spinner,
-            R.id.activity_edit_dish_side_dish1_spinner,
-            R.id.activity_edit_dish_side_dish2_spinner,
-            R.id.activity_edit_dish_side_dish3_spinner};
-
-    /**
-     * Holds the Text View's descriptions ids.
-     */
-    private final int[] mDescriptionsIds = {
-            R.id.activity_edit_dish_mixture_description,
-            R.id.activity_edit_dish_side_dish1_description,
-            R.id.activity_edit_dish_side_dish2_description,
-            R.id.activity_edit_dish_side_dish3_description};
 
     /**
      * Holds the Spinners instances of Mixture and the 3 Side Dishes.
@@ -127,12 +129,12 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
-        mSpinners = new Spinner[mSpinnersIds.length];
-        mDescriptions = new TextView[mDescriptionsIds.length];
+        mSpinners = new Spinner[SPINNERS_IDS.length];
+        mDescriptions = new TextView[DESCRIPTION_TEXT_VIEWS_IDS.length];
 
-        for (int i = 0; i < mSpinnersIds.length; i++) {
-            mSpinners[i] = findViewById(mSpinnersIds[i]);
-            mDescriptions[i] = findViewById(mDescriptionsIds[i]);
+        for (int i = 0; i < SPINNERS_IDS.length; i++) {
+            mSpinners[i] = findViewById(SPINNERS_IDS[i]);
+            mDescriptions[i] = findViewById(DESCRIPTION_TEXT_VIEWS_IDS[i]);
         }
 
         mDishSizeSpinner = findViewById(R.id.activity_edit_dish_dish_size_spinner);

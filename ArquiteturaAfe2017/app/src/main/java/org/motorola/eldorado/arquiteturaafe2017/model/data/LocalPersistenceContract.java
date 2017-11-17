@@ -155,7 +155,14 @@ final class LocalPersistenceContract {
     /**
      * Inner class that defines the history table contents
      */
-    static abstract class HistoryEntry implements DishEntry, DrinkEntry {
+    abstract static class HistoryEntry implements DishEntry, DrinkEntry {
+
+        /**
+         * Constructor.
+         */
+        private HistoryEntry() {
+            // Avoid instantiation.
+        }
 
         /**
          * Holds the history id.

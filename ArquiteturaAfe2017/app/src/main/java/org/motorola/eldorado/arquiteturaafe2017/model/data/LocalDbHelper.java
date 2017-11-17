@@ -1,19 +1,3 @@
-/*
- * Copyright 2016, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
 import android.content.Context;
@@ -62,11 +46,21 @@ class LocalDbHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
 
     /**
+     * Holds the constant for Databse Create Table string.
+     */
+    private static final String STRING_DB_CREATE_TABLE = "CREATE TABLE ";
+
+    /**
+     * Holds the constant for Databse Primary Key Auto Increment string.
+     */
+    private static final String STRING_DB_PRIMARY_KEY_AUTOINCREMENT = " PRIMARY KEY AUTOINCREMENT,";
+
+    /**
      * Holds the SQL query for Dish table creation.
      */
     private static final String SQL_DISH_CREATE_ENTRIES =
-            "CREATE TABLE " + LocalPersistenceContract.DishEntry.DISH_TABLE_NAME + " (" +
-                    LocalPersistenceContract.DishEntry.DISH_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+            STRING_DB_CREATE_TABLE + LocalPersistenceContract.DishEntry.DISH_TABLE_NAME + " (" +
+                    LocalPersistenceContract.DishEntry.DISH_COLUMN_ID + INTEGER_TYPE + STRING_DB_PRIMARY_KEY_AUTOINCREMENT +
                     LocalPersistenceContract.DishEntry.DISH_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.DishEntry.DISH_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.DishEntry.DISH_COLUMN_SIZE + TEXT_TYPE + COMMA_SEP +
@@ -80,8 +74,8 @@ class LocalDbHelper extends SQLiteOpenHelper {
      * Holds the SQL query for Side Dish table creation.
      */
     private static final String SQL_SIDE_DISH_CREATE_ENTRIES =
-            "CREATE TABLE " + LocalPersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME + " (" +
-                    LocalPersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+            STRING_DB_CREATE_TABLE + LocalPersistenceContract.SideDishEntry.SIDE_DISH_TABLE_NAME + " (" +
+                    LocalPersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_ID + INTEGER_TYPE + STRING_DB_PRIMARY_KEY_AUTOINCREMENT +
                     LocalPersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.SideDishEntry.SIDE_DISH_COLUMN_DESCRIPTION + TEXT_TYPE +
                     " )";
@@ -90,8 +84,8 @@ class LocalDbHelper extends SQLiteOpenHelper {
      * Holds the SQL query for Mixture table creation.
      */
     private static final String SQL_MIXTURE_CREATE_ENTRIES =
-            "CREATE TABLE " + LocalPersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME + " (" +
-                    LocalPersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+            STRING_DB_CREATE_TABLE + LocalPersistenceContract.MixtureEntry.MIXTURE_TABLE_NAME + " (" +
+                    LocalPersistenceContract.MixtureEntry.MIXTURE_COLUMN_ID + INTEGER_TYPE + STRING_DB_PRIMARY_KEY_AUTOINCREMENT +
                     LocalPersistenceContract.MixtureEntry.MIXTURE_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.MixtureEntry.MIXTURE_COLUMN_DESCRIPTION + TEXT_TYPE +
                     " )";
@@ -100,8 +94,8 @@ class LocalDbHelper extends SQLiteOpenHelper {
      * Holds the SQL query for Drinks table creation.
      */
     private static final String SQL_DRINKS_CREATE_ENTRIES =
-            "CREATE TABLE " + LocalPersistenceContract.DrinkEntry.DRINK_TABLE_NAME + " (" +
-                    LocalPersistenceContract.DrinkEntry.DRINK_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+            STRING_DB_CREATE_TABLE + LocalPersistenceContract.DrinkEntry.DRINK_TABLE_NAME + " (" +
+                    LocalPersistenceContract.DrinkEntry.DRINK_COLUMN_ID + INTEGER_TYPE + STRING_DB_PRIMARY_KEY_AUTOINCREMENT +
                     LocalPersistenceContract.DrinkEntry.DRINK_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.DrinkEntry.DRINK_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.DrinkEntry.DRINK_COLUMN_PRICE + FLOAT_TYPE + COMMA_SEP +
@@ -112,8 +106,8 @@ class LocalDbHelper extends SQLiteOpenHelper {
      * Holds the SQL query for Drinks table creation.
      */
     private static final String SQL_HISTORY_CREATE_ENTRIES =
-            "CREATE TABLE " + LocalPersistenceContract.HistoryEntry.HISTORY_TABLE_NAME + " (" +
-                    LocalPersistenceContract.HistoryEntry.HISTORY_COLUMN_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
+            STRING_DB_CREATE_TABLE + LocalPersistenceContract.HistoryEntry.HISTORY_TABLE_NAME + " (" +
+                    LocalPersistenceContract.HistoryEntry.HISTORY_COLUMN_ID + INTEGER_TYPE + STRING_DB_PRIMARY_KEY_AUTOINCREMENT +
                     LocalPersistenceContract.HistoryEntry.DISH_COLUMN_ID + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.HistoryEntry.DISH_COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                     LocalPersistenceContract.HistoryEntry.DISH_COLUMN_DESCRIPTION + TEXT_TYPE + COMMA_SEP +

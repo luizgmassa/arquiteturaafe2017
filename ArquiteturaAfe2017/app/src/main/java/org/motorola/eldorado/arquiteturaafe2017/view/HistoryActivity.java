@@ -124,7 +124,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
     /**
      * Adapter for the History Activity.
      */
-    private static class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
+    private static class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Holder> {
 
         /**
          * The List of orders.
@@ -160,14 +160,14 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
         }
 
         @Override
-        public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_history_item, parent, false);
 
-            return new ViewHolder(v);
+            return new Holder(v);
         }
 
         @Override
-        public void onBindViewHolder(HistoryAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(Holder holder, int position) {
             Order order = mOrders.get(position);
 
             holder.getMixture().setText(order.getDish().getMixture().toString());
@@ -218,7 +218,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
         /**
          * Thew View Holder class that provides a reference to the item's view.
          */
-        static class ViewHolder extends RecyclerView.ViewHolder {
+        static class Holder extends RecyclerView.ViewHolder {
 
             /**
              * Holds the Mixture text view.
@@ -265,7 +265,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
              *
              * @param view the view.
              */
-            ViewHolder(View view) {
+            Holder(View view) {
                 super(view);
 
                 mMixture = view.findViewById(R.id.history_item_mixture);
