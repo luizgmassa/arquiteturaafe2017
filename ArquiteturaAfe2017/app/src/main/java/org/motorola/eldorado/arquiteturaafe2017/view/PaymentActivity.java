@@ -26,6 +26,7 @@ import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -258,19 +259,20 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
             Log.e(LOG_TAG, "Error loading dish image: " + e.getMessage(), e);
         }
 
+        DecimalFormat dcm = new DecimalFormat("0.00");
 
-        mDishPrice.setText(String.valueOf(mCurrentDish.getPrice()));
+        mDishPrice.setText(dcm.format(mCurrentDish.getPrice()));
 
         float totalPrice = mCurrentDish.getPrice();
 
         if (mCurrentDrink != null) {
             mDrink.setText(mCurrentDrink.toString());
-            mDrinkPrice.setText(String.valueOf(mCurrentDrink.getPrice()));
+            mDrinkPrice.setText(dcm.format(mCurrentDrink.getPrice()));
 
             totalPrice += mCurrentDrink.getPrice();
         }
 
-        mFinalPrice.setText(String.valueOf(totalPrice));
+        mFinalPrice.setText(dcm.format(totalPrice));
     }
 
     /**

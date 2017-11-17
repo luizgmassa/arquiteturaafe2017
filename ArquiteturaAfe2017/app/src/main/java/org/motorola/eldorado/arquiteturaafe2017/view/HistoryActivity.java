@@ -25,6 +25,7 @@ import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,7 +189,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
                 holder.getDrink().setText(order.getDrink().toString());
             }
 
-            holder.getTotalPrice().setText(String.valueOf(order.getFinalPrice()));
+            holder.getTotalPrice().setText(new DecimalFormat("0.00").format(order.getFinalPrice()));
 
             holder.getPaymentMethod().setText(order.getPaymentMethod());
 

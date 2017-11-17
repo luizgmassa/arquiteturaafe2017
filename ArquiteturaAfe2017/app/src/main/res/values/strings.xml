@@ -22,7 +22,7 @@
     <string name="activity_payment_final_price">Valor TOTAL: R$</string>
     <string name="activity_payment_order">Fazer pedido</string>
     <string name="size">Tamanho:</string>
-    <string name="activity_payment_default_price">0.0</string>
+    <string name="activity_payment_default_price">0,00</string>
     <string name="activity_payment_dish_price">Valor Prato: R$</string>
     <string name="activity_payment_drink_price">Valor Bebida: R$</string>
     <string name="menu_history_button">Histórico</string>
