@@ -57,5 +57,6 @@ public class EntryPointActivity extends AppCompatActivity {
     private void startDishesActivity() {
         Intent intent = new Intent(this, DishesActivity.class);
         startActivity(intent);
+        finish();
     }
 }
