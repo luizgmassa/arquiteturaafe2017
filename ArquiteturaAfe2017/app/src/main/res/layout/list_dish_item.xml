@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:orientation="horizontal"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/list_item_padding"
-    android:paddingTop="@dimen/list_item_padding">
+    android:layout_height="75dp">
 
     <ImageView
         android:id="@+id/dish_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
         android:contentDescription="@string/dish_image_content_description" />
 
     <TextView
         android:id="@+id/dish_item_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_toEndOf="@id/dish_item_image"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <TextView
-        android:id="@+id/dish_item_description"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-</LinearLayout>
+        android:layout_height="1dp"
+        android:layout_below="@+id/dish_item_image"
+        android:background="@android:color/darker_gray" />
+
+</RelativeLayout>

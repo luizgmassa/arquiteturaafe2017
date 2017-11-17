@@ -206,8 +206,6 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
             holder.getDishName().setText(dish.getName());
 
-            holder.getDishDescription().setText(dish.getDescription());
-
             try {
                 InputStream ims = holder.getAssets().open(dish.getImageName());
 
@@ -244,11 +242,6 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
             private final TextView mDishName;
 
             /**
-             * Holds the Dish description text view.
-             */
-            private final TextView mDishDescription;
-
-            /**
              * Holds the Asset Manager to get Assets.
              */
             private final AssetManager mAssets;
@@ -272,7 +265,6 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
                 super(view);
 
                 mDishName = view.findViewById(R.id.dish_item_name);
-                mDishDescription = view.findViewById(R.id.dish_item_description);
                 mDishImage = view.findViewById(R.id.dish_item_image);
                 mAssets = view.getContext().getAssets();
                 mView = view;
@@ -285,15 +277,6 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
              */
             TextView getDishName() {
                 return mDishName;
-            }
-
-            /**
-             * Gets the Dish description text view.
-             *
-             * @return the dish name text view.
-             */
-            TextView getDishDescription() {
-                return mDishDescription;
             }
 
             /**

@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_image"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="@dimen/list_item_padding"
         android:layout_toEndOf="@id/history_item_image"
         android:text="@string/mixture"
@@ -123,6 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_payment_method_text_view"
+        android:layout_marginBottom="5dp"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/history_item_payment_method_text_view"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
@@ -131,6 +133,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/history_item_payment_method"
-        android:background="@android:color/black" />
+        android:background="@android:color/darker_gray" />
 
 </RelativeLayout>
