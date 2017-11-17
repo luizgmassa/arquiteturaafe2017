@@ -131,11 +131,11 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         mDescriptions = new TextView[mDescriptionsIds.length];
 
         for (int i = 0; i < mSpinnersIds.length; i++) {
-            mSpinners[i] = (Spinner) findViewById(mSpinnersIds[i]);
-            mDescriptions[i] = (TextView) findViewById(mDescriptionsIds[i]);
+            mSpinners[i] = findViewById(mSpinnersIds[i]);
+            mDescriptions[i] = findViewById(mDescriptionsIds[i]);
         }
 
-        mDishSizeSpinner = (Spinner) findViewById(R.id.activity_edit_dish_dish_size_spinner);
+        mDishSizeSpinner = findViewById(R.id.activity_edit_dish_dish_size_spinner);
 
         // Create the presenter
         mPresenter = new EditDishPresenter(LocalDataSource.getInstance(this), this);
@@ -189,7 +189,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
 
         updateDescriptions();
 
-        Button button = (Button) findViewById(R.id.activity_edit_dish_save_button);
+        Button button = findViewById(R.id.activity_edit_dish_save_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

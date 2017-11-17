@@ -90,7 +90,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
 
         mListAdapter = new DishesAdapter(new ArrayList<Dish>(0), mItemListener);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.activity_dishes_list);
+        mRecyclerView = findViewById(R.id.activity_dishes_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mListAdapter);
     }
@@ -123,7 +123,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
     public void showDishes(List<Dish> dishes) {
         mListAdapter.replaceData(dishes);
 
-        TextView emptyView = (TextView) findViewById(android.R.id.empty);
+        TextView emptyView = findViewById(android.R.id.empty);
 
         if (dishes.isEmpty()) {
             mRecyclerView.setVisibility(View.GONE);
@@ -232,27 +232,27 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
             /**
              * Holds the Dish name text view.
              */
-            private TextView mDishName;
+            private final TextView mDishName;
 
             /**
              * Holds the Dish description text view.
              */
-            private TextView mDishDescription;
+            private final TextView mDishDescription;
 
             /**
              * Holds the Asset Manager to get Assets.
              */
-            private AssetManager mAssets;
+            private final AssetManager mAssets;
 
             /**
              * Holds the Dish image view.
              */
-            private ImageView mDishImage;
+            private final ImageView mDishImage;
 
             /**
              * Holds the view.
              */
-            private View mView;
+            private final View mView;
 
             /**
              * Constructor.
@@ -262,9 +262,9 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
             ViewHolder(View view) {
                 super(view);
 
-                mDishName = (TextView) view.findViewById(R.id.dish_item_name);
-                mDishDescription = (TextView) view.findViewById(R.id.dish_item_description);
-                mDishImage = (ImageView) view.findViewById(R.id.dish_item_image);
+                mDishName = view.findViewById(R.id.dish_item_name);
+                mDishDescription = view.findViewById(R.id.dish_item_description);
+                mDishImage = view.findViewById(R.id.dish_item_image);
                 mAssets = view.getContext().getAssets();
                 mView = view;
             }

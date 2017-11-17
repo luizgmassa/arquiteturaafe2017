@@ -31,7 +31,7 @@ public class UserPreferences {
     /**
      * Holds the Shared Preferences instance.
      */
-    private SharedPreferences mSharedPrefs;
+    private final SharedPreferences mSharedPrefs;
 
     /**
      * Private constructor that prevents direct instantiation.

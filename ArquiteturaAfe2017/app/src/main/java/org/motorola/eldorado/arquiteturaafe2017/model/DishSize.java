@@ -55,7 +55,7 @@ public enum DishSize {
 
     @Nullable
     public static DishSize getDishSizeByString(Context context, String dishSize) {
-        String currentSize = "";
+        String currentSize;
         DishSize result = null;
 
         for (int i = 0; i < DishSize.values().length; i++ ) {

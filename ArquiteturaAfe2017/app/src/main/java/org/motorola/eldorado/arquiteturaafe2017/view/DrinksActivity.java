@@ -65,8 +65,8 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
 
         setResult(Activity.RESULT_CANCELED);
 
-        mSpinner = (Spinner) findViewById(R.id.activity_drink_spinner);
-        Button button = (Button) findViewById(R.id.activity_drink_ok_button);
+        mSpinner = findViewById(R.id.activity_drink_spinner);
+        Button button = findViewById(R.id.activity_drink_ok_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

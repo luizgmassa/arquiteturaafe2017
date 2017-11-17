@@ -20,7 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.DishesActivity" />
+        <activity android:name=".view.DishesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.base.BaseActivity" />
         <activity android:name=".view.DishDetailsActivity" />
         <activity android:name=".view.DrinksActivity" />

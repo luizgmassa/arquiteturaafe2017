@@ -122,9 +122,9 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         mPresenter = new DishDetailsPresenter(this);
 
         // Views
-        mDishImage = (ImageView) findViewById(R.id.activity_dish_detail_image);
+        mDishImage = findViewById(R.id.activity_dish_detail_image);
 
-        Button drinksButton = (Button) findViewById(R.id.activity_dish_detail_drinks_button);
+        Button drinksButton = findViewById(R.id.activity_dish_detail_drinks_button);
         drinksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +132,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
             }
         });
 
-        Button editDishButton = (Button) findViewById(R.id.activity_dish_detail_edit_dish);
+        Button editDishButton = findViewById(R.id.activity_dish_detail_edit_dish);
         editDishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +140,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
             }
         });
 
-        Button paymentButton = (Button) findViewById(R.id.activity_dish_detail_payment);
+        Button paymentButton = findViewById(R.id.activity_dish_detail_payment);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +151,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         mDishInformationTextViews = new TextView[mDishInformationTextViewsIds.length];
 
         for (int i = 0; i < mDishInformationTextViewsIds.length; i++ ) {
-            mDishInformationTextViews[i] = (TextView) findViewById(mDishInformationTextViewsIds[i]);
+            mDishInformationTextViews[i] = findViewById(mDishInformationTextViewsIds[i]);
         }
 
         mPresenter.start();
@@ -241,7 +241,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
                     return;
                 }
 
-                TextView drink = (TextView) findViewById(R.id.activity_dish_detail_selected_drink);
+                TextView drink = findViewById(R.id.activity_dish_detail_selected_drink);
                 drink.setText(mSelectedDrink.getName());
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(this, R.string.drink_not_selected, Toast.LENGTH_LONG).show();

@@ -136,19 +136,19 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         mProgressDialog.setCancelable(false);
 
         // Views
-        mDishImage = (ImageView) findViewById(R.id.activity_dish_detail_image);
+        mDishImage = findViewById(R.id.activity_dish_detail_image);
 
-        mPaymentMethod = (Spinner) findViewById(R.id.activity_payment_payment_methods_spinner);
+        mPaymentMethod = findViewById(R.id.activity_payment_payment_methods_spinner);
 
-        mDishPrice = (TextView) findViewById(R.id.activity_payment_dish_price_final);
-        mDrink = (TextView) findViewById(R.id.activity_dish_detail_selected_drink);
-        mDrinkPrice = (TextView) findViewById(R.id.activity_payment_drink_price_final);
-        mFinalPrice = (TextView) findViewById(R.id.activity_payment_final_price_final);
+        mDishPrice = findViewById(R.id.activity_payment_dish_price_final);
+        mDrink = findViewById(R.id.activity_dish_detail_selected_drink);
+        mDrinkPrice = findViewById(R.id.activity_payment_drink_price_final);
+        mFinalPrice = findViewById(R.id.activity_payment_final_price_final);
 
         // we don't need this button here
         (findViewById(R.id.activity_dish_detail_drinks_button)).setVisibility(Button.GONE);
 
-        Button payButton = (Button) findViewById(R.id.activity_payment_order_button);
+        Button payButton = findViewById(R.id.activity_payment_order_button);
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +161,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         mDishInformationTextViews = new TextView[mDishInformationTextViewsIds.length];
 
         for (int i = 0; i < mDishInformationTextViewsIds.length; i++) {
-            mDishInformationTextViews[i] = (TextView) findViewById(mDishInformationTextViewsIds[i]);
+            mDishInformationTextViews[i] = findViewById(mDishInformationTextViewsIds[i]);
         }
 
         mPresenter.start();

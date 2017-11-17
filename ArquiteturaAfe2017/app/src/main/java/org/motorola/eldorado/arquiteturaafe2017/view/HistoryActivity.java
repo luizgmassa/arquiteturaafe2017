@@ -72,7 +72,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
 
         mListAdapter = new HistoryAdapter(new ArrayList<Order>(0));
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.activity_history_list);
+        mRecyclerView = findViewById(R.id.activity_history_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mListAdapter);
     }
@@ -105,7 +105,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
     public void showHistory(List<Order> history) {
         mListAdapter.replaceData(history);
 
-        TextView emptyView = (TextView) findViewById(android.R.id.empty);
+        TextView emptyView = findViewById(android.R.id.empty);
 
         if (history.isEmpty()) {
             mRecyclerView.setVisibility(View.GONE);
@@ -223,42 +223,42 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
             /**
              * Holds the Mixture text view.
              */
-            private TextView mMixture;
+            private final TextView mMixture;
 
             /**
              * Holds the Side dishes text view.
              */
-            private TextView mSideDishes;
+            private final TextView mSideDishes;
 
             /**
              * Holds the Dish size text view.
              */
-            private TextView mDishSize;
+            private final TextView mDishSize;
 
             /**
              * Holds the Drink text view.
              */
-            private TextView mDrink;
+            private final TextView mDrink;
 
             /**
              * Holds the Total price text view.
              */
-            private TextView mTotalPrice;
+            private final TextView mTotalPrice;
 
             /**
              * Holds the Payment method text view.
              */
-            private TextView mPaymentMethod;
+            private final TextView mPaymentMethod;
 
             /**
              * Holds the Asset Manager to get Assets.
              */
-            private AssetManager mAssets;
+            private final AssetManager mAssets;
 
             /**
              * Holds the Dish image view.
              */
-            private ImageView mDishImage;
+            private final ImageView mDishImage;
 
             /**
              * Constructor.
@@ -268,13 +268,13 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
             ViewHolder(View view) {
                 super(view);
 
-                mMixture = (TextView) view.findViewById(R.id.history_item_mixture);
-                mSideDishes = (TextView) view.findViewById(R.id.history_item_side_dishes);
-                mDishSize = (TextView) view.findViewById(R.id.history_item_dish_size);
-                mDrink = (TextView) view.findViewById(R.id.history_item_drink);
-                mTotalPrice = (TextView) view.findViewById(R.id.history_item_total_price);
-                mPaymentMethod = (TextView) view.findViewById(R.id.history_item_payment_method);
-                mDishImage = (ImageView) view.findViewById(R.id.history_item_image);
+                mMixture = view.findViewById(R.id.history_item_mixture);
+                mSideDishes = view.findViewById(R.id.history_item_side_dishes);
+                mDishSize = view.findViewById(R.id.history_item_dish_size);
+                mDrink = view.findViewById(R.id.history_item_drink);
+                mTotalPrice = view.findViewById(R.id.history_item_total_price);
+                mPaymentMethod = view.findViewById(R.id.history_item_payment_method);
+                mDishImage = view.findViewById(R.id.history_item_image);
                 mAssets = view.getContext().getAssets();
             }
 
