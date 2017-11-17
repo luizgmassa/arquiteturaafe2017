@@ -57,7 +57,7 @@ public class RemoteDataSource implements RemoteData {
                 "\nMistura: " +
                 order.getDish().getMixture().getName() +
                 "\nAcompanhamentos: " +
-                Helper.getSideDishesNames(order.getDish()) +
+                AppHelper.getSideDishesNames(order.getDish()) +
                 "\nTamanho: " +
                 context.getString(order.getDish().getDishSize().getResourceId()) +
                 drink +

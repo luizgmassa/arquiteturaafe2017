@@ -3,12 +3,12 @@ package org.motorola.eldorado.arquiteturaafe2017.model.data;
 /**
  * The Dishes Persistence Contract class.
  */
-final class PersistenceContract {
+final class LocalPersistenceContract {
 
     /**
      * Private constructor.
      */
-    private PersistenceContract() {
+    private LocalPersistenceContract() {
         // To prevent someone from accidentally instantiating the contract class,
         // give it an empty constructor.
     }

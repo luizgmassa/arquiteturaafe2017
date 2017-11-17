@@ -15,7 +15,7 @@ import android.widget.Toast;
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.Helper;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.AppHelper;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail.DishDetailsContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail.DishDetailsPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -198,7 +198,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         String description = mCurrentDish.getDescription();
         mDishInformationTextViews[1].setText(description);
 
-        mDishInformationTextViews[2].setText(Helper.getSideDishesNames(mCurrentDish));
+        mDishInformationTextViews[2].setText(AppHelper.getSideDishesNames(mCurrentDish));
 
         // mixtures
         String mixtures = mCurrentDish.getMixture().getName();

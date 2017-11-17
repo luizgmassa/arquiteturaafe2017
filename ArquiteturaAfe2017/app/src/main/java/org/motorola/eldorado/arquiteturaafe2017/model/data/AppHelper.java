@@ -8,7 +8,7 @@ import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 /**
  * Class used for helper methods.
  */
-public class Helper {
+public class AppHelper {
 
     /**
      * Gets the string containing the side dishes names from the dish object.

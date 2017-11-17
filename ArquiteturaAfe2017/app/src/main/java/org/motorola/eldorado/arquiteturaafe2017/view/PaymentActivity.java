@@ -17,7 +17,7 @@ import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.Helper;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.AppHelper;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.RemoteDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentContract;
@@ -236,7 +236,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         String description = mCurrentDish.getDescription();
         mDishInformationTextViews[1].setText(description);
 
-        mDishInformationTextViews[2].setText(Helper.getSideDishesNames(mCurrentDish));
+        mDishInformationTextViews[2].setText(AppHelper.getSideDishesNames(mCurrentDish));
 
         // mixtures
         String mixtures = mCurrentDish.getMixture().getName();
