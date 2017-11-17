@@ -36,8 +36,14 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
      */
     private static final String LOG_TAG = PaymentActivity.class.getSimpleName();
 
+    /**
+     * Holds the Extra for Dish payment.
+     */
     public static final String EXTRA_DISH_TO_PAY = "dish_payment";
 
+    /**
+     * Holds the Extra for Drink payment.
+     */
     public static final String EXTRA_DRINK_TO_PAY = "drink_payment";
 
     /**
@@ -66,7 +72,6 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
             R.id.activity_dish_detail_size
     };
 
-
     /**
      * Holds the progress dialog for this view.
      */
@@ -82,6 +87,11 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
      */
     @Nullable
     private Drink mCurrentDrink;
+
+    /**
+     * Holds the text view for drink.
+     */
+    private TextView mDrink;
 
     /**
      * Holds the text view for dish price.
@@ -131,6 +141,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         mPaymentMethod = (Spinner) findViewById(R.id.activity_payment_payment_methods_spinner);
 
         mDishPrice = (TextView) findViewById(R.id.activity_payment_dish_price_final);
+        mDrink = (TextView) findViewById(R.id.activity_dish_detail_selected_drink);
         mDrinkPrice = (TextView) findViewById(R.id.activity_payment_drink_price_final);
         mFinalPrice = (TextView) findViewById(R.id.activity_payment_final_price_final);
 
@@ -253,6 +264,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         float totalPrice = mCurrentDish.getPrice();
 
         if (mCurrentDrink != null) {
+            mDrink.setText(mCurrentDrink.toString());
             mDrinkPrice.setText(String.valueOf(mCurrentDrink.getPrice()));
 
             totalPrice += mCurrentDrink.getPrice();
