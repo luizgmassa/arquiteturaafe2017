@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/activity_payment_common_details"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/activity_payment_dish_price" />
 
         <TextView
@@ -37,7 +38,8 @@
             android:layout_alignBaseline="@+id/activity_payment_dish_price_final"
             android:layout_alignBottom="@+id/activity_payment_dish_price_final"
             android:layout_toEndOf="@+id/activity_payment_dish_price_final"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/activity_payment_drink_price" />
 
         <TextView
@@ -54,7 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/activity_payment_dish_price_final"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/activity_payment_final_price" />
 
         <TextView
@@ -71,7 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/activity_payment_final_price_text_view"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/activity_payment_payment_method" />
 
         <Spinner
@@ -80,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/activity_payment_payment_method_text_view"
             android:layout_alignBottom="@+id/activity_payment_payment_method_text_view"
-            android:layout_margin="10dp"
             android:layout_toEndOf="@+id/activity_payment_payment_method_text_view"
             android:entries="@array/payment_methods" />
 

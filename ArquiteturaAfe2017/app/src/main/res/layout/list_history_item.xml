@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/list_item_padding"
-    android:paddingLeft="@dimen/list_item_padding"
-    android:paddingRight="@dimen/list_item_padding"
-    android:paddingTop="@dimen/list_item_padding">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/history_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_gravity="center_vertical"
+        android:layout_centerInParent="true"
         android:contentDescription="@string/dish_image_content_description" />
 
     <TextView
@@ -30,8 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_mixture_text_view"
-        android:layout_marginStart="@dimen/list_item_padding"
-        android:layout_toEndOf="@id/history_item_mixture_text_view"
+        android:layout_alignStart="@+id/history_item_side_dishes"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
@@ -50,8 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_side_dishes_text_view"
-        android:layout_marginStart="@dimen/list_item_padding"
-        android:layout_toEndOf="@id/history_item_side_dishes_text_view"
+        android:layout_alignStart="@+id/history_item_dish_size"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
@@ -70,8 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_dish_size_text_view"
-        android:layout_marginStart="@dimen/list_item_padding"
-        android:layout_toEndOf="@id/history_item_dish_size_text_view"
+        android:layout_alignStart="@+id/history_item_drink"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
@@ -90,8 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_drink_text_view"
-        android:layout_marginStart="@dimen/list_item_padding"
-        android:layout_toEndOf="@id/history_item_drink_text_view"
+        android:layout_alignStart="@+id/history_item_total_price"
         android:text="@string/no_drink_selected"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -103,7 +95,7 @@
         android:layout_below="@id/history_item_drink_text_view"
         android:layout_marginStart="@dimen/list_item_padding"
         android:layout_toEndOf="@id/history_item_image"
-        android:text="@string/activity_payment_final_price"
+        android:text="@string/activity_history_final_price"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
@@ -111,8 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_total_price_text_view"
-        android:layout_marginStart="@dimen/list_item_padding"
-        android:layout_toEndOf="@id/history_item_total_price_text_view"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/history_item_payment_method_text_view"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
@@ -131,8 +123,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/history_item_payment_method_text_view"
-        android:layout_marginStart="@dimen/list_item_padding"
-        android:layout_toEndOf="@id/history_item_payment_method_text_view"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/history_item_payment_method_text_view"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/history_item_payment_method"
+        android:background="@android:color/black" />
 
 </RelativeLayout>
