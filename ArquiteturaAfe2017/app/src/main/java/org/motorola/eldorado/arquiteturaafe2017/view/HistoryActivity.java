@@ -161,7 +161,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
 
         @Override
         public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_history_item, parent, false);
 
             return new ViewHolder(v);
         }
@@ -182,7 +182,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
 
             holder.getSideDishes().setText(sideDishesNames);
 
-            holder.getDishSize().setText(order.getDish().getDishSize().toString());
+            holder.getDishSize().setText(order.getDish().getDishSize().getResourceId());
 
             if (order.getDrink() != null) {
                 holder.getDrink().setText(order.getDrink().toString());

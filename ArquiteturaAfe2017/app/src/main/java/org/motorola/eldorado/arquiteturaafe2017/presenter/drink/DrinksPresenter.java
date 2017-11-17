@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalData;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final DataSource mLocalDataSource;
+    private final LocalData mLocalLocalData;
 
     /**
      * Holds the instance of View contract.
@@ -38,7 +38,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
      * @param drinksView the drinks view contract object.
      */
     public DrinksPresenter(@NonNull LocalDataSource localDataSource, @NonNull DrinksContract.View drinksView) {
-        mLocalDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+        mLocalLocalData = checkNotNull(localDataSource, "localDataSource cannot be null");
         mDrinksView = checkNotNull(drinksView, "drinksView cannot be null!");
 
         mDrinksView.setPresenter(this);
@@ -55,7 +55,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all drinks...");
 
-        mLocalDataSource.getDrinks(new LocalDataSource.LoadDrinksCallback() {
+        mLocalLocalData.getDrinks(new LocalDataSource.LoadDrinksCallback() {
             @Override
             public void onDrinksLoaded(@NonNull List<Drink> drinks) {
                 Log.d(LOG_TAG, "Showing all drinks...");

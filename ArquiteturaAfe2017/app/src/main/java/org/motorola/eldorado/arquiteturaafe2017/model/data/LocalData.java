@@ -12,9 +12,9 @@ import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
 import java.util.List;
 
 /**
- * The Data Source interface.
+ * The Local Data Source interface.
  */
-public interface DataSource {
+public interface LocalData {
 
     /**
      * The interface for Load Dishes callback. Do the communication between Dishes Presenter and Data Source.

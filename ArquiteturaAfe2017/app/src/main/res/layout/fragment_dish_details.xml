@@ -48,7 +48,7 @@
         android:layout_toEndOf="@+id/activity_dish_detail_description_text_view" />
 
     <TextView
-        android:id="@+id/activity_dish_detail_side_dishes_text_view"
+        android:id="@+id/activity_dish_detail_side_dish1_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_dish_detail_description"
@@ -59,11 +59,11 @@
         android:id="@+id/activity_dish_detail_side_dishes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/activity_dish_detail_side_dishes_text_view"
-        android:layout_alignBottom="@+id/activity_dish_detail_side_dishes_text_view"
-        android:layout_below="@id/activity_dish_detail_side_dishes_text_view"
+        android:layout_alignBaseline="@+id/activity_dish_detail_side_dish1_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_side_dish1_text_view"
+        android:layout_below="@id/activity_dish_detail_side_dish1_text_view"
         android:layout_margin="10dp"
-        android:layout_toEndOf="@+id/activity_dish_detail_side_dishes_text_view" />
+        android:layout_toEndOf="@+id/activity_dish_detail_side_dish1_text_view" />
 
     <TextView
         android:id="@+id/activity_dish_detail_mixture_text_view"
@@ -84,10 +84,28 @@
         android:layout_toEndOf="@+id/activity_dish_detail_mixture_text_view" />
 
     <TextView
-        android:id="@+id/activity_dish_detail_drink_text_view"
+        android:id="@+id/activity_dish_detail_size_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_dish_detail_mixture"
+        android:layout_margin="10dp"
+        android:text="@string/size" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activity_dish_detail_size_text_view"
+        android:layout_alignBottom="@+id/activity_dish_detail_size_text_view"
+        android:layout_below="@id/activity_dish_detail_size_text_view"
+        android:layout_margin="10dp"
+        android:layout_toEndOf="@+id/activity_dish_detail_size_text_view" />
+
+    <TextView
+        android:id="@+id/activity_dish_detail_drink_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_dish_detail_size"
         android:layout_margin="10dp"
         android:text="@string/drink" />
 

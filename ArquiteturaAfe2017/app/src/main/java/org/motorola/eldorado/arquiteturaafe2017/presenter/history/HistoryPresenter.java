@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalData;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final DataSource mLocalDataSource;
+    private final LocalData mLocalLocalData;
 
     /**
      * Holds the instance of View contract.
@@ -38,7 +38,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
      * @param historyView the History view contract object.
      */
     public HistoryPresenter(@NonNull LocalDataSource localDataSource, @NonNull HistoryContract.View historyView) {
-        mLocalDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+        mLocalLocalData = checkNotNull(localDataSource, "localDataSource cannot be null");
         mHistoryView = checkNotNull(historyView, "historyView cannot be null!");
 
         mHistoryView.setPresenter(this);
@@ -55,7 +55,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all history...");
 
-        mLocalDataSource.getHistory(new LocalDataSource.LoadHistoryCallback() {
+        mLocalLocalData.getHistory(new LocalDataSource.LoadHistoryCallback() {
             @Override
             public void onHistoryLoaded(@NonNull List<Order> orders) {
                 Log.d(LOG_TAG, "Showing all orders...");

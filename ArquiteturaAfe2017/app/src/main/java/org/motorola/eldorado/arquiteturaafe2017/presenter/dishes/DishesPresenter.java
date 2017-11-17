@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalData;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class DishesPresenter implements DishesContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final DataSource mLocalDataSource;
+    private final LocalData mLocalLocalData;
 
     /**
      * Holds the instance of View contract.
@@ -38,7 +38,7 @@ public class DishesPresenter implements DishesContract.Presenter {
      * @param dishesView the dishes view contract object.
      */
     public DishesPresenter(@NonNull LocalDataSource localDataSource, @NonNull DishesContract.View dishesView) {
-        mLocalDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+        mLocalLocalData = checkNotNull(localDataSource, "localDataSource cannot be null");
         mDishesView = checkNotNull(dishesView, "dishesView cannot be null!");
 
         mDishesView.setPresenter(this);
@@ -55,7 +55,7 @@ public class DishesPresenter implements DishesContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all dishes...");
 
-        mLocalDataSource.getDishes(new LocalDataSource.LoadDishesCallback() {
+        mLocalLocalData.getDishes(new LocalDataSource.LoadDishesCallback() {
             @Override
             public void onDishesLoaded(@NonNull List<Dish> dishes) {
                 Log.d(LOG_TAG, "Showing all dishes...");

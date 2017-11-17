@@ -1,5 +1,6 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.payment;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
@@ -52,6 +53,6 @@ public interface PaymentContract {
          *
          * @param order the order item on the View (UI).
          */
-        void doPayment(@NonNull Order order);
+        void doPayment(@NonNull Context context, @NonNull Order order);
     }
 }

@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/activity_dish_detail_common_details"
-        layout="@layout/dish_details" />
+        layout="@layout/fragment_dish_details" />
 
     <Button
         android:id="@+id/activity_dish_detail_edit_dish"

@@ -8,7 +8,7 @@
 
     <string name="dish">Prato: </string>
     <string name="description">Descrição: </string>
-    <string name="side_dishes">Acompanhamento(s): </string>
+    <string name="side_dishes">Acompanh.: </string>
     <string name="mixture">Mistura: </string>
     <string name="drink">Bebida:</string>
     <string name="button_drinks">Bebida</string>
@@ -38,6 +38,9 @@
     <string name="data_load_error">Erro ao carregar dados! Tente novamente mais tarde...</string>
     <string name="history_activity_loading_history">Carregando histórico...</string>
     <string name="payment_activity_paying">Processando pagamento...</string>
+    <string name="activity_payment_name">Nome ...</string>
+    <string name="no_account_selected">Nenhuma conta selecionada. Fechando aplicativo...</string>
+    <string name="activity_payment_payment_method">Pagamento:</string>
 
     <string-array name="payment_methods">
         <item>Cartão de crédito</item>

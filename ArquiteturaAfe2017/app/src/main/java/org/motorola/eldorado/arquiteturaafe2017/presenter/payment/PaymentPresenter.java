@@ -1,11 +1,13 @@
 package org.motorola.eldorado.arquiteturaafe2017.presenter.payment;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalData;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.RemoteData;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -27,15 +29,21 @@ public class PaymentPresenter implements PaymentContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final DataSource mLocalDataSource;
+    private final LocalData mLocalData;
+
+    /**
+     * Holds the access to all local data sources.
+     */
+    private final RemoteData mRemoteData;
 
     /**
      * Constructor.
      *
      * @param paymentView the payment view contract object.
      */
-    public PaymentPresenter(@NonNull LocalDataSource localDataSource, @NonNull PaymentContract.View paymentView) {
-        mLocalDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+    public PaymentPresenter(@NonNull LocalData localDataSource, @NonNull RemoteData remoteDataSource, @NonNull PaymentContract.View paymentView) {
+        mLocalData = checkNotNull(localDataSource, "localDataSource cannot be null");
+        mRemoteData = checkNotNull(remoteDataSource, "remoteDataSource cannot be null");
         mPaymentView = checkNotNull(paymentView, "paymentView cannot be null!");
 
         mPaymentView.setPresenter(this);
@@ -52,20 +60,30 @@ public class PaymentPresenter implements PaymentContract.Presenter {
     }
 
     @Override
-    public void doPayment(@NonNull Order order) {
+    public void doPayment(@NonNull final Context context, @NonNull Order order) {
         mPaymentView.switchLoadingIndicator();
 
         Log.d(LOG_TAG, "Starting payment...");
 
-        mLocalDataSource.saveOrder(order, new LocalDataSource.SaveOrderCallback() {
+        mLocalData.saveOrder(order, new LocalDataSource.SaveOrderCallback() {
             @Override
             public void onSaveOrderSaved(@NonNull Order order) {
-                mPaymentView.switchLoadingIndicator();
-
-                // TODO: send e-mail to restaurant
                 // Saves the order and process payment
-                // TODO move this to Email part
-                mPaymentView.paymentSuccess();
+                mRemoteData.sendOrder(context, order, new RemoteData.SendOrderCallback() {
+                    @Override
+                    public void onSendOrderSaved(@NonNull Order order) {
+                        mPaymentView.switchLoadingIndicator();
+                        mPaymentView.paymentSuccess();
+                    }
+
+                    @Override
+                    public void onSendOrderFailed() {
+                        mPaymentView.switchLoadingIndicator();
+                        mPaymentView.handleError();
+
+                        Log.d(LOG_TAG, "Send order failed!!");
+                    }
+                });
             }
 
             @Override

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
-import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.Helper;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail.DishDetailsContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishdetail.DishDetailsPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -72,7 +72,8 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
             R.id.activity_dish_detail_name,
             R.id.activity_dish_detail_description,
             R.id.activity_dish_detail_side_dishes,
-            R.id.activity_dish_detail_mixture
+            R.id.activity_dish_detail_mixture,
+            R.id.activity_dish_detail_size
     };
 
     /**
@@ -197,19 +198,15 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         String description = mCurrentDish.getDescription();
         mDishInformationTextViews[1].setText(description);
 
-        StringBuilder sideDishesStrBld = new StringBuilder();
-
-        for (SideDish sideDish : mCurrentDish.getSideDishes()) {
-            sideDishesStrBld.append(sideDish.getName()).append(", ");
-        }
-
-        // side dishes
-        String sideDishes = sideDishesStrBld.substring(0, sideDishesStrBld.length() - 2);
-        mDishInformationTextViews[2].setText(sideDishes);
+        mDishInformationTextViews[2].setText(Helper.getSideDishesNames(mCurrentDish));
 
         // mixtures
         String mixtures = mCurrentDish.getMixture().getName();
         mDishInformationTextViews[3].setText(mixtures);
+
+        // mixtures
+        int sizeStringId = mCurrentDish.getDishSize().getResourceId();
+        mDishInformationTextViews[4].setText(sizeStringId);
 
         try {
             InputStream ims = getAssets().open(mCurrentDish.getImageName());

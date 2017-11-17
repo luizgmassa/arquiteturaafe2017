@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * The Local Data Source class.
  */
-public class LocalDataSource implements DataSource {
+public class LocalDataSource implements LocalData {
 
     /**
      * Holds the Log Tag for this class.

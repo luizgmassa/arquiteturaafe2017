@@ -17,8 +17,9 @@ import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
-import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.Helper;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.RemoteDataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -61,7 +62,8 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
             R.id.activity_dish_detail_name,
             R.id.activity_dish_detail_description,
             R.id.activity_dish_detail_side_dishes,
-            R.id.activity_dish_detail_mixture
+            R.id.activity_dish_detail_mixture,
+            R.id.activity_dish_detail_size
     };
 
 
@@ -107,7 +109,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
     private final PaymentActivity.ButtonsClickListener mItemListener = new PaymentActivity.ButtonsClickListener() {
         @Override
         public void onPayButtonClick(Order order) {
-            mPresenter.doPayment(order);
+            mPresenter.doPayment(PaymentActivity.this, order);
         }
     };
 
@@ -116,7 +118,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        mPresenter = new PaymentPresenter(LocalDataSource.getInstance(this), this);
+        mPresenter = new PaymentPresenter(LocalDataSource.getInstance(this), RemoteDataSource.getInstance(), this);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.payment_activity_paying));
@@ -223,19 +225,15 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         String description = mCurrentDish.getDescription();
         mDishInformationTextViews[1].setText(description);
 
-        StringBuilder sideDishesStrBld = new StringBuilder();
-
-        for (SideDish sideDish : mCurrentDish.getSideDishes()) {
-            sideDishesStrBld.append(sideDish.getName()).append(", ");
-        }
-
-        // side dishes
-        String sideDishes = sideDishesStrBld.substring(0, sideDishesStrBld.length() - 2);
-        mDishInformationTextViews[2].setText(sideDishes);
+        mDishInformationTextViews[2].setText(Helper.getSideDishesNames(mCurrentDish));
 
         // mixtures
         String mixtures = mCurrentDish.getMixture().getName();
         mDishInformationTextViews[3].setText(mixtures);
+
+        // mixtures
+        int sizeStringId = mCurrentDish.getDishSize().getResourceId();
+        mDishInformationTextViews[4].setText(sizeStringId);
 
         try {
             InputStream ims = getAssets().open(mCurrentDish.getImageName());

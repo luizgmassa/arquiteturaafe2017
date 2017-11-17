@@ -176,7 +176,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         ArrayAdapter<Object> spinner3ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,  sideDishes.toArray());
         ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, DishSize.getAll(this));
+                android.R.layout.simple_spinner_item, DishSize.getAllDishSizes(this));
 
         mSpinners[0].setAdapter(spinnerArrayAdapter);
         mSpinners[1].setAdapter(spinner1ArrayAdapter);
@@ -286,7 +286,13 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
                 sideDishes.add((SideDish) mSpinners[3].getSelectedItem());
 
                 mCurrentDish.setSideDishes(sideDishes);
-                mCurrentDish.setDishSize((DishSize) mDishSizeSpinner.getSelectedItem());
+
+                DishSize dishSize = DishSize.getDishSizeByString(this, (String) mDishSizeSpinner.getSelectedItem());
+
+                if (dishSize != null) {
+                    mCurrentDish.setDishSize(dishSize);
+                }
+
                 break;
             }
         }

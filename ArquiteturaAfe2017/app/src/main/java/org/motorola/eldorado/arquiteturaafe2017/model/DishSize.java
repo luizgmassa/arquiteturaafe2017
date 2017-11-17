@@ -1,6 +1,7 @@
 package org.motorola.eldorado.arquiteturaafe2017.model;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 
@@ -42,7 +43,7 @@ public enum DishSize {
      * @param context the context.
      * @return the enums converted to strings from resource.
      */
-    public static String[] getAll(Context context) {
+    public static String[] getAllDishSizes(Context context) {
         String[] sizes = new String[DishSize.values().length];
 
         for (int i = 0; i < DishSize.values().length; i++ ) {
@@ -50,5 +51,22 @@ public enum DishSize {
         }
 
         return sizes;
+    }
+
+    @Nullable
+    public static DishSize getDishSizeByString(Context context, String dishSize) {
+        String currentSize = "";
+        DishSize result = null;
+
+        for (int i = 0; i < DishSize.values().length; i++ ) {
+            currentSize = context.getString(DishSize.values()[i].getResourceId());
+
+            if (currentSize.equals(dishSize)) {
+                result = DishSize.values()[i];
+                break;
+            }
+        }
+
+        return result;
     }
 }
