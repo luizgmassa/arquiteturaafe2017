@@ -18,7 +18,7 @@ import android.widget.Toast;
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.history.HistoryContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.history.HistoryPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -69,7 +69,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
         mProgressDialog.setCancelable(false);
 
         // Create the presenter
-        mPresenter = new HistoryPresenter(LocalDataSource.getInstance(this), this);
+        mPresenter = new HistoryPresenter(DataSource.getInstance(this), this);
 
         mListAdapter = new HistoryAdapter(new ArrayList<Order>(0));
 

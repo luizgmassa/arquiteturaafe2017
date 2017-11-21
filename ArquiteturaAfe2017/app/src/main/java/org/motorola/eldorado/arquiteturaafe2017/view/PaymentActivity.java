@@ -18,8 +18,7 @@ import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.AppHelper;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.RemoteDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.payment.PaymentPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -129,7 +128,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        mPresenter = new PaymentPresenter(LocalDataSource.getInstance(this), RemoteDataSource.getInstance(), this);
+        mPresenter = new PaymentPresenter(DataSource.getInstance(this), this);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.payment_activity_paying));

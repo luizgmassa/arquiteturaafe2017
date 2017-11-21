@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.drink.DrinksContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.drink.DrinksPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -75,7 +75,7 @@ public class DrinksActivity extends BaseActivity implements DrinksContract.View 
         });
 
         // Create the presenter
-        mPresenter = new DrinksPresenter(LocalDataSource.getInstance(this), this);
+        mPresenter = new DrinksPresenter(DataSource.getInstance(this), this);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.drink_activity_loading_drinks));

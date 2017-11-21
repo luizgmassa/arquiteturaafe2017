@@ -19,7 +19,7 @@ import org.motorola.eldorado.arquiteturaafe2017.model.DishSize;
 import org.motorola.eldorado.arquiteturaafe2017.model.Item;
 import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.editdish.EditDishContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.editdish.EditDishPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -140,7 +140,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         mDishSizeSpinner = findViewById(R.id.activity_edit_dish_dish_size_spinner);
 
         // Create the presenter
-        mPresenter = new EditDishPresenter(LocalDataSource.getInstance(this), this);
+        mPresenter = new EditDishPresenter(DataSource.getInstance(this), this);
     }
 
     @Override

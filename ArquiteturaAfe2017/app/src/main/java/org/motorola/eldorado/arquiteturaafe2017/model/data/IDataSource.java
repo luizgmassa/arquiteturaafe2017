@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * The Local Data Source interface.
  */
-public interface LocalData {
+public interface IDataSource {
 
     /**
      * The interface for Load Dishes callback. Do the communication between Dishes Presenter and Data Source.
@@ -127,6 +127,33 @@ public interface LocalData {
     }
 
     /**
+     * The interface for Send Order callback. Do the communication between Payment Presenter and Remote Data Source.
+     */
+    interface SendOrderCallback {
+
+        /**
+         * Callback for when order has been sent.
+         *
+         * @param order the order.
+         */
+        void onSendOrderSaved(@NonNull Order order);
+
+        /**
+         * Callback for when order has not been sent
+         */
+        void onSendOrderFailed();
+    }
+
+    /**
+     * Sends a order made by the user.
+     *
+     * @param context the context.
+     * @param order the order to be sent.
+     * @param callback the send order callback.
+     */
+    void sendOrder(@NonNull Context context, @NonNull Order order, @NonNull SendOrderCallback callback);
+
+    /**
      * The callback used to Get All Db Info. Used on Edit Dish Presenter.
      *
      * @param callback the load all info callback.
@@ -182,5 +209,5 @@ public interface LocalData {
      *
      * @param context the context.
      */
-    void fillDrinks(Context context);
+    void fillDrinks(@NonNull Context context);
 }

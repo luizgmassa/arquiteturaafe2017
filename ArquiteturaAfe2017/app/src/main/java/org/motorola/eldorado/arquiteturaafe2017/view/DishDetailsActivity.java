@@ -204,7 +204,7 @@ public class DishDetailsActivity extends BaseActivity implements DishDetailsCont
         String mixtures = mCurrentDish.getMixture().getName();
         mDishInformationTextViews[3].setText(mixtures);
 
-        // mixtures
+        // dish size
         int sizeStringId = mCurrentDish.getDishSize().getResourceId();
         mDishInformationTextViews[4].setText(sizeStringId);
 

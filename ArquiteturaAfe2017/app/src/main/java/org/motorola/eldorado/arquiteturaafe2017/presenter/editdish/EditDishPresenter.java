@@ -6,8 +6,8 @@ import android.util.Log;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalData;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.IDataSource;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class EditDishPresenter implements EditDishContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalData mLocalLocalData;
+    private final IDataSource mDataSource;
 
     /**
      * Holds the instance of View contract.
@@ -39,8 +39,8 @@ public class EditDishPresenter implements EditDishContract.Presenter {
      *
      * @param editDishView the edit dish view contract object.
      */
-    public EditDishPresenter(@NonNull LocalDataSource localDataSource, @NonNull EditDishContract.View editDishView) {
-        mLocalLocalData = checkNotNull(localDataSource, "localDataSource cannot be null");
+    public EditDishPresenter(@NonNull DataSource localDataSource, @NonNull EditDishContract.View editDishView) {
+        mDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
         mEditDishView = checkNotNull(editDishView, "editDishView cannot be null!");
 
         mEditDishView.setPresenter(this);
@@ -57,7 +57,7 @@ public class EditDishPresenter implements EditDishContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all dishes...");
 
-        mLocalLocalData.getAllInfo(new LocalDataSource.LoadAllInfoCallback() {
+        mDataSource.getAllInfo(new DataSource.LoadAllInfoCallback() {
             @Override
             public void onDishesLoaded(@NonNull List<Dish> dishes, @NonNull List<SideDish> sideDishes, @NonNull List<Mixture> mixtures) {
                 Log.d(LOG_TAG, "Getting all dishes, side dishes and mixtures...");

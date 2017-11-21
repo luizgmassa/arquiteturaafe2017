@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.DishSize;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
@@ -27,12 +29,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * The Local Data Source class.
  */
-public class LocalDataSource implements LocalData {
+public class DataSource implements IDataSource {
 
     /**
      * Holds the Log Tag for this class.
      */
-    private static final String LOG_TAG = LocalDataSource.class.getSimpleName();
+    private static final String LOG_TAG = DataSource.class.getSimpleName();
 
     /**
      * Holds the constant for Error reading files string.
@@ -42,7 +44,7 @@ public class LocalDataSource implements LocalData {
     /**
      * Holds a instance for this class.
      */
-    private static LocalDataSource mInstance;
+    private static DataSource mInstance;
 
     /**
      * Holds the Database Helper instance.
@@ -54,7 +56,7 @@ public class LocalDataSource implements LocalData {
      *
      * @param context the context.
      */
-    private LocalDataSource(@NonNull Context context) {
+    private DataSource(@NonNull Context context) {
         Context ctx = checkNotNull(context);
         mLocalDbHelper = new LocalDbHelper(ctx);
 
@@ -68,12 +70,57 @@ public class LocalDataSource implements LocalData {
      * @param context the context.
      * @return a instance for the Local Data Source.
      */
-    public static LocalDataSource getInstance(@NonNull Context context) {
+    public static DataSource getInstance(@NonNull Context context) {
         if (mInstance == null) {
-            mInstance = new LocalDataSource(context);
+            mInstance = new DataSource(context);
         }
 
         return mInstance;
+    }
+
+    @Override
+    public void sendOrder(@NonNull Context context, @NonNull final Order order, @NonNull final SendOrderCallback callback) {
+        String drink = "";
+        float drinkPrice = 0;
+
+        if (order.getDrink() != null) {
+            drink = "\nBebida: " + order.getDrink().getName();
+            drinkPrice = order.getDrink().getPrice();
+        }
+
+        String stringBuilder = "Prato: " +
+                order.getDish().getName() +
+                "\nMistura: " +
+                order.getDish().getMixture().getName() +
+                "\nAcompanhamentos: " +
+                AppHelper.getSideDishesNames(order.getDish()) +
+                "\nTamanho: " +
+                context.getString(order.getDish().getDishSize().getResourceId()) +
+                drink +
+                "\nValor Total: R$" +
+                (order.getDish().getPrice() + drinkPrice);
+
+        // sends the email
+        BackgroundMail.newBuilder(context)
+                .withUsername("quedlcrestaurante@gmail.com")
+                .withPassword("quedlc123")
+                .withMailto("quedlcrestaurante@gmail.com")
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject("Pedido de " + UserPreferences.getInstance(context).getUser())
+                .withBody(stringBuilder)
+                .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
+                    @Override
+                    public void onSuccess() {
+                        callback.onSendOrderSaved(order);
+                    }
+                })
+                .withOnFailCallback(new BackgroundMail.OnFailCallback() {
+                    @Override
+                    public void onFail() {
+                        callback.onSendOrderFailed();
+                    }
+                })
+                .send();
     }
 
     @Override
@@ -426,7 +473,7 @@ public class LocalDataSource implements LocalData {
     }
 
     @Override
-    public void fillDrinks(Context context) {
+    public void fillDrinks(@NonNull Context context) {
         SQLiteDatabase db = mLocalDbHelper.getWritableDatabase();
         ContentValues values;
 

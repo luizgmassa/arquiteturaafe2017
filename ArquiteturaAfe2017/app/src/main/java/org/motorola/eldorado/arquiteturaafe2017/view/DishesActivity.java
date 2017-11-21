@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import org.motorola.eldorado.arquiteturaafe2017.R;
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishes.DishesContract;
 import org.motorola.eldorado.arquiteturaafe2017.presenter.dishes.DishesPresenter;
 import org.motorola.eldorado.arquiteturaafe2017.view.base.BaseActivity;
@@ -95,7 +95,7 @@ public class DishesActivity extends BaseActivity implements DishesContract.View 
         mProgressDialog.setCancelable(false);
 
         // Create the presenter
-        mPresenter = new DishesPresenter(LocalDataSource.getInstance(this), this);
+        mPresenter = new DishesPresenter(DataSource.getInstance(this), this);
 
         mListAdapter = new DishesAdapter(new ArrayList<Dish>(0), mItemListener);
 

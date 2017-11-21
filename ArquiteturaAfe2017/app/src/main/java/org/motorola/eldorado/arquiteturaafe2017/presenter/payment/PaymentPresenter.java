@@ -5,9 +5,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalData;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.LocalDataSource;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.RemoteData;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
+import org.motorola.eldorado.arquiteturaafe2017.model.data.IDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,21 +28,15 @@ public class PaymentPresenter implements PaymentContract.Presenter {
     /**
      * Holds the access to all local data sources.
      */
-    private final LocalData mLocalData;
-
-    /**
-     * Holds the access to all local data sources.
-     */
-    private final RemoteData mRemoteData;
+    private final IDataSource mDataSource;
 
     /**
      * Constructor.
      *
      * @param paymentView the payment view contract object.
      */
-    public PaymentPresenter(@NonNull LocalData localDataSource, @NonNull RemoteData remoteDataSource, @NonNull PaymentContract.View paymentView) {
-        mLocalData = checkNotNull(localDataSource, "localDataSource cannot be null");
-        mRemoteData = checkNotNull(remoteDataSource, "remoteDataSource cannot be null");
+    public PaymentPresenter(@NonNull IDataSource dataSource, @NonNull PaymentContract.View paymentView) {
+        mDataSource = checkNotNull(dataSource, "dataSource cannot be null");
         mPaymentView = checkNotNull(paymentView, "paymentView cannot be null!");
 
         mPaymentView.setPresenter(this);
@@ -65,11 +58,11 @@ public class PaymentPresenter implements PaymentContract.Presenter {
 
         Log.d(LOG_TAG, "Starting payment...");
 
-        mLocalData.saveOrder(order, new LocalDataSource.SaveOrderCallback() {
+        mDataSource.saveOrder(order, new DataSource.SaveOrderCallback() {
             @Override
             public void onSaveOrderSaved(@NonNull Order order) {
                 // Saves the order and process payment
-                mRemoteData.sendOrder(context, order, new RemoteData.SendOrderCallback() {
+                mDataSource.sendOrder(context, order, new DataSource.SendOrderCallback() {
                     @Override
                     public void onSendOrderSaved(@NonNull Order order) {
                         mPaymentView.switchLoadingIndicator();
