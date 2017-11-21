@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.IDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -58,11 +57,11 @@ public class PaymentPresenter implements PaymentContract.Presenter {
 
         Log.d(LOG_TAG, "Starting payment...");
 
-        mDataSource.saveOrder(order, new DataSource.SaveOrderCallback() {
+        mDataSource.saveOrder(order, new IDataSource.SaveOrderCallback() {
             @Override
             public void onSaveOrderSaved(@NonNull Order order) {
                 // Saves the order and process payment
-                mDataSource.sendOrder(context, order, new DataSource.SendOrderCallback() {
+                mDataSource.sendOrder(context, order, new IDataSource.SendOrderCallback() {
                     @Override
                     public void onSendOrderSaved(@NonNull Order order) {
                         mPaymentView.switchLoadingIndicator();

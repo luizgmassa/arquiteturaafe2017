@@ -2,6 +2,7 @@ package org.motorola.eldorado.arquiteturaafe2017.model.data;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
 import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
@@ -143,6 +144,57 @@ public interface IDataSource {
          */
         void onSendOrderFailed();
     }
+
+    /**
+     * The interface for Save User callback. Do the communication between Entry Point Presenter and Data Source.
+     */
+    interface SaveUserCallback {
+
+        /**
+         * Callback for when user has been saved.
+         */
+        void onSaveOrderSaved();
+
+        /**
+         * Callback for when user has not been saved.
+         */
+        void onSaveOrderFailed();
+    }
+
+    /**
+     * The interface for Load User callback. Do the communication between Entry Point Presenter and Data Source.
+     */
+    interface LoadUserCallback {
+
+        /**
+         * Callback for when drinks have been loaded.
+         *
+         * @param user the user string.
+         */
+        void onUserLoaded(@Nullable String user);
+
+        /**
+         * Callback for when user has not been loaded.
+         */
+        void onUserLoadFailed();
+    }
+
+    /**
+     * Saves a user.
+     *
+     * @param context the context.
+     * @param user the user to be saved.
+     * @param callback the save user callback.
+     */
+    void saveUser(@NonNull Context context, @NonNull String user, @NonNull SaveUserCallback callback);
+
+    /**
+     * Loads a user.
+     *
+     * @param context the context.
+     * @param callback the load user callback.
+     */
+    void loadUser(@NonNull Context context, @NonNull LoadUserCallback callback);
 
     /**
      * Sends a order made by the user.

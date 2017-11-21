@@ -22,7 +22,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     private static final String LOG_TAG = HistoryPresenter.class.getSimpleName();
 
     /**
-     * Holds the access to all local data sources.
+     * Holds the access to all data sources.
      */
     private final IDataSource mDataSource;
 
@@ -34,11 +34,11 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     /**
      * Constructor.
      *
-     * @param localDataSource the local data source object.
+     * @param dataSource the data source object.
      * @param historyView the History view contract object.
      */
-    public HistoryPresenter(@NonNull DataSource localDataSource, @NonNull HistoryContract.View historyView) {
-        mDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+    public HistoryPresenter(@NonNull IDataSource dataSource, @NonNull HistoryContract.View historyView) {
+        mDataSource = checkNotNull(dataSource, "dataSource cannot be null");
         mHistoryView = checkNotNull(historyView, "historyView cannot be null!");
 
         mHistoryView.setPresenter(this);
@@ -55,7 +55,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all history...");
 
-        mDataSource.getHistory(new DataSource.LoadHistoryCallback() {
+        mDataSource.getHistory(new IDataSource.LoadHistoryCallback() {
             @Override
             public void onHistoryLoaded(@NonNull List<Order> orders) {
                 Log.d(LOG_TAG, "Showing all orders...");

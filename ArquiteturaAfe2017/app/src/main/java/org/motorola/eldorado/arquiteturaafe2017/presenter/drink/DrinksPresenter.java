@@ -22,7 +22,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     private static final String LOG_TAG = DrinksPresenter.class.getSimpleName();
 
     /**
-     * Holds the access to all local data sources.
+     * Holds the access to all data sources.
      */
     private final IDataSource mDataSource;
 
@@ -34,11 +34,11 @@ public class DrinksPresenter implements DrinksContract.Presenter {
     /**
      * Constructor.
      *
-     * @param localDataSource the local data source object.
+     * @param dataSource the data source object.
      * @param drinksView the drinks view contract object.
      */
-    public DrinksPresenter(@NonNull DataSource localDataSource, @NonNull DrinksContract.View drinksView) {
-        mDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+    public DrinksPresenter(@NonNull IDataSource dataSource, @NonNull DrinksContract.View drinksView) {
+        mDataSource = checkNotNull(dataSource, "dataSource cannot be null");
         mDrinksView = checkNotNull(drinksView, "drinksView cannot be null!");
 
         mDrinksView.setPresenter(this);
@@ -55,7 +55,7 @@ public class DrinksPresenter implements DrinksContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all drinks...");
 
-        mDataSource.getDrinks(new DataSource.LoadDrinksCallback() {
+        mDataSource.getDrinks(new IDataSource.LoadDrinksCallback() {
             @Override
             public void onDrinksLoaded(@NonNull List<Drink> drinks) {
                 Log.d(LOG_TAG, "Showing all drinks...");

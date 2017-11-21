@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.motorola.eldorado.arquiteturaafe2017.model.Dish;
-import org.motorola.eldorado.arquiteturaafe2017.model.data.DataSource;
 import org.motorola.eldorado.arquiteturaafe2017.model.data.IDataSource;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class DishesPresenter implements DishesContract.Presenter {
     private static final String LOG_TAG = DishesPresenter.class.getSimpleName();
 
     /**
-     * Holds the access to all local data sources.
+     * Holds the access to all data sources.
      */
     private final IDataSource mDataSource;
 
@@ -34,11 +33,11 @@ public class DishesPresenter implements DishesContract.Presenter {
     /**
      * Constructor.
      *
-     * @param localDataSource the local data source object.
+     * @param dataSource the data source object.
      * @param dishesView the dishes view contract object.
      */
-    public DishesPresenter(@NonNull DataSource localDataSource, @NonNull DishesContract.View dishesView) {
-        mDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+    public DishesPresenter(@NonNull IDataSource dataSource, @NonNull DishesContract.View dishesView) {
+        mDataSource = checkNotNull(dataSource, "dataSource cannot be null");
         mDishesView = checkNotNull(dishesView, "dishesView cannot be null!");
 
         mDishesView.setPresenter(this);
@@ -55,7 +54,7 @@ public class DishesPresenter implements DishesContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all dishes...");
 
-        mDataSource.getDishes(new DataSource.LoadDishesCallback() {
+        mDataSource.getDishes(new IDataSource.LoadDishesCallback() {
             @Override
             public void onDishesLoaded(@NonNull List<Dish> dishes) {
                 Log.d(LOG_TAG, "Showing all dishes...");

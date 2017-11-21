@@ -22,6 +22,7 @@ import org.motorola.eldorado.arquiteturaafe2017.view.Helper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +81,43 @@ public class DataSource implements IDataSource {
     }
 
     @Override
+    public void saveUser(@NonNull Context context, @NonNull String user, @NonNull SaveUserCallback callback) {
+        boolean result = true;
+
+        try {
+            UserPreferences.getInstance(context).setUser(user);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
+            result = false;
+        }
+
+        if (result) {
+            callback.onSaveOrderSaved();
+        } else {
+            callback.onSaveOrderFailed();
+        }
+    }
+
+    @Override
+    public void loadUser(@NonNull Context context, @NonNull LoadUserCallback callback) {
+        boolean result = true;
+        String user = null;
+
+        try {
+            user = UserPreferences.getInstance(context).getUser();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
+            result = false;
+        }
+
+        if (result) {
+            callback.onUserLoaded(user);
+        } else {
+            callback.onUserLoadFailed();
+        }
+    }
+
+    @Override
     public void sendOrder(@NonNull Context context, @NonNull final Order order, @NonNull final SendOrderCallback callback) {
         String drink = "";
         float drinkPrice = 0;
@@ -89,17 +127,14 @@ public class DataSource implements IDataSource {
             drinkPrice = order.getDrink().getPrice();
         }
 
-        String stringBuilder = "Prato: " +
-                order.getDish().getName() +
-                "\nMistura: " +
-                order.getDish().getMixture().getName() +
-                "\nAcompanhamentos: " +
-                AppHelper.getSideDishesNames(order.getDish()) +
-                "\nTamanho: " +
-                context.getString(Helper.getDishSizeResourceId(order.getDish().getDishSize())) +
+        float finalPrice = order.getDish().getPrice() + drinkPrice;
+
+        String stringBuilder = "Prato: " + order.getDish().getName() +
+                "\nMistura: " + order.getDish().getMixture().getName() +
+                "\nAcompanhamentos: " + AppHelper.getSideDishesNames(order.getDish()) +
+                "\nTamanho: " + context.getString(Helper.getDishSizeResourceId(order.getDish().getDishSize())) +
                 drink +
-                "\nValor Total: R$" +
-                (order.getDish().getPrice() + drinkPrice);
+                "\nValor Total: R$" + new DecimalFormat("0.00").format(finalPrice);
 
         // sends the email
         BackgroundMail.newBuilder(context)

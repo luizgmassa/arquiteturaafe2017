@@ -40,6 +40,8 @@
     <string name="no_account_selected">Nenhuma conta selecionada. Fechando aplicativo…</string>
     <string name="activity_payment_payment_method">Pagamento:</string>
     <string name="activity_dish_detail_image_description">Dish Image</string>
+    <string name="activity_entry_point_save_user_error">Erro ao salvar usuário. Fechando aplicação.</string>
+    <string name="activity_entry_point_load_user_error">Erro ao carregar usuário. Fechando aplicação.</string>
 
     <string-array name="payment_methods">
         <item>Cartão de crédito</item>

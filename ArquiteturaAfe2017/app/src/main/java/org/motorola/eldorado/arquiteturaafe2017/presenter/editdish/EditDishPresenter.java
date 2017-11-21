@@ -25,7 +25,7 @@ public class EditDishPresenter implements EditDishContract.Presenter {
 
 
     /**
-     * Holds the access to all local data sources.
+     * Holds the access to all data sources.
      */
     private final IDataSource mDataSource;
 
@@ -37,10 +37,11 @@ public class EditDishPresenter implements EditDishContract.Presenter {
     /**
      * Constructor.
      *
+     * @param dataSource the data source object.
      * @param editDishView the edit dish view contract object.
      */
-    public EditDishPresenter(@NonNull DataSource localDataSource, @NonNull EditDishContract.View editDishView) {
-        mDataSource = checkNotNull(localDataSource, "localDataSource cannot be null");
+    public EditDishPresenter(@NonNull IDataSource dataSource, @NonNull EditDishContract.View editDishView) {
+        mDataSource = checkNotNull(dataSource, "dataSource cannot be null");
         mEditDishView = checkNotNull(editDishView, "editDishView cannot be null!");
 
         mEditDishView.setPresenter(this);
@@ -57,7 +58,7 @@ public class EditDishPresenter implements EditDishContract.Presenter {
 
         Log.d(LOG_TAG, "Starting loading all dishes...");
 
-        mDataSource.getAllInfo(new DataSource.LoadAllInfoCallback() {
+        mDataSource.getAllInfo(new IDataSource.LoadAllInfoCallback() {
             @Override
             public void onDishesLoaded(@NonNull List<Dish> dishes, @NonNull List<SideDish> sideDishes, @NonNull List<Mixture> mixtures) {
                 Log.d(LOG_TAG, "Getting all dishes, side dishes and mixtures...");
