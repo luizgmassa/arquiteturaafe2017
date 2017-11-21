@@ -31,6 +31,9 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * The History activity class.
+ */
 public class HistoryActivity extends BaseActivity implements HistoryContract.View {
 
     /**
@@ -183,7 +186,7 @@ public class HistoryActivity extends BaseActivity implements HistoryContract.Vie
 
             holder.getSideDishes().setText(sideDishesNames);
 
-            holder.getDishSize().setText(order.getDish().getDishSize().getResourceId());
+            holder.getDishSize().setText(Helper.getDishSizeResourceId(order.getDish().getDishSize()));
 
             if (order.getDrink() != null) {
                 holder.getDrink().setText(order.getDrink().toString());

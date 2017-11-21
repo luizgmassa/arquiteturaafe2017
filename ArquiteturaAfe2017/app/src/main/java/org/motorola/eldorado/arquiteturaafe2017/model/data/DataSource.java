@@ -17,6 +17,7 @@ import org.motorola.eldorado.arquiteturaafe2017.model.Drink;
 import org.motorola.eldorado.arquiteturaafe2017.model.Mixture;
 import org.motorola.eldorado.arquiteturaafe2017.model.Order;
 import org.motorola.eldorado.arquiteturaafe2017.model.SideDish;
+import org.motorola.eldorado.arquiteturaafe2017.view.Helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -95,7 +96,7 @@ public class DataSource implements IDataSource {
                 "\nAcompanhamentos: " +
                 AppHelper.getSideDishesNames(order.getDish()) +
                 "\nTamanho: " +
-                context.getString(order.getDish().getDishSize().getResourceId()) +
+                context.getString(Helper.getDishSizeResourceId(order.getDish().getDishSize())) +
                 drink +
                 "\nValor Total: R$" +
                 (order.getDish().getPrice() + drinkPrice);

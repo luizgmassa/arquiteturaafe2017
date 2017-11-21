@@ -29,6 +29,9 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * The Edit Dish activity class.
+ */
 public class EditDishActivity extends BaseActivity implements EditDishContract.View {
 
     /**
@@ -178,7 +181,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         ArrayAdapter<Object> spinner3ArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,  sideDishes.toArray());
         ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, DishSize.getAllDishSizes(this));
+                android.R.layout.simple_spinner_item, Helper.getAllDishSizes(this));
 
         mSpinners[0].setAdapter(spinnerArrayAdapter);
         mSpinners[1].setAdapter(spinner1ArrayAdapter);
@@ -263,7 +266,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
         spinnerPosition = sideDish3Adapter.getPosition(mCurrentDish.getSideDishes().get(2));
         mSpinners[3].setSelection(spinnerPosition);
 
-        spinnerPosition = dishSizeAdapter.getPosition(getString(mCurrentDish.getDishSize().getResourceId()));
+        spinnerPosition = dishSizeAdapter.getPosition(getString(Helper.getDishSizeResourceId(mCurrentDish.getDishSize())));
         mDishSizeSpinner.setSelection(spinnerPosition);
     }
 
@@ -289,7 +292,7 @@ public class EditDishActivity extends BaseActivity implements EditDishContract.V
 
                 mCurrentDish.setSideDishes(sideDishes);
 
-                DishSize dishSize = DishSize.getDishSizeByString(this, (String) mDishSizeSpinner.getSelectedItem());
+                DishSize dishSize = Helper.getDishSizeByString(this, (String) mDishSizeSpinner.getSelectedItem());
 
                 if (dishSize != null) {
                     mCurrentDish.setDishSize(dishSize);

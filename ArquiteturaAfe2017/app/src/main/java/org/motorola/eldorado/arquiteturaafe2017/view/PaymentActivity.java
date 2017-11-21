@@ -29,6 +29,9 @@ import java.text.DecimalFormat;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * The Payment activity class.
+ */
 public class PaymentActivity extends BaseActivity implements PaymentContract.View {
 
     /**
@@ -243,7 +246,7 @@ public class PaymentActivity extends BaseActivity implements PaymentContract.Vie
         mDishInformationTextViews[3].setText(mixtures);
 
         // mixtures
-        int sizeStringId = mCurrentDish.getDishSize().getResourceId();
+        int sizeStringId = Helper.getDishSizeResourceId(mCurrentDish.getDishSize());
         mDishInformationTextViews[4].setText(sizeStringId);
 
         try {
